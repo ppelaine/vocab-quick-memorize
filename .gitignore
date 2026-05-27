@@ -1,0 +1,9 @@
+*.jpg
+*.png
+*.docx
+temp_*
+dist/
+node_modules/
+package-lock.json
+.legacy.*
+test-screenshots/
