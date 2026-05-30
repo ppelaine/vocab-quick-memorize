@@ -7,3 +7,28 @@ node_modules/
 package-lock.json
 .legacy.*
 test-screenshots/
+
+# One-off extraction/build scripts
+add-defs-basic.js
+add-defs.js
+add_defs_2000.py
+build_2000_core_words.py
+build_dict_entries.js
+dict_entries_2000.js
+extract_2000_toc.py
+extract_missing.js
+extract_missing_2000.py
+fix-b1.js
+match_dict.js
+ocr_toc.py
+parse_2000_toc.py
+update_ocr.js
+
+# Intermediate data files
+all_toc_words.json
+components.json
+missing_2000_core.txt
+missing_words.json
+toc_2000_2.json
+toc_2000_2to4.json
+toc_matched.json

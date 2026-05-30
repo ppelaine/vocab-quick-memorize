@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 40 22% 97%;
+    --foreground: 24 10% 16%;
+    --card: 0 0% 100%;
+    --card-foreground: 24 10% 16%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 24 10% 16%;
+    --primary: 11 100% 68%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 265 40% 59%;
+    --secondary-foreground: 0 0% 100%;
+    --muted: 36 15% 60%;
+    --muted-foreground: 36 10% 40%;
+    --accent: 11 100% 68%;
+    --accent-foreground: 0 0% 100%;
+    --destructive: 5 85% 63%;
+    --destructive-foreground: 0 0% 100%;
+    --success: 128 40% 53%;
+    --success-foreground: 0 0% 100%;
+    --border: 36 25% 90%;
+    --input: 36 25% 90%;
+    --ring: 11 100% 68%;
+    --radius: 0.75rem;
+
+    /* Original palette custom properties */
+    --color-coral: #ff7b5c;
+    --color-coral-light: #fff0eb;
+    --color-purple: #8b6fc0;
+    --color-purple-light: #f4f0fa;
+    --color-gold: #f4b843;
+    --color-gold-light: #fef8ed;
+    --color-green: #58b368;
+    --color-green-light: #e7f5e9;
+    --color-red: #f2675a;
+    --color-red-light: #fef0ee;
+    --color-blue: #5b9bd5;
+    --color-blue-light: #eef5fb;
+  }
+}
+
+@layer base {
+  body {
+    background-color: hsl(var(--background));
+    color: hsl(var(--foreground));
+    font-family: 'Nunito', 'Microsoft YaHei', 'PingFang SC', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    background-image:
+      radial-gradient(circle at 20% 80%, rgba(255, 123, 92, 0.04) 0%, transparent 50%),
+      radial-gradient(circle at 80% 20%, rgba(139, 111, 192, 0.04) 0%, transparent 50%),
+      radial-gradient(circle at 50% 50%, rgba(244, 184, 67, 0.03) 0%, transparent 50%);
+  }
+
+  ::-webkit-scrollbar { width: 6px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: #d8d0c0; border-radius: 3px; }
+  ::-webkit-scrollbar-thumb:hover { background: #ff7b5c; }
+}
