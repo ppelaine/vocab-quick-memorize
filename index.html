@@ -894,7 +894,21 @@ fetch('app.js?v=2').then(function(r){return r.text();}).then(function(js){
   var blob=new Blob([js],{type:'application/javascript'});
   var url=URL.createObjectURL(blob);
   var s=document.createElement('script');
-  s.onload=function(){document.title='[OK]'+document.title;};
+  s.onload=function(){
+    document.title='[OK]'+document.title;
+    setTimeout(function(){
+      try{
+        if(typeof switchTab==='function'){
+          switchTab('game');
+          document.title='[SW]'+document.title;
+        }else{
+          document.title='[NOFN]'+document.title;
+        }
+      }catch(e){
+        document.title='[EXC:'+e.message+']'+document.title;
+      }
+    },500);
+  };
   s.onerror=function(){document.title='[ERR]'+document.title;};
   s.src=url;
   document.head.appendChild(s);
