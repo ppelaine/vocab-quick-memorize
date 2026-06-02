@@ -1,4 +1,5 @@
 // Critical: set title to confirm script execution
+window.__APPJS_STARTED__=true;
 document.title='[OK] '+document.title;
 // Global error capture
 window._errors=[];
@@ -5304,6 +5305,7 @@ function toast(msg,type='success'){
   document.body.appendChild(t);setTimeout(()=>t.remove(),2500);
 }
 
+window.__APPJS_GOT_SWITCHTAB__=true;
 function switchTab(tab){
   const tabOrder=['review','bank','game','profile'];
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
