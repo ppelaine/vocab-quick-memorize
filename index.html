@@ -898,12 +898,12 @@ fetch('app.js?v=2').then(function(r){return r.text();}).then(function(js){
     document.title='[OK]'+document.title;
     setTimeout(function(){
       try{
-        if(typeof switchTab==='function'){
-          switchTab('game');
-          document.title='[SW]'+document.title;
-        }else{
-          document.title='[NOFN]'+document.title;
-        }
+        var info=[];
+        info.push(typeof switchTab);
+        info.push(typeof DICTIONARY);
+        info.push(typeof migrateToMultiUser);
+        info.push(typeof window.switchTab);
+        document.title='[ST:'+info.join(',')+']'+document.title;
       }catch(e){
         document.title='[EXC:'+e.message+']'+document.title;
       }
