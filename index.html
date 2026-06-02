@@ -505,6 +505,7 @@ body.has-bottom-nav{padding-bottom:78px;}
 
 </style>
 
+<script src="app.js?v=2"></script>
 </head>
 <body>
 
@@ -889,23 +890,27 @@ body.has-bottom-nav{padding-bottom:78px;}
 
 <div id="diag" style="position:fixed;top:0;left:0;right:0;z-index:99999;background:#111;color:#0f0;font:10px monospace;padding:4px 8px;max-height:40vh;overflow-y:auto;"></div>
 <script>
-function diag(msg){var d=document.getElementById("diag");d.textContent+=msg+'\\n';d.scrollTop=d.scrollHeight;}
-	diag("1. Creating script tag...");
-	document.title="[LOAD]";
-	var s=document.createElement("script");
-	s.src="app.js?v=2";
-	s.onload=function(){
-	  diag("2. app.js loaded OK");
-	  diag("3. typeof switchTab="+typeof switchTab+" typeof DICTIONARY="+typeof DICTIONARY);
-	  document.title="[OK]";
-	  try{switchTab("game");diag("4. switchTab OK");document.title="[SW]";}catch(e){diag("4. switchTab ERR: "+e.message);document.title="[NOFN]";}
-	};
-	s.onerror=function(e){
-	  diag("2. app.js LOAD FAILED");
-	  document.title="[F]";
-	};
-	document.head.appendChild(s);
-	diag("1b. Script tag appended to head");
+function diag(msg){var d=document.getElementById("diag");d.textContent+=msg+"\n";d.scrollTop=d.scrollHeight;}
+		diag("1. Static script tag in <head>, waiting for app.js...");
+		document.title="[LOAD]";
+		setTimeout(function(){
+		  diag("2. typeof switchTab="+typeof switchTab+" typeof DICTIONARY="+typeof DICTIONARY);
+		  if(window._errors && window._errors.length>0){
+		    diag("3. JS errors: "+JSON.stringify(window._errors));
+		  }
+		  if(typeof switchTab==="function"){
+		    document.title="[OK]";
+		    try{switchTab("game");diag("4. switchTab OK");document.title="[SW]";}catch(e){diag("4. switchTab ERR: "+e.message);}
+		  }else{
+		    document.title="[NOFN]";
+		    diag("4. FUNCTIONS NOT GLOBAL");
+		    diag("5. document.scripts count="+document.scripts.length);
+		    for(var i=0;i<document.scripts.length;i++){
+		      var s=document.scripts[i];
+		      if(s.src) diag("6. script["+i+"] src="+s.src.substring(0,80));
+		    }
+		  }
+		},800);
 </script>
 </body>
 </html>
