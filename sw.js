@@ -1,5 +1,5 @@
-const CACHE = 'vocab-v2';
-const ASSETS = ['.', 'index.html', 'manifest.json', 'icon-192.svg', 'icon-512.svg'];
+const CACHE = 'vocab-v3';
+const ASSETS = ['.', 'index.html', 'app.js', 'manifest.json', 'icon-192.svg', 'icon-512.svg'];
 
 // Clear old caches on activate
 self.addEventListener('activate', e => {
