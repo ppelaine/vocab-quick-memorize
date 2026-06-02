@@ -889,30 +889,23 @@ body.has-bottom-nav{padding-bottom:78px;}
 
 <div id="diag" style="position:fixed;top:0;left:0;right:0;z-index:99999;background:#111;color:#0f0;font:10px monospace;padding:4px 8px;max-height:40vh;overflow-y:auto;"></div>
 <script>
-function diag(msg){var d=document.getElementById('diag');d.textContent+=msg+'\\n';d.scrollTop=d.scrollHeight;}
-diag('1. Start');
-document.title='[LOAD]';
-fetch('app.js').then(function(r){
-  diag('2. Fetch OK status='+r.status+' size='+r.headers.get('content-length'));
-  if(!r.ok)throw new Error('HTTP'+r.status);
-  return r.text();
-}).then(function(js){
-  diag('3. Got JS: '+js.length+' chars, first 50: '+js.substring(0,50));
-  document.title='[EXEC]';
-  try{
-    eval.call(null,js);
-    diag('4. eval ok. ST='+typeof switchTab+' DICT='+typeof DICTIONARY);
-    document.title='[OK]';
-    try{switchTab('game');diag('5. switchTab OK');document.title='[SW]';}catch(e){diag('5. switchTab ERR: '+e.message);}
-  }catch(ee){
-    diag('4. EVAL FAIL: '+ee.message);
-    diag('4b. stack: '+(ee.stack||'none').substring(0,200));
-    document.title='[EVAL_ERR]';
-  }
-}).catch(function(e){
-  diag('ERR: '+e.message);
-  document.title='[F]';
-});
+function diag(msg){var d=document.getElementById("diag");d.textContent+=msg+'\\n';d.scrollTop=d.scrollHeight;}
+	diag("1. Creating script tag...");
+	document.title="[LOAD]";
+	var s=document.createElement("script");
+	s.src="app.js?v=2";
+	s.onload=function(){
+	  diag("2. app.js loaded OK");
+	  diag("3. typeof switchTab="+typeof switchTab+" typeof DICTIONARY="+typeof DICTIONARY);
+	  document.title="[OK]";
+	  try{switchTab("game");diag("4. switchTab OK");document.title="[SW]";}catch(e){diag("4. switchTab ERR: "+e.message);document.title="[NOFN]";}
+	};
+	s.onerror=function(e){
+	  diag("2. app.js LOAD FAILED");
+	  document.title="[F]";
+	};
+	document.head.appendChild(s);
+	diag("1b. Script tag appended to head");
 </script>
 </body>
 </html>
