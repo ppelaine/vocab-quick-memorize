@@ -7139,6 +7139,7 @@ renderProfile();
 updateAvatarDisplay();
 }catch(e){console.error('Init error:',e);}
 // Register service worker for PWA offline support
-if('serviceWorker' in navigator){
-  navigator.serviceWorker.register('sw.js').catch(function(){});
-}
+// SW temporarily disabled for debugging
+// if('serviceWorker' in navigator){
+//   navigator.serviceWorker.register('sw.js').catch(function(){});
+// }

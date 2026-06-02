@@ -913,8 +913,7 @@ fetch('app.js?v=2').then(function(r){return r.text();}).then(function(js){
   s.src=url;
   document.head.appendChild(s);
 }).catch(function(e){
-  document.title='[FETCH_ERR]'+document.title;
-  console.error(e);
+  document.title='[FETCH:'+(e.message||'unknown')+']'+document.title;
 });
 </script>
 </body>
