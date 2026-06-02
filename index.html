@@ -891,14 +891,12 @@ body.has-bottom-nav{padding-bottom:78px;}
 document.title='[LOAD]'+document.title;
 fetch('app.js?v=2').then(function(r){return r.text();}).then(function(js){
   document.title='[EXEC]'+document.title;
-  var s=document.createElement('script');
-  s.textContent=js;
-  document.head.appendChild(s);
+  (0,eval)(js);
   document.title='[OK]'+document.title;
   setTimeout(function(){
     document.title='[ST:'+typeof switchTab+','+typeof DICTIONARY+']'+document.title;
-    try{switchTab('game');document.title='[SW]'+document.title;}catch(e){}
-  },500);
+    try{switchTab('game');document.title='[SW]'+document.title;}catch(e){document.title='[EXC]'+document.title;}
+  },100);
 }).catch(function(e){
   document.title='[FETCH:'+(e.message||'unknown')+']'+document.title;
 });
