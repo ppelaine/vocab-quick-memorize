@@ -1,4 +1,4 @@
-const CACHE = 'vocab-v3';
+const CACHE = 'vocab-v4';
 const ASSETS = ['.', 'index.html', 'app.js', 'manifest.json', 'icon-192.svg', 'icon-512.svg'];
 
 // Clear old caches on activate
