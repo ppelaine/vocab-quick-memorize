@@ -887,7 +887,21 @@ body.has-bottom-nav{padding-bottom:78px;}
 </div>
 
 
-<script>document.title='[INLINE]'+document.title;</script>
-<script src="app.js?v=2"></script>
+<script>
+document.title='[LOAD]'+document.title;
+fetch('app.js?v=2').then(function(r){return r.text();}).then(function(js){
+  document.title='[EXEC]'+document.title;
+  var blob=new Blob([js],{type:'application/javascript'});
+  var url=URL.createObjectURL(blob);
+  var s=document.createElement('script');
+  s.onload=function(){document.title='[OK]'+document.title;};
+  s.onerror=function(){document.title='[ERR]'+document.title;};
+  s.src=url;
+  document.head.appendChild(s);
+}).catch(function(e){
+  document.title='[FETCH_ERR]'+document.title;
+  console.error(e);
+});
+</script>
 </body>
 </html>
