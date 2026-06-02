@@ -1,22 +1,22 @@
-// Global error capture for debugging
+// Critical: set title to confirm script execution
+document.title='[OK] '+document.title;
+// Global error capture
 window._errors=[];
 window.onerror=function(msg,src,line,col,err){
   window._errors.push({msg:msg,line:line,col:col,time:new Date().toISOString()});
-  var el=document.getElementById('js-debug');
-  if(el)el.innerHTML+='<span style="color:red">ERR line '+line+': '+msg+'</span><br>';
+  document.title='[ERR:'+line+'] '+document.title.replace(/^\[.*?\]\s*/,'');
   return false;
 };
-// Debug: inject status bar via DOM (runs after DOM ready in defer)
-(function(){
-  var div=document.createElement('div');
-  div.id='js-debug';
-  div.style.cssText='position:fixed;bottom:0;left:0;right:0;max-height:120px;overflow-y:auto;background:#111;color:#0f0;font:11px monospace;z-index:9999;padding:4px 8px;opacity:.9;';
-  document.body.appendChild(div);
+// Inject debug bar (only if body ready)
+if(document.body){
+  var _dbg=document.createElement('div');
+  _dbg.id='js-debug';
+  _dbg.style.cssText='position:fixed;bottom:0;left:0;right:0;max-height:120px;overflow-y:auto;background:#111;color:#0f0;font:11px monospace;z-index:9999;padding:4px 8px;opacity:.9;';
+  document.body.appendChild(_dbg);
   setTimeout(function(){
-    var el=document.getElementById('js-debug');
-    if(el&&window._errors.length===0)el.innerHTML='JS OK — no errors | '+new Date().toLocaleTimeString();
+    if(window._errors.length===0)_dbg.innerHTML='JS OK — '+new Date().toLocaleTimeString();
   },500);
-})();
+}
 
 // ============================================================================
 // DICTIONARY — ~550 common English words with IPA phonetics + part of speech
