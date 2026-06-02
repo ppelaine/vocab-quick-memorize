@@ -897,12 +897,18 @@ fetch('app.js').then(function(r){
   if(!r.ok)throw new Error('HTTP'+r.status);
   return r.text();
 }).then(function(js){
-  diag('3. Got JS: '+js.length+' chars');
+  diag('3. Got JS: '+js.length+' chars, first 50: '+js.substring(0,50));
   document.title='[EXEC]';
-  (0,eval)(js);
-  diag('4. Eval done. switchTab='+typeof switchTab+' DICT='+typeof DICTIONARY);
-  document.title='[OK]';
-  try{switchTab('game');diag('5. switchTab OK!');document.title='[SW]';}catch(e){diag('5. switchTab ERR: '+e.message);}
+  try{
+    eval.call(null,js);
+    diag('4. eval ok. ST='+typeof switchTab+' DICT='+typeof DICTIONARY);
+    document.title='[OK]';
+    try{switchTab('game');diag('5. switchTab OK');document.title='[SW]';}catch(e){diag('5. switchTab ERR: '+e.message);}
+  }catch(ee){
+    diag('4. EVAL FAIL: '+ee.message);
+    diag('4b. stack: '+(ee.stack||'none').substring(0,200));
+    document.title='[EVAL_ERR]';
+  }
 }).catch(function(e){
   diag('ERR: '+e.message);
   document.title='[F]';
