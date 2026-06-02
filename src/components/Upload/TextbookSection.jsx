@@ -5,7 +5,7 @@ import { useApp } from '@/context/AppContext'
 import useTextbooks from '@/hooks/useTextbooks'
 import useWordBank from '@/hooks/useWordBank'
 
-export default function TextbookSection() {
+export default function TextbookSection({ ocrWords, onSaved }) {
   const { toast } = useApp()
   const t = useTextbooks()
   const { addWord } = useWordBank()
@@ -63,6 +63,89 @@ export default function TextbookSection() {
 
   return (
     <>
+      {/* OCR Save Section — shown when OCR results are available */}
+      {ocrWords && ocrWords.length > 0 && (
+        <Card>
+          <CardContent>
+            <h2 className="text-lg font-extrabold mb-2 flex items-center gap-2">
+              💾 保存OCR结果到教材单元
+            </h2>
+            <p className="text-xs text-[#9a948c] mb-3">
+              将识别到的 {ocrWords.length} 个词汇保存到指定教材单元，同时自动加入词库以便复习。
+            </p>
+
+            {/* Textbook search */}
+            <div className="relative mb-3">
+              <input
+                type="text"
+                placeholder="🔍 搜索教材名称..."
+                className="w-full h-10 px-3 rounded-xl border-2 border-[#e0d8c0] text-sm font-semibold focus:outline-none focus:border-[#ff7b5c]"
+                value={t.selectedTb ? t.selectedTb.n : t.query}
+                onChange={e => { t.setQuery(e.target.value); setShowResults(true) }}
+                onFocus={() => { if (!t.selectedTb && t.textbooks.length > 0) setShowResults(true) }}
+                onClick={() => { if (!t.selectedTb && t.textbooks.length > 0) setShowResults(true) }}
+              />
+              {t.selectedTb && (
+                <button
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-[#f2675a] text-lg font-bold cursor-pointer bg-transparent border-none"
+                  onClick={() => { t.clearSelection(); setShowResults(false) }}
+                >✕</button>
+              )}
+              {showResults && !t.selectedTb && (
+                <div className="absolute top-full left-0 right-0 z-50 bg-white rounded-xl border-2 border-[#f0e8d8] shadow-lg max-h-[200px] overflow-y-auto mt-1">
+                  {t.searchResults.length === 0 ? (
+                    <div className="p-4 text-sm text-[#9a948c] text-center">未找到匹配的教材</div>
+                  ) : (
+                    t.searchResults.map((tb, i) => (
+                      <div
+                        key={i}
+                        className="px-4 py-2.5 cursor-pointer hover:bg-[#fff0eb] border-b border-[#f0ebe0] last:border-0 transition-colors"
+                        onClick={() => { t.selectTextbook(i); setShowResults(false) }}
+                      >
+                        <div className="font-bold text-sm text-[#2d2a28]">{tb.n}</div>
+                        <div className="text-xs text-[#9a948c]">{tb.p} · {(Array.isArray(tb.u) ? tb.u : []).length}个单元</div>
+                      </div>
+                    ))
+                  )}
+                </div>
+              )}
+            </div>
+
+            {/* Unit selector */}
+            {t.selectedTb && (
+              <select
+                className="w-full h-10 px-3 rounded-xl border-2 border-[#e0d8c0] text-sm font-semibold bg-white focus:outline-none focus:border-[#ff7b5c] mb-3"
+                value={t.selectedUnitIdx ?? ''}
+                onChange={e => t.setSelectedUnitIdx(e.target.value ? parseInt(e.target.value) : null)}
+              >
+                <option value="">选择单元</option>
+                {(Array.isArray(t.selectedTb.u) ? t.selectedTb.u : []).map((u, i) => (
+                  <option key={i} value={i}>{u.n}{u.w && u.w.length > 0 ? ` (${u.w.length}词)` : ''}</option>
+                ))}
+              </select>
+            )}
+
+            <Button
+              disabled={!(t.selectedTb && t.selectedUnitIdx !== null)}
+              onClick={() => {
+                if (!t.selectedTb || t.selectedUnitIdx === null) return
+                const words = ocrWords.map(w => ({
+                  en: w.en, zh: w.zh || '', phonetic: w.phonetic || '', pos: w.pos || ''
+                }))
+                t.setUnitWords(t.selectedIdx, t.selectedUnitIdx, words)
+                // Also add each word to the word bank for review
+                ocrWords.forEach(w => { if (w.en) addWord(w) })
+                if (onSaved) onSaved(words.length)
+                toast(`已保存 ${words.length} 词到「${t.selectedUnit?.n || '所选单元'}」`)
+              }}
+            >
+              📥 保存 {ocrWords.length} 词到{t.selectedUnit ? `「${t.selectedUnit.n}」` : '所选单元'}
+            </Button>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* Existing textbook search section */}
       <Card>
         <CardContent>
           <div className="flex items-center justify-between mb-3">

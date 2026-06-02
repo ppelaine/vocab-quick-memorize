@@ -12,7 +12,7 @@ export default function WordBankView() {
   const { toast } = useApp()
   const {
     filteredWords, errors, stats, filter, setFilter,
-    addWord, deleteWord, clearAll, importSamples,
+    addWord, deleteWord, clearAll,
   } = useWordBank()
 
   const [showAddModal, setShowAddModal] = useState(false)
@@ -53,7 +53,6 @@ export default function WordBankView() {
           ) : (
             <EmptyState
               onAddWord={() => setShowAddModal(true)}
-              onImportSamples={() => { importSamples(); toast('已导入示例词汇') }}
             />
           )}
         </CardContent>
@@ -67,13 +66,6 @@ export default function WordBankView() {
             onClick={() => setShowAddModal(true)}
           >
             + 手动添加单词
-          </button>
-          <button
-            className="h-9 px-[18px] rounded-[22px] border-2 border-[#ff7b5c] text-[#ff7b5c] bg-transparent text-sm font-bold hover:bg-[#fff0eb] hover:-translate-y-0.5 transition-all"
-            style={{ transitionDuration: '250ms', transitionTimingFunction: 'cubic-bezier(0.34, 1.56, 0.64, 1)' }}
-            onClick={() => { importSamples(); toast('已导入示例词汇') }}
-          >
-            📥 导入示例词汇
           </button>
         </div>
       )}

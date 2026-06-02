@@ -1,6 +1,6 @@
 import { useState, useCallback, useRef } from 'react'
 import DICTIONARY from '@/data/dictionary'
-import { buildDictIndex, isPlausibleWord, fuzzyDictMatch, detectMultiWordTerms, detectTOCStructure, buildUnitView } from '@/lib/ocr-helpers'
+import { buildDictIndex, isPlausibleWord, lookupExact, findSuggestions, detectMultiWordTerms, detectTOCStructure, buildUnitView } from '@/lib/ocr-helpers'
 
 let _dictCache = null
 function getDictCache() {
@@ -60,6 +60,7 @@ function preprocessTOCImage(imgEl) {
 
 export default function useOCR() {
   const [tocMode, setTocMode] = useState(false)
+  const [autoCorrect, setAutoCorrect] = useState(false)
   const [status, setStatus] = useState('idle') // idle | preprocessing | recognizing | done | error
   const [progress, setProgress] = useState(0)
   const [statusMsg, setStatusMsg] = useState('')
@@ -68,6 +69,7 @@ export default function useOCR() {
   const [rawText, setRawText] = useState('')
   const [unitView, setUnitView] = useState(null)
   const [fuzzyFixed, setFuzzyFixed] = useState([])
+  const [suggestions, setSuggestions] = useState({})
   const imgUrlRef = useRef(null)
 
   const processFile = useCallback(async (file) => {
@@ -133,26 +135,31 @@ export default function useOCR() {
         return
       }
 
-      // Match against dictionary
-      const foundList = [], notFoundList = [], fixesList = []
+      // Match against dictionary — EXACT MATCH ONLY (never replace original word)
+      const foundList = [], notFoundList = [], suggestionMap = {}
       uniqueWords.forEach(w => {
-        // Apply known OCR fixes
-        const fuzzy = fuzzyDictMatch(w, dictMap, dictEntries)
-        if (fuzzy.match) {
+        const exact = lookupExact(w, dictMap)
+        if (exact) {
+          // Exact match: word IS in dictionary, safe to use dictionary metadata
           foundList.push({
-            en: fuzzy.match.en, zh: fuzzy.match.zh || '',
-            def: fuzzy.match.def || '', phonetic: fuzzy.match.phonetic || '',
-            pos: fuzzy.match.pos || '',
+            en: exact.en, zh: exact.zh || '',
+            def: exact.def || '', phonetic: exact.phonetic || '',
+            pos: exact.pos || '',
           })
-          if (fuzzy.distance > 0) fixesList.push({ from: w, to: fuzzy.match.en })
         } else {
+          // Not in dictionary: preserve original OCR word, optionally suggest alternatives
           notFoundList.push(w)
+          if (autoCorrect) {
+            const sugs = findSuggestions(w, dictEntries, 2)
+            if (sugs.length > 0) suggestionMap[w.toLowerCase()] = sugs
+          }
         }
       })
 
       setFound(foundList)
       setNotFound(notFoundList)
-      setFuzzyFixed(fixesList)
+      setSuggestions(suggestionMap)
+      setFuzzyFixed([])
 
       // TOC structure detection
       if (tocMode) {
@@ -170,7 +177,7 @@ export default function useOCR() {
       setStatusMsg('识别失败: ' + (e.message || '未知错误'))
       if (imgUrlRef.current) { URL.revokeObjectURL(imgUrlRef.current); imgUrlRef.current = null }
     }
-  }, [tocMode])
+  }, [tocMode, autoCorrect])
 
   const reset = useCallback(() => {
     setStatus('idle')
@@ -181,13 +188,16 @@ export default function useOCR() {
     setRawText('')
     setUnitView(null)
     setFuzzyFixed([])
+    setSuggestions({})
   }, [])
 
   return {
     tocMode, setTocMode,
+    autoCorrect, setAutoCorrect,
     status, progress, statusMsg,
     found, setFound,
     notFound, setNotFound,
+    suggestions,
     rawText, unitView, fuzzyFixed,
     processFile, reset,
   }

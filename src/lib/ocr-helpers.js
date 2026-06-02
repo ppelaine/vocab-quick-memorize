@@ -13,33 +13,25 @@ export function levenshtein(a, b) {
   return m[b.length][a.length]
 }
 
-// Common OCR error patterns
-const OCR_FIXES = {
-  'oclock': "o'clock", 'ted': 'ten', 'vear': 'wear', 'sed': 'bed', 'iazy': 'lazy',
-  'reeze': 'freeze', 'lood': 'flood', 'iow': 'low', 'tshirt': 'T-shirt', 'fatherof': 'father of',
-  'comer': 'corner', 'pround': 'pound', 'ofif': 'off',
+// Exact dictionary lookup — safe when the word IS in the dictionary
+export function lookupExact(word, dictMap) {
+  return dictMap[word.toLowerCase()] || null
 }
 
-// Fuzzy match a word against dictionary entries
-export function fuzzyDictMatch(word, dictMap, dictEntries) {
+// Find fuzzy suggestions from dictionary (for UI display only, never auto-replaces)
+export function findSuggestions(word, dictEntries, maxDistance = 2) {
   const lw = word.toLowerCase()
-  // Apply known OCR fixes
-  const fixed = OCR_FIXES[lw] || lw
-
-  // Exact match after fixing
-  if (dictMap[fixed]) return { match: dictMap[fixed], distance: 0, corrected: fixed }
-
-  // Fuzzy search: only check entries with similar length and first char
-  let best = null, bestDist = 99
+  const results = []
   for (const [key, d] of dictEntries) {
-    if (Math.abs(key.length - fixed.length) > 2) continue
-    if (key[0] !== fixed[0]) continue
-    const dist = levenshtein(fixed, key)
-    if (dist < bestDist) { bestDist = dist; best = d }
-    if (dist === 0) break
+    if (Math.abs(key.length - lw.length) > maxDistance) continue
+    if (key[0] !== lw[0]) continue
+    const dist = levenshtein(lw, key)
+    if (dist > 0 && dist <= maxDistance) {
+      results.push({ entry: d, distance: dist })
+    }
   }
-  if (bestDist <= 2 && best) return { match: best, distance: bestDist, corrected: best.en.toLowerCase() }
-  return { match: null, distance: 99, corrected: fixed }
+  results.sort((a, b) => a.distance - b.distance)
+  return results.slice(0, 5)
 }
 
 // Validate if a string looks like a plausible English word

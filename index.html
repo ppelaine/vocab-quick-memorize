@@ -127,57 +127,71 @@ body{
 .btn-edit-row{padding:3px 8px;font-size:.7em;white-space:nowrap;border:1px solid var(--accent-lt);color:var(--accent);background:transparent;border-radius:12px;cursor:pointer;font-family:inherit;}
 .btn-del-row{padding:3px 8px;font-size:.7em;white-space:nowrap;border:1px solid var(--red-lt);color:var(--red);background:transparent;border-radius:12px;cursor:pointer;font-family:inherit;}
 .upload-zone{
-  border:2px dashed rgba(107,63,160,.15);border-radius:var(--radius);padding:40px 24px;
-  text-align:center;cursor:pointer;transition:all .3s cubic-bezier(.34,1.56,.64,1);
-  background:rgba(107,63,160,.02);
+  border:3px dashed #d8cce0;border-radius:20px;padding:48px 24px 40px;
+  text-align:center;cursor:pointer;transition:all .35s cubic-bezier(.34,1.56,.64,1);
+  background:linear-gradient(180deg,rgba(255,255,255,.6) 0%,rgba(255,255,255,.2) 100%);
+  position:relative;overflow:hidden;
+}
+.upload-zone::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(circle at 50% 30%,rgba(232,80,122,.04) 0%,transparent 70%);
+  transition:opacity .3s;
 }
 .upload-zone:hover,.upload-zone.dragover{
-  border-color:var(--accent2);background:var(--accent2-lt);transform:scale(1.01);
-  box-shadow:0 8px 32px rgba(107,63,160,.12);
+  border-color:var(--accent);background:var(--accent-lt);
+  transform:scale(1.01);box-shadow:0 12px 40px rgba(232,80,122,.15);
 }
+.upload-zone:hover::before{opacity:0;}
 .upload-zone input{display:none;}
-.upload-zone .icon-upload{
-  display:flex;align-items:center;justify-content:center;
-  width:80px;height:80px;border-radius:50%;margin:0 auto 14px;
-  background:linear-gradient(135deg,#6b3fa0,#8b5fbf);
-  box-shadow:0 6px 24px rgba(107,63,160,.3);
-  animation:float 3s ease-in-out infinite;
-}
-.upload-zone .icon-upload svg{width:36px;height:36px;color:#fff;}
-.upload-zone:hover .icon-upload{
-  box-shadow:0 10px 32px rgba(107,63,160,.45);
-  transform:scale(1.08);
-}
+.upload-zone .icon-upload{font-size:3.6em;display:block;margin-bottom:12px;animation:float 3s ease-in-out infinite;line-height:1;}
+.upload-zone .upload-hint{display:inline-flex;align-items:center;gap:4px;font-size:.78em;color:var(--muted);margin-top:6px;background:rgba(255,255,255,.7);padding:4px 12px;border-radius:10px;}
 @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
-.game-setup{text-align:center;padding:24px 0;}
+.game-setup{display:flex;justify-content:center;gap:16px;flex-wrap:wrap;padding:24px 0;}
 .game-option{
-  display:inline-block;padding:24px 24px 18px;margin:10px;border-radius:var(--radius);
-  border:2px solid rgba(107,63,160,.08);cursor:pointer;transition:all .35s cubic-bezier(.34,1.56,.64,1);
-  text-align:center;min-width:150px;background:var(--card);box-shadow:0 4px 20px rgba(107,63,160,.05);
+  display:flex;flex-direction:column;align-items:center;gap:10px;
+  padding:28px 24px 22px;border-radius:20px;cursor:pointer;
+  transition:all .35s cubic-bezier(.34,1.56,.64,1);
+  text-align:center;min-width:170px;max-width:200px;flex:1;
+  border:none;position:relative;overflow:hidden;
 }
-.game-option:hover{
-  transform:translateY(-6px);box-shadow:0 12px 32px rgba(107,63,160,.12);
+.game-option::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:4px;
+  transition:height .3s cubic-bezier(.34,1.56,.64,1);
 }
+.game-option:hover{transform:translateY(-6px);}
+.game-option:hover::before{height:8px;}
 .game-option:active{transform:scale(.96);}
-.game-option .game-icon{
-  width:64px;height:64px;border-radius:50%;display:flex;align-items:center;justify-content:center;
-  margin:0 auto 12px;transition:all .35s cubic-bezier(.34,1.56,.64,1);
+/* Mode 1: 识单词 — warm coral */
+.game-opt-read{
+  background:linear-gradient(180deg,#fff5f2 0%,#fff 40%);
+  box-shadow:0 4px 24px rgba(232,80,122,.12);
 }
-.game-option .game-icon svg{width:32px;height:32px;color:#fff;}
-.game-option:hover .game-icon{transform:scale(1.12);box-shadow:0 6px 24px rgba(0,0,0,.15);}
-
-/* THINK rainbow icon circles */
-.game-opt-read .game-icon{background:linear-gradient(135deg,#4aaf85,#3a906a);box-shadow:0 4px 16px rgba(74,175,133,.3);}
-.game-opt-read:hover{border-color:#4aaf85;}
-.game-opt-read:hover .game-icon{box-shadow:0 8px 28px rgba(74,175,133,.4);}
-.game-opt-meaning .game-icon{background:linear-gradient(135deg,#4da3c8,#3a85a8);box-shadow:0 4px 16px rgba(77,163,200,.3);}
-.game-opt-meaning:hover{border-color:#4da3c8;}
-.game-opt-meaning:hover .game-icon{box-shadow:0 8px 28px rgba(77,163,200,.4);}
-.game-opt-spell .game-icon{background:linear-gradient(135deg,#e8507a,#c8385e);box-shadow:0 4px 16px rgba(232,80,122,.3);}
-.game-opt-spell:hover{border-color:#e8507a;}
-.game-opt-spell:hover .game-icon{box-shadow:0 8px 28px rgba(232,80,122,.4);}
-.game-option .game-label{font-weight:800;font-size:.95em;color:var(--text);}
-.game-option .game-desc{font-size:.78em;color:var(--muted);margin-top:4px;line-height:1.4;}
+.game-opt-read::before{background:linear-gradient(90deg,#ff7b5c,#f4b843);}
+.game-opt-read:hover{box-shadow:0 8px 36px rgba(232,80,122,.22);}
+/* Mode 2: 义单词 — cool blue-purple */
+.game-opt-meaning{
+  background:linear-gradient(180deg,#f5f0ff 0%,#fff 40%);
+  box-shadow:0 4px 24px rgba(107,63,160,.12);
+}
+.game-opt-meaning::before{background:linear-gradient(90deg,#8b5fbf,#4da3c8);}
+.game-opt-meaning:hover{box-shadow:0 8px 36px rgba(107,63,160,.22);}
+/* Mode 3: 拼单词 — fresh green */
+.game-opt-spell{
+  background:linear-gradient(180deg,#edf7f2 0%,#fff 40%);
+  box-shadow:0 4px 24px rgba(74,175,133,.12);
+}
+.game-opt-spell::before{background:linear-gradient(90deg,#4aaf85,#58b368);}
+.game-opt-spell:hover{box-shadow:0 8px 36px rgba(74,175,133,.22);}
+.game-option .game-icon{
+  font-size:3em;display:flex;align-items:center;justify-content:center;
+  width:72px;height:72px;border-radius:20px;transition:transform .3s;
+}
+.game-opt-read .game-icon{background:#fff0eb;}
+.game-opt-meaning .game-icon{background:#f4f0fa;}
+.game-opt-spell .game-icon{background:#edf7f2;}
+.game-option:hover .game-icon{transform:scale(1.15) rotate(-5deg);}
+.game-option .game-label{font-weight:800;font-size:1.05em;color:var(--text);}
+.game-option .game-desc{font-size:.78em;color:var(--muted);line-height:1.4;}
 .question-card{text-align:center;padding:36px 24px;animation:fadeIn .5s cubic-bezier(.16,1,.3,1);}
 .question-num{font-size:.8em;color:var(--muted);margin-bottom:8px;font-weight:700;}
 .question-word{font-size:2.6em;font-weight:900;margin:20px 0;letter-spacing:-.01em;color:var(--text);}
@@ -271,7 +285,6 @@ body{
 .game-icon .icon{width:2.4em;height:2.4em;}
 .empty .icon{font-size:unset;display:inline-block;animation:float 3s ease-in-out infinite;}
 .empty .icon svg{width:3.5em;height:3.5em;}
-.icon-upload .icon svg{width:3.2em;height:3.2em;}
 .modal .field-row{display:flex;gap:10px;}
 .modal .field-row input{flex:1;}
 .modal input, .modal textarea{
@@ -309,6 +322,13 @@ body{
 }
 .toc-mode-toggle:hover{border-color:var(--accent);color:var(--accent);background:var(--accent-lt);}
 .toc-mode-toggle.active{border-style:solid;border-color:var(--green);background:var(--green-lt);color:var(--green);font-weight:800;}
+#autoCorrectToggle.active{border-style:solid;border-color:#8b6fc0;background:#f4f0fa;color:#8b6fc0;font-weight:800;}
+.suggestion-chip{
+  display:inline-block;padding:1px 6px;border-radius:8px;font-size:.65em;
+  background:#f0e8ff;color:#8b6fc0;cursor:pointer;border:1px solid #d0c0f0;
+  transition:all .2s;font-weight:700;
+}
+.suggestion-chip:hover{background:#e0d0ff;transform:scale(1.05);}
 .user-area{display:flex;align-items:center;gap:8px;font-size:.85em;font-weight:700;}
 .btn-user-switch{
   padding:4px 14px;border-radius:14px;border:2px solid rgba(255,255,255,.4);
@@ -511,14 +531,8 @@ body.has-bottom-nav{padding-bottom:78px;}
       <line x1="8" y1="12" x2="16" y2="12"/>
     </symbol>
     <symbol id="icon-camera" viewBox="0 0 24 24">
-      <!-- Bold camera — Think style -->
-      <rect x="3" y="7" width="18" height="13" rx="3" fill="currentColor" opacity=".12"/>
-      <path d="M8 7l1.5-3h5l1.5 3h4a2 2 0 012 2v8a2 2 0 01-2 2H4a2 2 0 01-2-2V9a2 2 0 012-2h4z" fill="none" stroke-width="2.5"/>
-      <circle cx="12" cy="13.5" r="5" fill="currentColor" opacity=".15"/>
-      <circle cx="12" cy="13.5" r="5" fill="none" stroke-width="2.5"/>
-      <circle cx="12" cy="13.5" r="1.8" fill="currentColor" opacity=".4"/>
-      <!-- Flash dot -->
-      <circle cx="17.5" cy="9" r="1.5" fill="currentColor" opacity=".5"/>
+      <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/>
+      <circle cx="12" cy="13" r="4"/>
     </symbol>
     <symbol id="icon-search" viewBox="0 0 24 24">
       <circle cx="11" cy="11" r="8"/>
@@ -582,11 +596,9 @@ body.has-bottom-nav{padding-bottom:78px;}
 
     <!-- Misc icons -->
     <symbol id="icon-upload" viewBox="0 0 24 24">
-      <!-- Bold upload arrow into tray — Think style -->
-      <rect x="3" y="17" width="18" height="4" rx="1.5" fill="currentColor" opacity=".15"/>
-      <path d="M12 3v12" stroke-width="3" stroke-linecap="round"/>
-      <polyline points="7 8 12 3 17 8" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-      <line x1="4" y1="17" x2="20" y2="17" stroke-width="2" opacity=".5"/>
+      <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+      <polyline points="17 8 12 3 7 8"/>
+      <line x1="12" y1="3" x2="12" y2="15"/>
     </symbol>
     <symbol id="icon-calendar" viewBox="0 0 24 24">
       <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
@@ -641,18 +653,20 @@ body.has-bottom-nav{padding-bottom:78px;}
       <button class="btn btn-accent" onclick="showAddWord()"><svg class="icon"><use href="#icon-add"/></svg> 手动添加单词</button>
     </div>
     <div class="card">
-      <h2><svg class="icon"><use href="#icon-camera"/></svg> 拍照/上传单词表</h2>
-      <p style="color:var(--muted);margin-bottom:8px;">拍摄课本词汇表、试卷单词等。AI自动识别英文单词并匹配词典释义（含音标+词性+英文释义）。</p>
-      <div style="margin-bottom:12px;">
-        <span class="toc-mode-toggle" id="tocModeToggle" onclick="toggleTOCMode()">
-          <svg class="icon"><use href="#icon-bank"/></svg> TOC模式（教材目录页识别）
+      <h2>📷 拍照/上传单词表</h2>
+      <p style="color:var(--muted);margin-bottom:8px;">拍摄课本词汇表、试卷单词等。AI识别英文单词并精确匹配词典释义。开启「词典辅助匹配」可为未匹配词提供候选建议。</p>
+      <div style="margin-bottom:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <span class="toc-mode-toggle" id="autoCorrectToggle" onclick="toggleAutoCorrect()">
+          词典辅助匹配
         </span>
-        <span style="font-size:.75em;color:var(--muted);margin-left:8px;">TOC模式下仅识别英文单词，精度更高</span>
+        <span class="toc-mode-toggle" id="tocModeToggle" onclick="toggleTOCMode()">
+          📋 TOC模式
+        </span>
       </div>
       <div class="upload-zone" id="uploadZone">
-        <span class="icon-upload"><svg><use href="#icon-upload"/></svg></span>
-        <p style="font-weight:bold;" id="uploadLabel">点击上传 或 拖拽图片到此处</p>
-        <p style="font-size:.8em;color:var(--muted);">支持 JPG / PNG，建议清晰拍摄</p>
+        <span class="icon-upload">📤</span>
+        <p style="font-weight:bold;font-size:1.05em;" id="uploadLabel">点击上传 或 拖拽图片到此处</p>
+        <span class="upload-hint">📸 支持 JPG / PNG，建议清晰拍摄</span>
         <input type="file" id="fileInput" accept="image/*" onchange="handleFile(this)">
       </div>
       <div id="ocrStatus" style="text-align:center;margin-top:16px;"></div>
@@ -706,17 +720,17 @@ body.has-bottom-nav{padding-bottom:78px;}
         </div>
         <div class="game-setup">
           <div class="game-option game-opt-read" onclick="startGame(1)">
-            <span class="game-icon"><svg><use href="#icon-read"/></svg></span>
+            <span class="game-icon">📖</span>
             <span class="game-label">识单词</span>
             <span class="game-desc">看英文，选中文翻译</span>
           </div>
           <div class="game-option game-opt-meaning" onclick="startGame(2)">
-            <span class="game-icon"><svg><use href="#icon-meaning"/></svg></span>
+            <span class="game-icon">💡</span>
             <span class="game-label">义单词</span>
             <span class="game-desc">看释义，选出对应单词</span>
           </div>
           <div class="game-option game-opt-spell" onclick="startGame(3)">
-            <span class="game-icon"><svg><use href="#icon-spell"/></svg></span>
+            <span class="game-icon">✏️</span>
             <span class="game-label">拼单词</span>
             <span class="game-desc">补全缺失的字母</span>
           </div>
@@ -970,7 +984,7 @@ const DICTIONARY = [
   {en:'concert',zh:'音乐会',def:'a performance of music by singers or musicians',phonetic:'/ˈkɒnsət/',pos:'n.'},
   {en:'confident',zh:'自信的',def:'feeling sure about your own abilities',phonetic:'/ˈkɒnfɪdənt/',pos:'adj.'},
   {en:'connect',zh:'连接',def:'to join things together',phonetic:'/kəˈnekt/',pos:'v.'},
-  {en:'continue',zh:'继续',def:'to keep doing something',phonetic:'/kənˈtɪnjuː/',pos:'v.'},
+  {en:'continue',zh:'继续',def:'To keep happening, existing, or doing something without stopping.',phonetic:'/kənˈtɪnjuː/',pos:'v.'},
   {en:'control',zh:'控制',def:'the power to make decisions',phonetic:'/kənˈtrəʊl/',pos:'v.'},
   {en:'correct',zh:'正确的',def:'right, without mistakes',phonetic:'/kəˈrekt/',pos:'adj.'},
   {en:'country',zh:'国家',def:'an area of land with its own government',phonetic:'/ˈkʌntri/',pos:'n.'},
@@ -1132,7 +1146,7 @@ const DICTIONARY = [
   {en:'machine',zh:'机器',def:'a device that does a particular job',phonetic:'/məˈʃiːn/',pos:'n.'},
   {en:'magazine',zh:'杂志',def:'a thin book with articles and pictures',phonetic:'/ˌmæɡəˈziːn/',pos:'n.'},
   {en:'magic',zh:'魔法',def:'a special power to make impossible things happen',phonetic:'/ˈmædʒɪk/',pos:'n.'},
-  {en:'manage',zh:'管理',def:'to control or organize something',phonetic:'/ˈmænɪdʒ/',pos:'v.'},
+  {en:'manage',zh:'管理',def:'To be in charge of or control something successfully.',phonetic:'/ˈmænɪdʒ/',pos:'v.'},
   {en:'market',zh:'市场',def:'a place where people buy and sell things',phonetic:'/ˈmɑːkɪt/',pos:'n.'},
   {en:'marriage',zh:'婚姻',def:'the relationship between married people',phonetic:'/ˈmærɪdʒ/',pos:'n.'},
   {en:'master',zh:'掌握',def:'to learn something completely',phonetic:'/ˈmɑːstər/',pos:'v.'},
@@ -1845,7 +1859,7 @@ const DICTIONARY = [
   {en:'mind',zh:'头脑',def:'the part of you that thinks, knows, and remembers',phonetic:'/maɪnd/',pos:'n.'},
   {en:'mix',zh:'混合',def:'to combine two or more things together',phonetic:'/mɪks/',pos:'v.'},
   {en:'newspaper',zh:'报纸',def:'a set of printed pages with news, sold every day',phonetic:'/ˈnjuːzpeɪpər/',pos:'n.'},
-  {en:'offer',zh:'提供',def:'to give someone the chance to take or use something',phonetic:'/ˈɒfər/',pos:'v.'},
+  {en:'offer',zh:'提供',def:'To present or provide something for acceptance or consideration; a proposal.',phonetic:'/ˈɒfə/',pos:'v./n.'},
   {en:'order',zh:'命令',def:'to tell someone they must do something',phonetic:'/ˈɔːrdər/',pos:'v.'},
   {en:'own',zh:'自己的',def:'belonging to the person mentioned',phonetic:'/oʊn/',pos:'adj.'},
   {en:'pardon',zh:'原谅',def:'to forgive someone for something they did wrong',phonetic:'/ˈpɑːrdn/',pos:'v.'},
@@ -1917,7 +1931,7 @@ const DICTIONARY = [
   {en:'adult',zh:'成年人',def:'a person who is fully grown',phonetic:'/ˈædʌlt/',pos:'n.'},
   {en:'announce',zh:'宣布',def:'to tell people about something officially',phonetic:'/əˈnaʊns/',pos:'v.'},
   {en:'appreciate',zh:'欣赏',def:'to recognize the good qualities of something',phonetic:'/əˈpriːʃieɪt/',pos:'v.'},
-  {en:'attack',zh:'攻击',def:'to try to hurt or damage someone or something',phonetic:'/əˈtæk/',pos:'v.'},
+  {en:'attack',zh:'攻击',def:'To take aggressive action against someone or something; an act of aggression.',phonetic:'/əˈtæk/',pos:'v./n.'},
   {en:'attractive',zh:'有吸引力的',def:'pleasant to look at; beautiful or handsome',phonetic:'/əˈtræktɪv/',pos:'adj.'},
   {en:'available',zh:'可用的',def:'able to be used or obtained',phonetic:'/əˈveɪləbl/',pos:'adj.'},
   {en:'avenue',zh:'大道',def:'a wide road in a town or city',phonetic:'/ˈævənjuː/',pos:'n.'},
@@ -1980,7 +1994,7 @@ const DICTIONARY = [
   {en:'lead',zh:'领导',def:'to guide a group of people or an organization',phonetic:'/liːd/',pos:'v.'},
   {en:'lift',zh:'举起',def:'to move something to a higher position',phonetic:'/lɪft/',pos:'v.'},
   {en:'limit',zh:'限制',def:'the greatest amount of something that is allowed',phonetic:'/ˈlɪmɪt/',pos:'n.'},
-  {en:'local',zh:'当地的',def:'relating to the area where you live',phonetic:'/ˈloʊkl/',pos:'adj.'},
+  {en:'local',zh:'当地的；本地人',def:'Belonging or relating to a particular area or neighborhood.',phonetic:'/ˈləʊkəl/',pos:'adj./n.'},
   {en:'major',zh:'主要的',def:'very large or important',phonetic:'/ˈmeɪdʒər/',pos:'adj.'},
   {en:'male',zh:'男性的',def:'relating to men or boys',phonetic:'/meɪl/',pos:'adj.'},
   {en:'married',zh:'已婚的',def:'having a husband or wife',phonetic:'/ˈmærid/',pos:'adj.'},
@@ -2097,7 +2111,7 @@ const DICTIONARY = [
   {en:'aircraft',zh:'飞机；飞行器',def:'A vehicle capable of atmospheric flight due to interaction with the air, such as buoyancy or lift',phonetic:'/ɛə.kɹɑːft/',pos:'n.'},
   {en:'album',zh:'专辑',def:'A book specially designed to keep photographs, stamps, or autographs.',phonetic:'/ˈælbəm/',pos:'n.'},
   {en:'ally',zh:'盟友',def:'A person, group, or state (etc) which is associated with another for a common cause; one united to another by treaty or common purpose; a confederate.',phonetic:'',pos:'n.'},
-  {en:'altogether',zh:'总共',def:'Without exception; wholly; completely.',phonetic:'/ɔː.tuːˈɡɛð.ə(ɹ)/',pos:'adv.'},
+  {en:'altogether',zh:'完全地',def:'Completely; in total.',phonetic:'/ˌɔːltəˈɡeðə/',pos:'adv.'},
   {en:'amazed',zh:'惊讶的',def:'To fill with wonder and surprise; to astonish, astound, surprise or perplex.',phonetic:'/əˈmeɪzd/',pos:'adj.'},
   {en:'ambulance',zh:'救护车',def:'An emergency vehicle designed for transporting seriously ill or injured people to a hospital.',phonetic:'/ˈæm.bjə.ləns/',pos:'n.'},
   {en:'among',zh:'在...之中',def:'Denotes a mingling or intermixing with distinct or separable objects. (See Usage Note at amidst.)',phonetic:'/əˈmɒŋ/',pos:'prep.'},
@@ -2108,15 +2122,15 @@ const DICTIONARY = [
   {en:'annoy',zh:'使烦恼',def:'A feeling of discomfort or vexation caused by what one dislikes.',phonetic:'/əˈnɔɪ/',pos:'v.'},
   {en:'anxiety',zh:'焦虑',def:'An unpleasant state of mental uneasiness, nervousness, apprehension and obsession or concern about some uncertain event.',phonetic:'/ˌæŋ(ɡ)ˈzaɪ.ə.ti/',pos:'n.'},
   {en:'anxious',zh:'焦虑的',def:'Nervous and worried.',phonetic:'/ˈaŋ(k)ʃəs/',pos:'adj.'},
-  {en:'appeal',zh:'v./n. 呼吁',def:'An application for the removal of a cause or suit from an inferior to a superior judge or court for re-examination or review.',phonetic:'/əˈpiːl/',pos:'n.'},
+  {en:'appeal',zh:'呼吁',def:'An application for the removal of a cause or suit from an inferior to a superior judge or court for re-examination or review.',phonetic:'/əˈpiːl/',pos:'n.'},
   {en:'apply',zh:'申请',def:'To lay or place; to put (one thing to another)',phonetic:'/əˈplaɪ/',pos:'v.'},
   {en:'argue',zh:'争论',def:'To show grounds for concluding (that); to indicate, imply.',phonetic:'/ˈɑː.ɡjuː/',pos:'v.'},
   {en:'arithmetic',zh:'算术',def:'The mathematics of numbers (integers, rational numbers, real numbers, or complex numbers) under the operations of addition, subtraction, multiplication, and division.',phonetic:'',pos:'n.'},
   {en:'armed',zh:'武装的',def:'To take by the arm; to take up in one\'s arms.',phonetic:'/ɑːmd/',pos:'adj.'},
   {en:'armor',zh:'盔甲',def:'A protective layer over a body, vehicle, or other object intended to deflect or diffuse damaging forces.',phonetic:'/ˈɑː.mə/',pos:'n.'},
   {en:'army',zh:'军队',def:'A large, highly organized military force, concerned mainly with ground (rather than air or naval) operations.',phonetic:'/ˈɑː.miː/',pos:'n.'},
-  {en:'around',zh:'adv./prep. 周围',def:'(with the verb "to be") Present in the vicinity.',phonetic:'/əˈɹaʊnd/',pos:'adj.'},
-  {en:'arrest',zh:'v./n. 逮捕',def:'A check, stop, an act or instance of arresting something.',phonetic:'/əˈɹɛst/',pos:'n.'},
+  {en:'around',zh:'周围',def:'(with the verb "to be") Present in the vicinity.',phonetic:'/əˈɹaʊnd/',pos:'adj.'},
+  {en:'arrest',zh:'逮捕',def:'A check, stop, an act or instance of arresting something.',phonetic:'/əˈɹɛst/',pos:'n.'},
   {en:'arrow',zh:'箭',def:'A projectile consisting of a shaft, a point and a tail with stabilizing fins that is shot from a bow.',phonetic:'/ˈæɹ.əʊ/',pos:'n.'},
   {en:'ashamed',zh:'羞愧的',def:'To feel shame; to be ashamed.',phonetic:'/əˈʃeɪmd/',pos:'adj.'},
   {en:'asleep',zh:'睡着的',def:'In a state of sleep; also, broadly, resting.',phonetic:'/əˈsliːp/',pos:'adj.'},
@@ -2142,7 +2156,7 @@ const DICTIONARY = [
   {en:'baggage',zh:'行李',def:'(usually uncountable) Luggage; traveling equipment',phonetic:'/ˈbæɡɪdʒ/',pos:'n.'},
   {en:'baker',zh:'面包师',def:'A person who bakes and sells bread, cakes and similar items.',phonetic:'/ˈbeɪ.kə(ɹ)/',pos:'n.'},
   {en:'ballet',zh:'芭蕾舞',def:'A classical form of dance.',phonetic:'/bælæe/',pos:'n.'},
-  {en:'barbecue',zh:'n./v. 烧烤',def:'A fireplace or pit for grilling food, typically used outdoors and traditionally employing hot charcoal as the heating medium.',phonetic:'/ˈbɑːbɪˌkjuː/',pos:'n.'},
+  {en:'barbecue',zh:'烧烤',def:'A fireplace or pit for grilling food, typically used outdoors and traditionally employing hot charcoal as the heating medium.',phonetic:'/ˈbɑːbɪˌkjuː/',pos:'n.'},
   {en:'barber',zh:'理发师',def:'A person whose profession is cutting (usually male) customers\' hair and beards.',phonetic:'/ˈbɑː.bə/',pos:'n.'},
   {en:'basement',zh:'地下室',def:'A floor of a building below ground level.',phonetic:'/ˈbeɪsmənt/',pos:'n.'},
   {en:'bathtub',zh:'浴缸',def:'A large container for holding water in which a person may bathe (take a bath).',phonetic:'/ˈbæθtʊb/',pos:'n.'},
@@ -2154,14 +2168,14 @@ const DICTIONARY = [
   {en:'bedroom',zh:'卧室',def:'A room in a house where a bed is kept for sleeping.',phonetic:'/ˈbɛdɹʊm/',pos:'n.'},
   {en:'belief',zh:'信念',def:'Mental acceptance of a claim as true.',phonetic:'/bəˈliːf/',pos:'n.'},
   {en:'belly',zh:'腹部',def:'The abdomen, especially a fat one.',phonetic:'/bɛli/',pos:'n.'},
-  {en:'below',zh:'adv./prep. 在下面',def:'In a lower place.',phonetic:'/bɪˈləʊ/',pos:'adv.'},
+  {en:'below',zh:'在下面',def:'In a lower place.',phonetic:'/bɪˈləʊ/',pos:'adv.'},
   {en:'belt',zh:'皮带',def:'A band worn around the waist to hold clothing to one\'s body (usually pants), hold weapons (such as a gun or sword), or serve as a decorative piece of clothing.',phonetic:'/bɛlt/',pos:'n.'},
   {en:'billion',zh:'十亿',def:'(modern British & Australian, short scale) a thousand million (logic: 1,000 × 1,000^2): 1 followed by nine zeros, 109; a milliard',phonetic:'/ˈbɪljən/',pos:'n.'},
   {en:'biography',zh:'传记',def:'A person\'s life story, especially one published.',phonetic:'/baɪˈɒɡɹəfi/',pos:'n.'},
   {en:'biscuit',zh:'饼干',def:'(rare in the US) A small, flat, baked good which is either hard and crisp or else soft but firm: a cookie.',phonetic:'/ˈbɪskɪt/',pos:'n.'},
   {en:'blackboard',zh:'黑板',def:'A large flat surface, finished with black slate or a similar material, that can be written upon with chalk and subsequently erased; a chalkboard.',phonetic:'/ˈblækbɔːd/',pos:'n.'},
-  {en:'blame',zh:'n./v. 责备',def:'Censure.',phonetic:'/bleɪm/',pos:'n.'},
-  {en:'bloom',zh:'v./n. 开花',def:'A blossom; the flower of a plant; an expanded bud.',phonetic:'/bluːm/',pos:'n.'},
+  {en:'blame',zh:'责备',def:'Censure.',phonetic:'/bleɪm/',pos:'n.'},
+  {en:'bloom',zh:'开花',def:'A blossom; the flower of a plant; an expanded bud.',phonetic:'/bluːm/',pos:'n.'},
   {en:'blouse',zh:'女衬衫',def:'A shirt, typically loose and reaching from the neck to the waist.',phonetic:'/blaʊs/',pos:'n.'},
   {en:'body',zh:'身体',def:'Physical frame.',phonetic:'/ˈbɒdi/',pos:'n.'},
   {en:'bone',zh:'骨头',def:'A composite material consisting largely of calcium phosphate and collagen and making up the skeleton of most vertebrates.',phonetic:'/bəʉn/',pos:'n.'},
@@ -2169,21 +2183,21 @@ const DICTIONARY = [
   {en:'border',zh:'边界',def:'The outer edge of something.',phonetic:'/ˈbɔədə/',pos:'n.'},
   {en:'bored',zh:'无聊的',def:'To inspire boredom in somebody.',phonetic:'/bɔːd/',pos:'adj.'},
   {en:'boss',zh:'老板',def:'A person who oversees and directs the work of others; a supervisor.',phonetic:'/bɑs/',pos:'n.'},
-  {en:'both',zh:'adj./pron. 两者都',def:'Each of the two, or of the two kinds.',phonetic:'/bəʊθ/',pos:'pron.'},
+  {en:'both',zh:'两者都',def:'Each of the two, or of the two kinds.',phonetic:'/bəʊθ/',pos:'pron.'},
   {en:'bother',zh:'打扰',def:'Fuss, ado.',phonetic:'[ˈbɔðə(ɹ)]',pos:'v.'},
-  {en:'bow',zh:'v./n. 鞠躬',def:'A weapon made of a curved piece of wood or other flexible material whose ends are connected by a string, used for shooting arrows.',phonetic:'/bəʊ/',pos:'n.'},
-  {en:'brake',zh:'n./v. 刹车',def:'A fern; bracken.',phonetic:'/bɹeɪk/',pos:'n.'},
+  {en:'bow',zh:'鞠躬',def:'A weapon made of a curved piece of wood or other flexible material whose ends are connected by a string, used for shooting arrows.',phonetic:'/bəʊ/',pos:'n.'},
+  {en:'brake',zh:'刹车',def:'A fern; bracken.',phonetic:'/bɹeɪk/',pos:'n.'},
   {en:'brand',zh:'品牌',def:'A conflagration; a flame.',phonetic:'/bɹand/',pos:'n.'},
   {en:'breathe',zh:'呼吸',def:'To draw air into (inhale), and expel air from (exhale), the lungs in order to extract oxygen and excrete waste gases.',phonetic:'/bɹiːð/',pos:'v.'},
-  {en:'breed',zh:'v./n. 繁殖；品种',def:'All animals or plants of the same species or subspecies.',phonetic:'/bɹiːd/',pos:'n.'},
+  {en:'breed',zh:'繁殖；品种',def:'All animals or plants of the same species or subspecies.',phonetic:'/bɹiːd/',pos:'n.'},
   {en:'brick',zh:'砖',def:'A hardened rectangular block of mud, clay etc., used for building.',phonetic:'/bɹɪk/',pos:'n.'},
   {en:'bride',zh:'新娘',def:'A woman in the context of her own wedding; one who is going to marry or has just been married.',phonetic:'/bɹaɪd/',pos:'n.'},
-  {en:'broadcast',zh:'v./n. 广播',def:'A transmission of a radio or television programme intended to be received by anyone with a receiver.',phonetic:'/ˈbɹɑdkæst/',pos:'n.'},
-  {en:'budget',zh:'n./v. 预算',def:'The amount of money or resources earmarked for a particular institution, activity or time-frame.',phonetic:'/ˈbʌdʒ.ɪt/',pos:'n.'},
+  {en:'broadcast',zh:'广播',def:'A transmission of a radio or television programme intended to be received by anyone with a receiver.',phonetic:'/ˈbɹɑdkæst/',pos:'n.'},
+  {en:'budget',zh:'预算',def:'The amount of money or resources earmarked for a particular institution, activity or time-frame.',phonetic:'/ˈbʌdʒ.ɪt/',pos:'n.'},
   {en:'building',zh:'建筑物',def:'The act or process by which something is built; construction.',phonetic:'/ˈbɪl.dɪŋ/',pos:'n.'},
   {en:'bullet',zh:'子弹',def:'A projectile, usually of metal, shot from a gun at high speed.',phonetic:'/ˈbʊl.ɪt/',pos:'n.'},
   {en:'butcher',zh:'屠夫',def:'A person who prepares and sells meat (and sometimes also slaughters the animals).',phonetic:'/ˈbʊtʃ.ə(ɹ)/',pos:'n.'},
-  {en:'buttock',zh:'臀部',def:'',phonetic:'',pos:'n.'},
+  {en:'buttock',zh:'臀部',def:'Either of the two rounded fleshy parts of the human body that form the bottom.',phonetic:'/ˈbʌtək/',pos:'n.'},
   {en:'buyer',zh:'买家',def:'A person who makes one or more purchases.',phonetic:'/ˈbaɪ.ə(ɹ)/',pos:'n.'},
   {en:'cabin',zh:'小木屋',def:'A small dwelling characteristic of the frontier, especially when built from logs with simple tools and not constructed by professional builders, but by those who meant to live in it.',phonetic:'/ˈkæbɪn/',pos:'n.'},
   {en:'cafe',zh:'咖啡馆',def:'A convenience store, originally one that sold coffee and similar basic items.',phonetic:'/ˈkæfeɪ/',pos:'n.'},
@@ -2205,7 +2219,7 @@ const DICTIONARY = [
   {en:'cart',zh:'购物车',def:'A small, open, wheeled vehicle, drawn or pushed by a person or animal, more often used for transporting goods than passengers.',phonetic:'/kɑːt/',pos:'n.'},
   {en:'cartoon',zh:'卡通',def:'A humorous drawing, often with a caption, or a strip of such drawings.',phonetic:'/kɑːˈtuːn/',pos:'n.'},
   {en:'cash',zh:'现金',def:'Money in the form of notes/bills and coins, as opposed to cheques/checks or electronic transactions.',phonetic:'/kæʃ/',pos:'n.'},
-  {en:'cast',zh:'v./n. 投掷；石膏',def:'An act of throwing.',phonetic:'/kæst/',pos:'n.'},
+  {en:'cast',zh:'投掷；石膏',def:'An act of throwing.',phonetic:'/kæst/',pos:'n.'},
   {en:'cathedral',zh:'大教堂',def:'Relating to the throne or the see of a bishop.',phonetic:'/kəˈθiː.dɹəl/',pos:'n.'},
   {en:'cattle',zh:'牛',def:'Domesticated bovine animals (cows, bulls, steers etc).',phonetic:'/ˈkæt(ə)l/',pos:'n.'},
   {en:'cave',zh:'洞穴',def:'A large, naturally-occurring cavity formed underground or in the face of a cliff or a hillside.',phonetic:'/keɪv/',pos:'n.'},
@@ -2221,11 +2235,11 @@ const DICTIONARY = [
   {en:'chalk',zh:'粉笔',def:'A soft, white, powdery limestone.',phonetic:'/t͡ʃɔːk/',pos:'n.'},
   {en:'channel',zh:'频道',def:'The physical confine of a river or slough, consisting of a bed and banks.',phonetic:'/ˈtʃænəl/',pos:'n.'},
   {en:'chapter',zh:'章节',def:'(authorship) One of the main sections into which the text of a book is divided.',phonetic:'/ˈt͡ʃæptə/',pos:'n.'},
-  {en:'charge',zh:'n./v. 收费；充电',def:'The amount of money levied for a service.',phonetic:'/t͡ʃɑːd͡ʒ/',pos:'n.'},
+  {en:'charge',zh:'收费；充电',def:'The amount of money levied for a service.',phonetic:'/t͡ʃɑːd͡ʒ/',pos:'n.'},
   {en:'charity',zh:'慈善',def:'An organization, the objective of which is to carry out a charitable purpose.',phonetic:'/ˈtʃæɹɪti/',pos:'n.'},
   {en:'charm',zh:'魅力',def:'An object, act or words believed to have magic power (usually carries a positive connotation).',phonetic:'/tʃɑːm/',pos:'n.'},
   {en:'chart',zh:'图表',def:'A map.',phonetic:'/tʃɑːt/',pos:'n.'},
-  {en:'chat',zh:'n./v. 聊天',def:'Informal conversation.',phonetic:'/tʃæt/',pos:'n.'},
+  {en:'chat',zh:'聊天',def:'Informal conversation.',phonetic:'/tʃæt/',pos:'n.'},
   {en:'cheat',zh:'欺骗',def:'To violate rules in order to gain advantage from a situation.',phonetic:'/tʃiːt/',pos:'v.'},
   {en:'check',zh:'检查',def:'A situation in which the king is directly threatened by an opposing piece.',phonetic:'/t͡ʃɛk/',pos:'v.'},
   {en:'cheek',zh:'脸颊',def:'The soft skin on each side of the face, below the eyes; the outer surface of the sides of the oral cavity.',phonetic:'/tʃiːk/',pos:'n.'},
@@ -2233,7 +2247,7 @@ const DICTIONARY = [
   {en:'chef',zh:'厨师',def:'The presiding cook in the kitchen of a large household.',phonetic:'/ʃɛf/',pos:'n.'},
   {en:'chess',zh:'国际象棋',def:'A board game for two players with each beginning with sixteen chess pieces moving according to fixed rules across a chessboard with the objective to checkmate the opposing king.',phonetic:'/t͡ʃɛs/',pos:'n.'},
   {en:'chest',zh:'胸部',def:'A box, now usually a large strong box with a secure convex lid.',phonetic:'/t͡ʃɛst/',pos:'n.'},
-  {en:'chief',zh:'n./adj. 首领',def:'A leader or head of a group of people, organisation, etc.',phonetic:'/tʃiːf/',pos:'n.'},
+  {en:'chief',zh:'首领',def:'A leader or head of a group of people, organisation, etc.',phonetic:'/tʃiːf/',pos:'n.'},
   {en:'childhood',zh:'童年',def:'The state of being a child.',phonetic:'/ˈtʃaɪldhʊd/',pos:'n.'},
   {en:'chili',zh:'辣椒',def:'The pungent, spicy fresh or dried fruit of any of several cultivated varieties of capsicum peppers, used in cooking.',phonetic:'/ˈt͡ʃɪli/',pos:'n.'},
   {en:'chin',zh:'下巴',def:'The bottom of a face, (specifically) the typically jutting jawline below the mouth.',phonetic:'/tʃɪn/',pos:'n.'},
@@ -2246,7 +2260,7 @@ const DICTIONARY = [
   {en:'classmate',zh:'同班同学',def:'A student who is in the same class at school.',phonetic:'/ˈklɑːs.meɪt/',pos:'n.'},
   {en:'claw',zh:'爪子',def:'A curved, pointed horny nail on each digit of the foot of a mammal, reptile, or bird.',phonetic:'/klɔː/',pos:'n.'},
   {en:'cleaner',zh:'清洁剂',def:'A person whose occupation is to clean floors, windows and other things.',phonetic:'/ˈkliː.nə/',pos:'n.'},
-  {en:'click',zh:'v./n. 点击',def:'A brief, sharp, not particularly loud, relatively high-pitched sound produced by the impact of something small and hard against something hard, such as by the operation of a switch, a lock or a latch, or a finger pressed against the thumb and then released to strike the hand.',phonetic:'/klɪk/',pos:'n.'},
+  {en:'click',zh:'点击',def:'A brief, sharp, not particularly loud, relatively high-pitched sound produced by the impact of something small and hard against something hard, such as by the operation of a switch, a lock or a latch, or a finger pressed against the thumb and then released to strike the hand.',phonetic:'/klɪk/',pos:'n.'},
   {en:'client',zh:'客户',def:'A customer, a buyer or receiver of goods or services.',phonetic:'/ˈklʌɪənt/',pos:'n.'},
   {en:'cliff',zh:'悬崖',def:'A vertical (or nearly vertical) rock face.',phonetic:'/klɪf/',pos:'n.'},
   {en:'climbing',zh:'攀登',def:'To ascend; rise; to go up.',phonetic:'/ˈklaɪ̯mɪŋ/',pos:'n.'},
@@ -2263,27 +2277,27 @@ const DICTIONARY = [
   {en:'coffin',zh:'棺材',def:'A rectangular closed box in which the body of a dead person is placed for burial.',phonetic:'/ˈkɑfɪn/',pos:'n.'},
   {en:'column',zh:'柱子；专栏',def:'A solid upright structure designed usually to support a larger structure above it, such as a roof or horizontal beam, but sometimes for decoration.',phonetic:'/ˈkɑljəm/',pos:'n.'},
   {en:'comedy',zh:'喜剧',def:'A choric song of celebration or revel, especially in Ancient Greece.',phonetic:'/ˈkɒmədi/',pos:'n.'},
-  {en:'comfort',zh:'n./v. 舒适',def:'Contentment, ease.',phonetic:'/ˈkʊm.fət/',pos:'n.'},
-  {en:'comic',zh:'n./adj. 漫画',def:'A comedian.',phonetic:'/ˈkɒmɪk/',pos:'n.'},
-  {en:'command',zh:'n./v. 命令',def:'An order to do something.',phonetic:'/kəˈmɑːnd/',pos:'n.'},
-  {en:'commercial',zh:'adj./n. 商业的；广告',def:'An advertisement in a common media format, usually radio or television.',phonetic:'/kəˈmɜːʃəl/',pos:'n.'},
+  {en:'comfort',zh:'舒适',def:'Contentment, ease.',phonetic:'/ˈkʊm.fət/',pos:'n.'},
+  {en:'comic',zh:'漫画',def:'A comedian.',phonetic:'/ˈkɒmɪk/',pos:'n.'},
+  {en:'command',zh:'命令',def:'An order to do something.',phonetic:'/kəˈmɑːnd/',pos:'n.'},
+  {en:'commercial',zh:'商业的；广告',def:'An advertisement in a common media format, usually radio or television.',phonetic:'/kəˈmɜːʃəl/',pos:'n.'},
   {en:'commit',zh:'犯（罪）',def:'The act of committing (e.g. a database transaction or source code into a source control repository), making it a permanent change.',phonetic:'/kəˈmɪt/',pos:'v.'},
   {en:'committee',zh:'委员会',def:'A body of one or more persons convened for the accomplishment of some specific purpose, typically with formal protocols.',phonetic:'',pos:'n.'},
   {en:'compass',zh:'指南针',def:'A magnetic or electronic device used to determine the cardinal directions (usually magnetic or true north).',phonetic:'/ˈkʌm.pəs/',pos:'n.'},
   {en:'computer',zh:'电脑',def:'A person employed to perform computations; one who computes.',phonetic:'/kəmˈpjuːtə/',pos:'n.'},
-  {en:'concern',zh:'n./v. 关心',def:'That which affects one’s welfare or happiness. A matter of interest to someone. The adposition before the matter of interest is usually over, about or for.',phonetic:'/kənˈsɜːn/',pos:'n.'},
-  {en:'concrete',zh:'adj./n. 混凝土',def:'A solid mass formed by the coalescence of separate particles; a compound substance, a concretion.',phonetic:'/kɵnˈkɹiːt/',pos:'n.'},
+  {en:'concern',zh:'关心',def:'That which affects one’s welfare or happiness. A matter of interest to someone. The adposition before the matter of interest is usually over, about or for.',phonetic:'/kənˈsɜːn/',pos:'n.'},
+  {en:'concrete',zh:'混凝土',def:'A solid mass formed by the coalescence of separate particles; a compound substance, a concretion.',phonetic:'/kɵnˈkɹiːt/',pos:'n.'},
   {en:'condo',zh:'公寓',def:'Joint sovereignty over a territory by two or more countries.',phonetic:'/ˈkɒndəʊ/',pos:'n.'},
   {en:'confidence',zh:'信心',def:'Self-assurance.',phonetic:'/ˈkɒnfɪdəns/',pos:'n.'},
   {en:'congratulations',zh:'祝贺',def:'The act of congratulating.',phonetic:'/kənˌɡɹad͡ʒəˈleɪʃ(ə)nz/',pos:'n.'},
   {en:'connection',zh:'连接',def:'The act of connecting.',phonetic:'/kəˈnɛkʃən/',pos:'n.'},
   {en:'construction',zh:'建筑',def:'The process of constructing.',phonetic:'/kənˈstɹʌkʃən/',pos:'n.'},
-  {en:'content',zh:'n./adj. 内容；满足的',def:'(except in phrases) Satisfaction, contentment; pleasure.',phonetic:'/kənˈtɛnt/',pos:'n.'},
+  {en:'content',zh:'内容；满足的',def:'(except in phrases) Satisfaction, contentment; pleasure.',phonetic:'/kənˈtɛnt/',pos:'n.'},
   {en:'continent',zh:'大陆',def:'Each of the main continuous land-masses on the earth\'s surface, now generally regarded as seven in number, including their related islands, continental shelves etc.',phonetic:'/ˈkɒntɪnənt/',pos:'n.'},
-  {en:'contract',zh:'n./v. 合同',def:'An agreement between two or more parties, to perform a specific job or work order, often temporary or of fixed duration and usually governed by a written agreement.',phonetic:'/ˈkɒntɹækt/',pos:'n.'},
+  {en:'contract',zh:'合同',def:'An agreement between two or more parties, to perform a specific job or work order, often temporary or of fixed duration and usually governed by a written agreement.',phonetic:'/ˈkɒntɹækt/',pos:'n.'},
   {en:'cookie',zh:'饼干',def:'A small, flat, baked good which is either crisp or soft but firm.',phonetic:'/ˈkuːki/',pos:'n.'},
   {en:'cooking',zh:'烹饪',def:'To prepare (food) for eating by heating it, often by combining it with other ingredients.',phonetic:'/ˈkʊ.kɪŋ/',pos:'n.'},
-  {en:'coral',zh:'n./adj. 珊瑚',def:'A hard substance made of the limestone skeletons of marine polyps.',phonetic:'/ˈkɒɹəl/',pos:'n.'},
+  {en:'coral',zh:'珊瑚',def:'A hard substance made of the limestone skeletons of marine polyps.',phonetic:'/ˈkɒɹəl/',pos:'n.'},
   {en:'corner',zh:'角落',def:'The point where two converging lines meet; an angle, either external or internal.',phonetic:'/ˈkɔːnə(ɹ)/',pos:'n.'},
   {en:'costume',zh:'服装',def:'A style of dress, including garments, accessories and hairstyle, especially as characteristic of a particular country, period or people.',phonetic:'/ˈkɒs.tjuːm/',pos:'n.'},
   {en:'cottage',zh:'小屋',def:'A small house.',phonetic:'/ˈkɒtɪdʒ/',pos:'n.'},
@@ -2293,11 +2307,11 @@ const DICTIONARY = [
   {en:'counter',zh:'柜台',def:'One who counts',phonetic:'/ˈkaʊntə/',pos:'n.'},
   {en:'countryside',zh:'乡村',def:'A rural area, or the rural part of a larger area.',phonetic:'/ˈkʌn.tɹiˌsaɪd/',pos:'n.'},
   {en:'couple',zh:'一对；夫妇',def:'Two partners in a romantic or sexual relationship.',phonetic:'/ˈkʌpəl/',pos:'n.'},
-  {en:'course',zh:'课程',def:'A sequence of events.',phonetic:'/kɔːs/',pos:'n.'},
+  {en:'course',zh:'课程',def:'A series of lessons or lectures in a particular subject or area.',phonetic:'/kɔːs/',pos:'n.'},
   {en:'crab',zh:'螃蟹',def:'A crustacean of the infraorder Brachyura, having five pairs of legs, the foremost of which are in the form of claws, and a carapace.',phonetic:'/kɹæb/',pos:'n.'},
   {en:'cracker',zh:'饼干',def:'A dry, thin, crispy baked bread (usually salty or savoury, but sometimes sweet, as in the case of graham crackers and animal crackers).',phonetic:'/ˈkɹækə(ɹ)/',pos:'n.'},
   {en:'craft',zh:'工艺',def:'Strength; power; might; force .',phonetic:'/kɹɑːft/',pos:'n.'},
-  {en:'crash',zh:'n./v. 碰撞',def:'A sudden, intense, loud sound, as made for example by cymbals.',phonetic:'/kɹæʃ/',pos:'n.'},
+  {en:'crash',zh:'碰撞',def:'A sudden, intense, loud sound, as made for example by cymbals.',phonetic:'/kɹæʃ/',pos:'n.'},
   {en:'crawl',zh:'爬行',def:'The act of moving slowly on hands and knees etc, or with frequent stops.',phonetic:'/kɹɔl/',pos:'v.'},
   {en:'crayon',zh:'蜡笔',def:'A stick of colored chalk or wax used for drawing.',phonetic:'/ˈkɹeɪ.ɒ̃/',pos:'n.'},
   {en:'cream',zh:'奶油',def:'The butterfat/milkfat part of milk which rises to the top; this part when separated from the remainder.',phonetic:'/kɹiːm/',pos:'n.'},
@@ -2312,16 +2326,16 @@ const DICTIONARY = [
   {en:'criminal',zh:'罪犯',def:'A person who is guilty of a crime, notably breaking the law.',phonetic:'/ˈkɹɪmənəl/',pos:'n.'},
   {en:'crisis',zh:'危机',def:'A crucial or decisive point or situation; a turning point.',phonetic:'/ˈkɹaɪsɪs/',pos:'n.'},
   {en:'cruel',zh:'残忍的',def:'To spoil or ruin (one\'s chance of success)',phonetic:'/kɹuː(ə)l/',pos:'adj.'},
-  {en:'cruise',zh:'n./v. 巡航',def:'A sea or lake voyage, especially one taken for pleasure.',phonetic:'/kɹuːz/',pos:'n.'},
+  {en:'cruise',zh:'巡航',def:'A sea or lake voyage, especially one taken for pleasure.',phonetic:'/kɹuːz/',pos:'n.'},
   {en:'cup',zh:'杯子',def:'A concave vessel for drinking from, usually made of opaque material (as opposed to a glass) and with a handle.',phonetic:'/kʌp/',pos:'n.'},
   {en:'cupboard',zh:'橱柜',def:'A board or table used to openly hold and display silver plate and other dishware; a sideboard; a buffet.',phonetic:'/ˈkʌbəd/',pos:'n.'},
   {en:'currency',zh:'货币',def:'Money or other items used to facilitate transactions.',phonetic:'/ˈkʌɹ.ən.si/',pos:'n.'},
-  {en:'current',zh:'adj./n. 当前的；电流',def:'The generally unidirectional movement of a gas or fluid.',phonetic:'/ˈkʌɹənt/',pos:'n.'},
+  {en:'current',zh:'当前的；电流',def:'The generally unidirectional movement of a gas or fluid.',phonetic:'/ˈkʌɹənt/',pos:'n.'},
   {en:'curriculum',zh:'课程',def:'The set of courses, coursework, and their content, offered at a school or university.',phonetic:'/kəˈɹɪk.jə.ləm/',pos:'n.'},
   {en:'curse',zh:'诅咒',def:'A supernatural detriment or hindrance; a bane.',phonetic:'/kɜːs/',pos:'n.'},
   {en:'curtain',zh:'窗帘',def:'A piece of cloth covering a window, bed, etc. to offer privacy and keep out light.',phonetic:'/ˈkɜːtn̩/',pos:'n.'},
   {en:'cushion',zh:'垫子',def:'A soft mass of material stuffed into a cloth bag, used for comfort or support; for sitting on, kneeling on, resting one\'s head on etc.',phonetic:'/ˈkʊʃən/',pos:'n.'},
-  {en:'cycle',zh:'n./v. 循环',def:'An interval of space or time in which one set of events or phenomena is completed.',phonetic:'/ˈsaɪkəl/',pos:'n.'},
+  {en:'cycle',zh:'循环',def:'An interval of space or time in which one set of events or phenomena is completed.',phonetic:'/ˈsaɪkəl/',pos:'n.'},
   {en:'dancer',zh:'舞者',def:'A person who dances, usually as a job or profession.',phonetic:'/ˈdæns.ə(ɹ)/',pos:'n.'},
   {en:'data',zh:'数据',def:'(plural: data) A measurement of something on a scale understood by both the recorder (a person or device) and the reader (another person or device). The scale is arbitrarily defined, such as from 1 to 10 by ones, 1 to 100 by 0.1, or simply true or false, on or off, yes, no, or maybe, etc.',phonetic:'/ˈdaetə/',pos:'n.'},
   {en:'dead',zh:'死的',def:'(with "the", a demonstrative, or a possessive) Those who have died.',phonetic:'/diːd/',pos:'adj.'},
@@ -2331,61 +2345,61 @@ const DICTIONARY = [
   {en:'decoration',zh:'装饰',def:'The act of adorning, embellishing, or honoring; ornamentation.',phonetic:'/ˌdɛkəˈɹeɪʃən/',pos:'n.'},
   {en:'degree',zh:'学位；程度',def:'A stage of proficiency or qualification in a course of study, now especially an award bestowed by a university or, in some countries, a college, as a certification of academic achievement. (In the United States, can include secondary schools.)',phonetic:'/dɪˈɡɹiː/',pos:'n.'},
   {en:'deliberate',zh:'故意的',def:'To consider carefully; to weigh well in the mind.',phonetic:'',pos:'adj.'},
-  {en:'delight',zh:'n./v. 高兴',def:'Joy; pleasure.',phonetic:'/dəˈlaɪt/',pos:'n.'},
-  {en:'demand',zh:'n./v. 要求',def:'The desire to purchase goods and services.',phonetic:'/dɪˈmɑːnd/',pos:'n.'},
+  {en:'delight',zh:'高兴',def:'Joy; pleasure.',phonetic:'/dəˈlaɪt/',pos:'n.'},
+  {en:'demand',zh:'要求',def:'The desire to purchase goods and services.',phonetic:'/dɪˈmɑːnd/',pos:'n.'},
   {en:'democracy',zh:'民主',def:'Rule by the people, especially as a form of government; either directly or through elected representatives (representative democracy).',phonetic:'/dɪˈmɒkɹəsi/',pos:'n.'},
   {en:'denim',zh:'牛仔布',def:'A textile often made of cotton with a distinct diagonal pattern.',phonetic:'/ˈdɛnɪm/',pos:'n.'},
   {en:'dentist',zh:'牙医',def:'A medical doctor who specializes in dentistry.',phonetic:'/ˈdɛntɪst/',pos:'n.'},
   {en:'deny',zh:'否认',def:'To disallow or reject.',phonetic:'/dɪˈnaɪ/',pos:'v.'},
   {en:'depart',zh:'离开',def:'Division; separation, as of compound substances.',phonetic:'/dɪˈpɑːt/',pos:'v.'},
   {en:'department',zh:'部门',def:'A part, portion, or subdivision.',phonetic:'/dɪˈpɑːtm(ə)nt/',pos:'n.'},
-  {en:'deposit',zh:'n./v. 存款',def:'',phonetic:'',pos:''},
-  {en:'depressed',zh:'沮丧的',def:'',phonetic:'',pos:'adj.'},
-  {en:'depression',zh:'抑郁',def:'',phonetic:'',pos:'n.'},
-  {en:'designer',zh:'设计师',def:'',phonetic:'',pos:'n.'},
-  {en:'desire',zh:'n./v. 渴望',def:'',phonetic:'',pos:''},
-  {en:'dessert',zh:'甜点',def:'',phonetic:'',pos:'n.'},
-  {en:'destination',zh:'目的地',def:'',phonetic:'',pos:'n.'},
-  {en:'detail',zh:'细节',def:'',phonetic:'',pos:'n.'},
-  {en:'development',zh:'发展',def:'',phonetic:'',pos:'n.'},
-  {en:'device',zh:'设备',def:'',phonetic:'',pos:'n.'},
-  {en:'diary',zh:'日记',def:'',phonetic:'',pos:'n.'},
-  {en:'difficulty',zh:'困难',def:'',phonetic:'',pos:'n.'},
-  {en:'digital',zh:'数字的',def:'',phonetic:'',pos:'adj.'},
-  {en:'diploma',zh:'文凭',def:'',phonetic:'',pos:'n.'},
-  {en:'direction',zh:'方向',def:'',phonetic:'',pos:'n.'},
-  {en:'dirt',zh:'泥土',def:'',phonetic:'',pos:'n.'},
-  {en:'disabled',zh:'残疾的',def:'',phonetic:'',pos:'adj.'},
-  {en:'disappoint',zh:'使失望',def:'',phonetic:'',pos:'v.'},
-  {en:'disaster',zh:'灾难',def:'',phonetic:'',pos:'n.'},
-  {en:'discount',zh:'n./v. 折扣',def:'',phonetic:'',pos:''},
-  {en:'disk',zh:'磁盘',def:'',phonetic:'',pos:'n.'},
-  {en:'disorder',zh:'紊乱',def:'',phonetic:'',pos:'n.'},
-  {en:'display',zh:'n./v. 显示',def:'',phonetic:'',pos:''},
-  {en:'district',zh:'地区',def:'',phonetic:'',pos:'n.'},
-  {en:'division',zh:'除法',def:'',phonetic:'',pos:'n.'},
-  {en:'divorce',zh:'n./v. 离婚',def:'',phonetic:'',pos:''},
-  {en:'doctor',zh:'医生',def:'',phonetic:'',pos:'n.'},
-  {en:'document',zh:'文件',def:'',phonetic:'',pos:'n.'},
-  {en:'domestic',zh:'国内的',def:'',phonetic:'',pos:'adj.'},
-  {en:'dose',zh:'剂量',def:'',phonetic:'',pos:'n.'},
-  {en:'dot',zh:'点',def:'',phonetic:'',pos:'n.'},
-  {en:'doubt',zh:'n./v. 怀疑',def:'',phonetic:'',pos:''},
-  {en:'download',zh:'v./n. 下载',def:'',phonetic:'',pos:''},
-  {en:'downstairs',zh:'在楼下',def:'',phonetic:'',pos:'adv.'},
-  {en:'downtown',zh:'n./adj. 市中心',def:'The main business part of a city or town, usually located at or near its center.',phonetic:'',pos:'n.'},
+  {en:'deposit',zh:'存款',def:'Sediment or rock that is not native to its present location or is different from the surrounding material. Sometimes refers to ore or gems.',phonetic:'/dɪˈpɒzɪt/',pos:'noun'},
+  {en:'depressed',zh:'沮丧的',def:'To press down.',phonetic:'/dɪˈpɹɛst/',pos:'adj.'},
+  {en:'depression',zh:'抑郁',def:'In psychotherapy and psychiatry, a state of mind producing serious, long-term lowering of enjoyment of life or inability to visualize a happy future.',phonetic:'/dɪˈpɹɛʃən/',pos:'n.'},
+  {en:'designer',zh:'设计师',def:'A person who designs something, or who designs things as a profession.',phonetic:'/dɪˈzaɪnɚ/',pos:'n.'},
+  {en:'desire',zh:'渴望',def:'Someone or something wished for.',phonetic:'/dɪˈzaɪə/',pos:'noun'},
+  {en:'dessert',zh:'甜点',def:'A sweet confection served as the last course of a meal',phonetic:'/dɪˈzɜːt/',pos:'n.'},
+  {en:'destination',zh:'目的地',def:'The act of destining or appointing.',phonetic:'/dɛstɪˈneɪʃən/',pos:'n.'},
+  {en:'detail',zh:'细节',def:'Something small enough to escape casual notice.',phonetic:'/ˈdiːteɪl/',pos:'n.'},
+  {en:'development',zh:'发展',def:'The process of developing; growth, directed change.',phonetic:'/dɪˈvɛləpmənt/',pos:'n.'},
+  {en:'device',zh:'设备',def:'Any piece of equipment made for a particular purpose, especially a mechanical or electrical one.',phonetic:'/dəˈvaɪs/',pos:'n.'},
+  {en:'diary',zh:'日记',def:'A daily log of experiences, especially those of the writer.',phonetic:'/ˈdaɪəɹi/',pos:'n.'},
+  {en:'difficulty',zh:'困难',def:'The state of being difficult, or hard to do.',phonetic:'/ˈdɪfɪkəlti/',pos:'n.'},
+  {en:'digital',zh:'数字的',def:'A digital option.',phonetic:'/ˈdɪd͡ʒɪtəɫ/',pos:'adj.'},
+  {en:'diploma',zh:'文凭',def:'A document issued by an educational institution testifying that the recipient has earned a degree or has successfully completed a particular course of study.',phonetic:'/dɪˈpləʊmə/',pos:'n.'},
+  {en:'direction',zh:'方向',def:'A theoretical line (physically or mentally) followed from a point of origin or towards a destination. May be relative (e.g. up, left, outbound, dorsal), geographical (e.g. north), rotational (e.g. clockwise), or with respect to an object or location (e.g. toward Boston).',phonetic:'/d(a)ɪˈɹɛk.ʃən/',pos:'n.'},
+  {en:'dirt',zh:'泥土',def:'Soil or earth.',phonetic:'/dɜːt/',pos:'n.'},
+  {en:'disabled',zh:'残疾的',def:'To render unable; to take away an ability of, as by crippling.',phonetic:'[dɪsˈeɪbəɫd]',pos:'adj.'},
+  {en:'disappoint',zh:'使失望',def:'To sadden or displease (someone) by underperforming, or by not delivering something promised or hoped for.',phonetic:'/dɪsəˈpɔɪnt/',pos:'v.'},
+  {en:'disaster',zh:'灾难',def:'A sudden event causing great damage or loss of life.',phonetic:'/dɪˈzɑːstə/',pos:'n.'},
+  {en:'discount',zh:'折扣',def:'A reduction in price.',phonetic:'/dɪsˈkaʊnt/',pos:'noun'},
+  {en:'disk',zh:'磁盘',def:'A thin, flat, circular plate or similar object.',phonetic:'/dɪsk/',pos:'n.'},
+  {en:'disorder',zh:'紊乱',def:'Absence of order; state of not being arranged in an orderly manner.',phonetic:'/dɪsˈɔːdə(ɹ)/',pos:'n.'},
+  {en:'display',zh:'显示',def:'A show or spectacle.',phonetic:'/dɪsˈpleɪ/',pos:'noun'},
+  {en:'district',zh:'地区',def:'An administrative division of an area.',phonetic:'/ˈdɪstɹɪkt/',pos:'n.'},
+  {en:'division',zh:'除法',def:'The act or process of dividing anything.',phonetic:'/dɪˈvɪʒən/',pos:'n.'},
+  {en:'divorce',zh:'离婚',def:'The legal dissolution of a marriage.',phonetic:'/dɪˈvɔːs/',pos:'noun'},
+  {en:'doctor',zh:'医生',def:'A physician; a member of the medical profession; one who is trained and licensed to heal the sick or injured. The final examination and qualification may award a doctor degree in which case the post-nominal letters are D.O., DPM, M.D., DMD, DDS, in the US or MBBS in the UK.',phonetic:'/ˈdɒktə/',pos:'n.'},
+  {en:'document',zh:'文件',def:'An original or official paper used as the basis, proof, or support of anything else, including any writing, book, or other instrument conveying information pertinent to such proof or support.',phonetic:'/ˈdɒkjʊmənt/',pos:'n.'},
+  {en:'domestic',zh:'国内的',def:'A house servant; a maid; a household worker.',phonetic:'/dəˈmɛstɪk/',pos:'adj.'},
+  {en:'dose',zh:'剂量',def:'A measured quantity of a medicine or drug taken at one time.',phonetic:'/dəʊs/',pos:'n.'},
+  {en:'dot',zh:'点',def:'A small, round spot.',phonetic:'',pos:'n.'},
+  {en:'doubt',zh:'怀疑',def:'Disbelief or uncertainty (about something); a particular instance of such disbelief or uncertainty.',phonetic:'/dʌʊt/',pos:'noun'},
+  {en:'download',zh:'下载',def:'A file transfer to the local computer.',phonetic:'/ˈdaʊnˌləʊd/',pos:'noun'},
+  {en:'downstairs',zh:'在楼下',def:'The lower floor of a house, at ground level.',phonetic:'/daʊnˈstɛəz/',pos:'adv.'},
+  {en:'downtown',zh:'市中心',def:'The main business part of a city or town, usually located at or near its center.',phonetic:'',pos:'n.'},
   {en:'dozen',zh:'一打',def:'A set of twelve.',phonetic:'/ˈdʌzən/',pos:'n.'},
-  {en:'draft',zh:'n./v. 草稿',def:'A current of air, usually coming into a room or vehicle.',phonetic:'/dɹæft/',pos:'n.'},
+  {en:'draft',zh:'草稿',def:'A current of air, usually coming into a room or vehicle.',phonetic:'/dɹæft/',pos:'n.'},
   {en:'dramatic',zh:'戏剧性的',def:'Of or relating to the drama.',phonetic:'/dɹəˈmætɪk/',pos:'adj.'},
   {en:'drawer',zh:'抽屉',def:'An open-topped box that can be slid in and out of the cabinet that contains it, used for storing clothing or other articles.',phonetic:'/dɹɔː(ɹ)/',pos:'n.'},
-  {en:'dress',zh:'n./v. 连衣裙；穿衣',def:'An item of clothing (usually worn by a woman or young girl) which both covers the upper part of the body and includes skirts below the waist.',phonetic:'/dɹɛs/',pos:'n.'},
+  {en:'dress',zh:'连衣裙；穿衣',def:'An item of clothing (usually worn by a woman or young girl) which both covers the upper part of the body and includes skirts below the waist.',phonetic:'/dɹɛs/',pos:'n.'},
   {en:'dresser',zh:'梳妆台',def:'An item of kitchen furniture, like a cabinet with shelves, for storing crockery or utensils.',phonetic:'/ˈdɹɛsə/',pos:'n.'},
   {en:'drug',zh:'药物',def:'A substance used to treat an illness, relieve a symptom, or modify a chemical process in the body for a specific purpose.',phonetic:'/dɹʌɡ/',pos:'n.'},
   {en:'drum',zh:'鼓',def:'A percussive musical instrument spanned with a thin covering on at least one end for striking, forming an acoustic chamber, affecting what materials are used to make it; a membranophone.',phonetic:'/ˈdɹʌm/',pos:'n.'},
   {en:'dust',zh:'灰尘',def:'Fine particles',phonetic:'/dʌst/',pos:'n.'},
   {en:'earn',zh:'赚取',def:'To gain (success, reward, recognition) through applied effort or work.',phonetic:'/ɜːn/',pos:'v.'},
   {en:'earring',zh:'耳环',def:'A piece of jewelry worn on the ear.',phonetic:'/ˈɪəɹɪŋ/',pos:'n.'},
-  {en:'ease',zh:'v./n. 减轻；舒适',def:'Ability, the means to do something, particularly:',phonetic:'/iːz/',pos:'n.'},
+  {en:'ease',zh:'减轻；舒适',def:'Ability, the means to do something, particularly:',phonetic:'/iːz/',pos:'n.'},
   {en:'eastern',zh:'东方的',def:'Of, facing, situated in, or related to the east.',phonetic:'/ˈiːstən/',pos:'adj.'},
   {en:'economic',zh:'经济的',def:'Pertaining to an economy.',phonetic:'/ˌiːkəˈnɒmɪk/',pos:'adj.'},
   {en:'economy',zh:'经济',def:'Effective management of a community or system, or especially its resources.',phonetic:'/iːˈkɒn.ə.mi/',pos:'n.'},
@@ -2410,42 +2424,42 @@ const DICTIONARY = [
   {en:'entrance',zh:'入口',def:'The action of entering, or going in.',phonetic:'/ˈɛn.tɹəns/',pos:'n.'},
   {en:'entry',zh:'进入；条目',def:'The act of entering.',phonetic:'/ˈɛntɹi/',pos:'n.'},
   {en:'envelope',zh:'信封',def:'A paper or cardboard wrapper used to enclose small, flat items, especially letters, for mailing.',phonetic:'/ˈɒn.və.ləʊp/',pos:'n.'},
-  {en:'envy',zh:'n./v. 嫉妒',def:'Resentful desire of something possessed by another or others (but not limited to material possessions).',phonetic:'/ˈɛnvi/',pos:'n.'},
+  {en:'envy',zh:'嫉妒',def:'Resentful desire of something possessed by another or others (but not limited to material possessions).',phonetic:'/ˈɛnvi/',pos:'n.'},
   {en:'episode',zh:'集；片段',def:'An incident, action, or time period standing out by itself, but more or less connected with a complete series of events.',phonetic:'/ˈɛpɪsəʊd/',pos:'n.'},
   {en:'equation',zh:'方程',def:'The act or process of equating two or more things, or the state of those things being equal (that is, identical).',phonetic:'/ɪˈkweɪʃən/',pos:'n.'},
   {en:'equipment',zh:'设备',def:'The act of equipping, or the state of being equipped, as for a voyage or expedition.',phonetic:'/ɪˈkwɪpmənt/',pos:'n.'},
   {en:'eraser',zh:'橡皮擦',def:'One who erases.',phonetic:'/ɪˈɹeɪzə/',pos:'n.'},
   {en:'error',zh:'错误',def:'The state, quality, or condition of being wrong.',phonetic:'/ˈɛɹə(ɹ)/',pos:'n.'},
   {en:'esteem',zh:'尊重',def:'Favourable regard.',phonetic:'[ɛsˈtiːm]',pos:'n.'},
-  {en:'even',zh:'adj./adv. 甚至',def:'',phonetic:'',pos:''},
-  {en:'examination',zh:'考试',def:'',phonetic:'',pos:'n.'},
-  {en:'excitement',zh:'兴奋',def:'',phonetic:'',pos:'n.'},
-  {en:'exit',zh:'出口',def:'',phonetic:'',pos:'n.'},
-  {en:'expedition',zh:'探险',def:'',phonetic:'',pos:'n.'},
-  {en:'expert',zh:'专家',def:'',phonetic:'',pos:'n.'},
-  {en:'explanation',zh:'解释',def:'',phonetic:'',pos:'n.'},
-  {en:'expression',zh:'表达',def:'',phonetic:'',pos:'n.'},
-  {en:'extinct',zh:'灭绝的',def:'',phonetic:'',pos:'adj.'},
-  {en:'extraordinary',zh:'非凡的',def:'',phonetic:'',pos:'adj.'},
-  {en:'extreme',zh:'极端的',def:'',phonetic:'',pos:'adj.'},
-  {en:'facility',zh:'设施',def:'',phonetic:'',pos:'n.'},
-  {en:'faint',zh:'adj./v. 微弱的；昏倒',def:'',phonetic:'',pos:''},
-  {en:'fairy',zh:'仙女',def:'',phonetic:'',pos:'n.'},
-  {en:'faith',zh:'信仰',def:'',phonetic:'',pos:'n.'},
+  {en:'even',zh:'甚至',def:'(diminutive) An even number.',phonetic:'/ˈiːvən/',pos:'noun'},
+  {en:'examination',zh:'考试',def:'The act of examining.',phonetic:'/ɪɡˌzæmɪˈneɪʃən/',pos:'n.'},
+  {en:'excitement',zh:'兴奋',def:'The state of being excited (emotionally aroused).',phonetic:'/ɪkˈsaɪtmənt/',pos:'n.'},
+  {en:'exit',zh:'出口',def:'An act of going out or going away, or leaving; a departure.',phonetic:'/ˈɛksɪt/',pos:'n.'},
+  {en:'expedition',zh:'探险',def:'The act of expediting something; prompt execution.',phonetic:'/ɛkspəˈdɪʃən/',pos:'n.'},
+  {en:'expert',zh:'专家',def:'A person with extensive knowledge or ability in a given subject.',phonetic:'/ˈɛkspəːt/',pos:'n.'},
+  {en:'explanation',zh:'解释',def:'The act or process of explaining.',phonetic:'/ˌɛkspləˈneɪʃən/',pos:'n.'},
+  {en:'expression',zh:'表达',def:'The action of expressing thoughts, ideas, feelings, etc.',phonetic:'/ɪkˈspɹɛʃ.ən/',pos:'n.'},
+  {en:'extinct',zh:'灭绝的',def:'To make extinct; to extinguish or annihilate.',phonetic:'/ɛkˈstɪŋkt/',pos:'adj.'},
+  {en:'extraordinary',zh:'非凡的',def:'Anything that goes beyond what is ordinary.',phonetic:'/ɪksˈtɹɔː(ɹ)dɪnəɹi/',pos:'adj.'},
+  {en:'extreme',zh:'极端的',def:'The greatest or utmost point, degree or condition.',phonetic:'/ɛkˈstɹiːm/',pos:'adj.'},
+  {en:'facility',zh:'设施',def:'The fact of being easy, or easily done; absence of difficulty, simplicity.',phonetic:'/fəˈsɪlɪti/',pos:'n.'},
+  {en:'faint',zh:'微弱的；昏倒',def:'The act of fainting, syncope.',phonetic:'/feɪnt/',pos:'noun'},
+  {en:'fairy',zh:'仙女',def:'The realm of faerie; enchantment, illusion.',phonetic:'/ˈfɛə̯ɹi/',pos:'n.'},
+  {en:'faith',zh:'信仰',def:'A trust or confidence in the intentions or abilities of a person, object, or ideal from prior empirical evidence.',phonetic:'/feɪθ/',pos:'n.'},
   {en:'fame',zh:'名声',def:'What is said or reported; gossip, rumour.',phonetic:'/feɪm/',pos:'n.'},
-  {en:'fare',zh:'费用',def:'',phonetic:'',pos:'n.'},
-  {en:'fashionable',zh:'时尚的',def:'',phonetic:'',pos:'adj.'},
-  {en:'fatherinlaw',zh:'岳父；公公',def:'',phonetic:'',pos:'n.'},
-  {en:'faucet',zh:'水龙头',def:'',phonetic:'',pos:'n.'},
+  {en:'fare',zh:'费用',def:'A going; journey; travel; voyage; course; passage.',phonetic:'/fɛə(ɹ)/',pos:'n.'},
+  {en:'fashionable',zh:'时尚的',def:'A fashionable person; a fop',phonetic:'/ˈfæʃənəbl̩/',pos:'adj.'},
+  {en:'fatherinlaw',zh:'岳父；公公',def:'The father of one\'s spouse.',phonetic:'',pos:'n.'},
+  {en:'faucet',zh:'水龙头',def:'A device for controlling the flow of liquid from a pipe.',phonetic:'/ˈfɔːsɪt/',pos:'n.'},
   {en:'feather',zh:'羽毛',def:'A branching, hair-like structure that grows on the bodies of birds, used for flight, swimming, protection and display.',phonetic:'/ˈfɛð.ə(ɹ)/',pos:'n.'},
-  {en:'feature',zh:'特征',def:'',phonetic:'',pos:'n.'},
+  {en:'feature',zh:'特征',def:'One\'s structure or make-up: form, shape, bodily proportions.',phonetic:'/ˈfiːtʃə/',pos:'n.'},
   {en:'federal',zh:'联邦的',def:'A law-enforcement official of the FBI; a federal agent.',phonetic:'/ˈfɛdəɹəl/',pos:'adj.'},
   {en:'fee',zh:'费用',def:'(feudal law) A right to the use of a superior\'s land, as a stipend for services to be performed; also, the land so held; a fief.',phonetic:'/fiː/',pos:'n.'},
-  {en:'feeling',zh:'感觉',def:'',phonetic:'',pos:'n.'},
-  {en:'fence',zh:'围栏',def:'',phonetic:'',pos:'n.'},
+  {en:'feeling',zh:'感觉',def:'(heading) To use or experience the sense of touch.',phonetic:'/ˈfiːlɪŋ/',pos:'n.'},
+  {en:'fence',zh:'围栏',def:'A thin artificial barrier that separates two pieces of land or a house perimeter.',phonetic:'/fɛns/',pos:'n.'},
   {en:'fever',zh:'发烧',def:'A higher than normal body temperature of a person (or, generally, a mammal), usually caused by disease.',phonetic:'/ˈfiːvə/',pos:'n.'},
   {en:'fiction',zh:'小说',def:'Literary type using invented or imaginative writing, instead of real facts, usually written as prose.',phonetic:'/ˈfɪk.ʃən/',pos:'n.'},
-  {en:'file',zh:'n./v. 文件',def:'A collection of papers collated and archived together.',phonetic:'/faɪl/',pos:'n.'},
+  {en:'file',zh:'文件',def:'A collection of papers collated and archived together.',phonetic:'/faɪl/',pos:'n.'},
   {en:'film',zh:'电影',def:'A thin layer of some substance; a pellicle; a membranous covering, causing opacity.',phonetic:'[ˈfɪlm̩]',pos:'n.'},
   {en:'final',zh:'最后的',def:'A final examination; a test or examination given at the end of a term or class; the test that concludes a class.',phonetic:'/ˈfaɪ.nəl/',pos:'adj.'},
   {en:'financial',zh:'金融的',def:'Related to finances.',phonetic:'/faɪˈnænʃəl/',pos:'adj.'},
@@ -2456,8 +2470,8 @@ const DICTIONARY = [
   {en:'flour',zh:'面粉',def:'Powder obtained by grinding or milling cereal grains, especially wheat, or other foodstuffs such as soybeans and potatoes, and used to bake bread, cakes, and pastry.',phonetic:'/ˈflaʊə/',pos:'n.'},
   {en:'flu',zh:'流感',def:'Influenza.',phonetic:'/flʉː/',pos:'n.'},
   {en:'fog',zh:'雾',def:'A thick cloud that forms near the ground; the obscurity of such a cloud.',phonetic:'/fɒɡ/',pos:'n.'},
-  {en:'fool',zh:'n./v. 傻瓜',def:'A person with poor judgment or little intelligence.',phonetic:'/fuːl/',pos:'n.'},
-  {en:'forecast',zh:'n./v. 预报',def:'An estimation of a future condition.',phonetic:'/ˈfɔːkɑːst/',pos:'n.'},
+  {en:'fool',zh:'傻瓜',def:'A person with poor judgment or little intelligence.',phonetic:'/fuːl/',pos:'n.'},
+  {en:'forecast',zh:'预报',def:'An estimation of a future condition.',phonetic:'/ˈfɔːkɑːst/',pos:'n.'},
   {en:'forehead',zh:'额头',def:'The part of the face above the eyebrows and below the hairline.',phonetic:'/ˈfɒɹɛd/',pos:'n.'},
   {en:'forever',zh:'永远',def:'An extremely long time.',phonetic:'/fəˈɹɛvə(ɹ)/',pos:'adv.'},
   {en:'fork',zh:'叉子',def:'A pronged tool having a long straight handle, used for digging, lifting, throwing etc.',phonetic:'/fɔːk/',pos:'n.'},
@@ -2473,10 +2487,10 @@ const DICTIONARY = [
   {en:'fuel',zh:'燃料',def:'Substance consumed to provide energy through combustion, or through chemical or nuclear reaction.',phonetic:'/ˈfjuːl/',pos:'n.'},
   {en:'fulltime',zh:'全职的',def:'Involving a full amount of time spent on some activity, especially a job.',phonetic:'',pos:'adj.'},
   {en:'fully',zh:'完全地',def:'In a full manner; without lack or defect.',phonetic:'/ˈfʊli/',pos:'adv.'},
-  {en:'function',zh:'n./v. 功能',def:'What something does or is used for.',phonetic:'/ˈfʌŋ(k)ʃən/',pos:'n.'},
+  {en:'function',zh:'功能',def:'What something does or is used for.',phonetic:'/ˈfʌŋ(k)ʃən/',pos:'n.'},
   {en:'funeral',zh:'葬礼',def:'A ceremony to honour and remember a deceased person. Often distinguished from a memorial service by the presence of the body of the deceased.',phonetic:'/ˈfjuːnəɹəl/',pos:'n.'},
   {en:'furniture',zh:'家具',def:'Large movable item(s), usually in a room, which enhance(s) the room\'s characteristics, functionally or decoratively.',phonetic:'/ˈfɜːnɪtʃə/',pos:'n.'},
-  {en:'gain',zh:'v./n. 获得',def:'The act of gaining; acquisition.',phonetic:'/ɡeɪn/',pos:'n.'},
+  {en:'gain',zh:'获得',def:'The act of gaining; acquisition.',phonetic:'/ɡeɪn/',pos:'n.'},
   {en:'galaxy',zh:'星系',def:'The Milky Way; the apparent band of concentrated stars which appears in the night sky over earth.',phonetic:'/ˈɡaləksi/',pos:'n.'},
   {en:'gallery',zh:'画廊',def:'An institution, building, or room for the exhibition and conservation of works of art.',phonetic:'/ˈɡæləɹi/',pos:'n.'},
   {en:'game',zh:'游戏',def:'A playful or competitive activity.',phonetic:'/ɡeɪm/',pos:'n.'},
@@ -2493,7 +2507,7 @@ const DICTIONARY = [
   {en:'ginger',zh:'姜',def:'The pungent aromatic rhizome of a tropical Asian herb, Zingiber officinale, used as a spice and as a stimulant and acarminative.',phonetic:'/ˈdʒɪndʒə/',pos:'n.'},
   {en:'girlfriend',zh:'女朋友',def:'A female partner in an unmarried romantic relationship.',phonetic:'/ˈɡɜːlfɹɛnd/',pos:'n.'},
   {en:'glasses',zh:'眼镜',def:'To apply fibreglass to.',phonetic:'/ˈɡlasɪz/',pos:'n.'},
-  {en:'gloomy',zh:'阴郁的',def:'',phonetic:'',pos:'adj.'},
+  {en:'gloomy',zh:'阴郁的',def:'Not very illuminated; dim because of darkness, especially when appearing depressing or frightening.',phonetic:'/ˈɡlumi/',pos:'adj.'},
   {en:'golf',zh:'高尔夫',def:'A ball game played by individuals competing against one another in which the object is to hit a ball into each of a series of (usually 18 or nine) holes in the minimum number of strokes.',phonetic:'/ɡɒlf/',pos:'n.'},
   {en:'government',zh:'政府',def:'The body with the power to make and/or enforce laws to control a country, land area, people or organization.',phonetic:'/ˈɡʌvə(n)mənt/',pos:'n.'},
   {en:'gown',zh:'礼服',def:'A loose, flowing upper garment.',phonetic:'/ɡaʊn/',pos:'n.'},
@@ -2518,7 +2532,7 @@ const DICTIONARY = [
   {en:'happiness',zh:'幸福',def:'The emotion of being happy; joy.',phonetic:'/ˈhæpinəs/',pos:'n.'},
   {en:'harbor',zh:'港口',def:'Any place of shelter.',phonetic:'/ˈhɑːbə/',pos:'n.'},
   {en:'hardware',zh:'硬件',def:'Fixtures, equipment, tools and devices used for general-purpose construction and repair of a structure or object. Also such equipment as sold as stock by a store of the same name, e.g. hardware store.',phonetic:'/ˈhɑːdˌwɛə/',pos:'n.'},
-  {en:'harm',zh:'n./v. 伤害',def:'Physical injury; hurt; damage',phonetic:'/hɑːm/',pos:'n.'},
+  {en:'harm',zh:'伤害',def:'Physical injury; hurt; damage',phonetic:'/hɑːm/',pos:'n.'},
   {en:'hatch',zh:'孵化',def:'A horizontal door in a floor or ceiling.',phonetic:'/hætʃ/',pos:'v.'},
   {en:'haunted',zh:'闹鬼的',def:'To inhabit, or visit frequently (most often used in reference to ghosts).',phonetic:'/ˈhɑntɪd/',pos:'adj.'},
   {en:'headache',zh:'头痛',def:'A pain or ache in the head.',phonetic:'/ˈhɛdeɪk/',pos:'n.'},
@@ -2530,7 +2544,7 @@ const DICTIONARY = [
   {en:'helmet',zh:'头盔',def:'A protective head covering, usually part of armour.',phonetic:'/ˈhɛlmət/',pos:'n.'},
   {en:'helpful',zh:'有帮助的',def:'Furnishing help; giving aid; useful.',phonetic:'/ˈhɛlp.fəl/',pos:'adj.'},
   {en:'highway',zh:'高速公路',def:'A motor vehicle for transporting large numbers of people along roads.',phonetic:'/ˈhaɪweɪ/',pos:'n.'},
-  {en:'hike',zh:'n./v. 远足',def:'A long walk.',phonetic:'/haɪk/',pos:'n.'},
+  {en:'hike',zh:'远足',def:'A long walk.',phonetic:'/haɪk/',pos:'n.'},
   {en:'hip',zh:'臀部',def:'The outward-projecting parts of the pelvis and top of the femur and the overlying tissue.',phonetic:'/hɪp/',pos:'n.'},
   {en:'hire',zh:'雇用',def:'Payment for the temporary use of something.',phonetic:'/haɪə/',pos:'v.'},
   {en:'homework',zh:'家庭作业',def:'Work that is done at home, especially school exercises assigned by a teacher.',phonetic:'/ˈhəʊmˌwɜːk/',pos:'n.'},
@@ -2539,8 +2553,8 @@ const DICTIONARY = [
   {en:'honor',zh:'荣誉',def:'Recognition of importance or value; respect; veneration (of someone, usually for being morally upright or successful)',phonetic:'/ˈɒn.ə/',pos:'n.'},
   {en:'hopeless',zh:'无望的',def:'Without hope; despairing; not expecting anything positive.',phonetic:'/ˈhəʊplɪs/',pos:'adj.'},
   {en:'hotel',zh:'旅馆',def:'A large town house or mansion; a grand private residence, especially in France.',phonetic:'/(h)əʊˈtɛl/',pos:'n.'},
-  {en:'household',zh:'n./adj. 家庭',def:'Collectively, all the persons who live in a given house; a family including attendants, servants etc.; a domestic or family establishment.',phonetic:'/ˈhaʊshəʊld/',pos:'n.'},
-  {en:'hug',zh:'v./n. 拥抱',def:'A close embrace, especially when charged with such an emotion as represented by: affection, joy, relief, lust, anger, agression, compassion, and the like, as opposed to being characterized by formality, equivocation or ambivalence (a half-embrace or "little hug").',phonetic:'/hʌɡ/',pos:'n.'},
+  {en:'household',zh:'家庭',def:'Collectively, all the persons who live in a given house; a family including attendants, servants etc.; a domestic or family establishment.',phonetic:'/ˈhaʊshəʊld/',pos:'n.'},
+  {en:'hug',zh:'拥抱',def:'A close embrace, especially when charged with such an emotion as represented by: affection, joy, relief, lust, anger, agression, compassion, and the like, as opposed to being characterized by formality, equivocation or ambivalence (a half-embrace or "little hug").',phonetic:'/hʌɡ/',pos:'n.'},
   {en:'humid',zh:'潮湿的',def:'Containing perceptible moisture (usually describing air or atmosphere); damp; moist; somewhat wet or watery.',phonetic:'/ˈhjuːmɪd/',pos:'adj.'},
   {en:'humor',zh:'幽默',def:'The quality of being amusing, comical, funny.',phonetic:'/hjuː.mə(ɹ)/',pos:'n.'},
   {en:'hunger',zh:'饥饿',def:'A need or compelling desire for food.',phonetic:'/ˈhʌŋɡə/',pos:'n.'},
@@ -2548,8 +2562,8 @@ const DICTIONARY = [
   {en:'illegal',zh:'非法的',def:'An illegal act or technique.',phonetic:'/ɪˈliːɡəl/',pos:'adj.'},
   {en:'illness',zh:'疾病',def:'An instance of a disease or poor health.',phonetic:'/ˈɪl.nəs/',pos:'n.'},
   {en:'imagination',zh:'想象力',def:'The image-making power of the mind; the act of mentally creating or reproducing an object not previously perceived; the ability to create such images.',phonetic:'/ɪˌmædʒəˈneɪʃən/',pos:'n.'},
-  {en:'impact',zh:'n./v. 影响',def:'The striking of one body against another; collision.',phonetic:'',pos:'n.'},
-  {en:'import',zh:'v./n. 进口',def:'Something brought in from an exterior source, especially for sale or trade.',phonetic:'/ˈɪm.pɔːt/',pos:'n.'},
+  {en:'impact',zh:'影响',def:'The striking of one body against another; collision.',phonetic:'',pos:'n.'},
+  {en:'import',zh:'进口',def:'Something brought in from an exterior source, especially for sale or trade.',phonetic:'/ˈɪm.pɔːt/',pos:'n.'},
   {en:'income',zh:'收入',def:'Money one earns by working or by capitalising on the work of others.',phonetic:'/ˈɪnˌkʌm/',pos:'n.'},
   {en:'independent',zh:'独立的',def:'A candidate or voter not affiliated with any political party, a freethinker, free of a party platform.',phonetic:'/ɪndɪˈpɛndənt/',pos:'adj.'},
   {en:'industry',zh:'工业',def:'The tendency to work persistently. Diligence.',phonetic:'/ˈɪndəstɹi/',pos:'n.'},
@@ -2564,11 +2578,11 @@ const DICTIONARY = [
   {en:'instrument',zh:'乐器',def:'A device used to produce music.',phonetic:'/ˈɪnstɹəmənt/',pos:'n.'},
   {en:'insurance',zh:'保险',def:'A means of indemnity against a future occurrence of an uncertain event.',phonetic:'/ɪn.ˈʃɔː.ɹəns/',pos:'n.'},
   {en:'intelligence',zh:'智力',def:'Capacity of mind, especially to understand principles, truths, facts or meanings, acquire knowledge, and apply it to practice; the ability to comprehend and learn.',phonetic:'/ɪnˈtɛl.ɪ.d͡ʒəns/',pos:'n.'},
-  {en:'interior',zh:'n./adj. 内部',def:'The inside of a building, container, cavern, or other enclosed structure.',phonetic:'/ɪnˈtɪəɹɪə/',pos:'n.'},
+  {en:'interior',zh:'内部',def:'The inside of a building, container, cavern, or other enclosed structure.',phonetic:'/ɪnˈtɪəɹɪə/',pos:'n.'},
   {en:'internal',zh:'内部的',def:'Inside of something',phonetic:'/ɪnˈtɝnəl/',pos:'adj.'},
   {en:'internet',zh:'互联网',def:'Any set of computer networks that communicate using the Internet Protocol. (An intranet.)',phonetic:'/ˈɪntəˌnɛt/',pos:'n.'},
   {en:'invisible',zh:'看不见的',def:'An invisible person or thing; specifically, God, the Supreme Being.',phonetic:'/ɪnˈvɪzəb(ə)l/',pos:'adj.'},
-  {en:'issue',zh:'n./v. 问题',def:'The action or an instance of flowing or coming out, an outflow, particularly:',phonetic:'/ˈɪsjuː/',pos:'n.'},
+  {en:'issue',zh:'问题',def:'The action or an instance of flowing or coming out, an outflow, particularly:',phonetic:'/ˈɪsjuː/',pos:'n.'},
   {en:'jail',zh:'监狱',def:'A place or institution for the confinement of persons held in lawful custody or detention, especially for minor offenses or with reference to some future judicial proceeding.',phonetic:'/dʒeɪl/',pos:'n.'},
   {en:'jam',zh:'果酱',def:'A sweet mixture of fruit boiled with sugar and allowed to congeal. Often spread on bread or toast or used in jam tarts.',phonetic:'/ˈdʒæːm/',pos:'n.'},
   {en:'jar',zh:'罐子',def:'An earthenware container, either with two or no handles, for holding oil, water, wine, etc., or used for burial.',phonetic:'/dʒɐː/',pos:'n.'},
@@ -2586,9 +2600,9 @@ const DICTIONARY = [
   {en:'ketchup',zh:'番茄酱',def:'A tomato-vinegar-based sauce, sometimes containing spices, onion or garlic, and (especially in the US) sweeteners.',phonetic:'/ˈkɛtʃ.əp/',pos:'n.'},
   {en:'keyboard',zh:'键盘',def:'(etc.) A set of keys used to operate a typewriter, computer etc.',phonetic:'/ˈkiːbɔːd/',pos:'n.'},
   {en:'kindergarten',zh:'幼儿园',def:'An educational institution for young children, usually between ages 4 and 6; nursery school.',phonetic:'/ˈkɪndəɹˌɡɑːɹd(ə)n/',pos:'n.'},
-  {en:'kiss',zh:'v./n. 亲吻',def:'To touch with the lips or press the lips against, usually to show love or affection or passion, or as part of a greeting.',phonetic:'/kɪs/',pos:'v.'},
+  {en:'kiss',zh:'亲吻',def:'To touch with the lips or press the lips against, usually to show love or affection or passion, or as part of a greeting.',phonetic:'/kɪs/',pos:'v.'},
   {en:'knee',zh:'膝盖',def:'In humans, the joint or the region of the joint in the middle part of the leg between the thigh and the shank.',phonetic:'/niː/',pos:'n.'},
-  {en:'knit',zh:'v./n. 编织',def:'A knitted garment.',phonetic:'/ˈnɪt/',pos:'n.'},
+  {en:'knit',zh:'编织',def:'A knitted garment.',phonetic:'/ˈnɪt/',pos:'n.'},
   {en:'lab',zh:'实验室',def:'A laboratory.',phonetic:'/læb/',pos:'n.'},
   {en:'label',zh:'标签',def:'A small ticket or sign giving information about something to which it is attached or intended to be attached.',phonetic:'/ˈleɪbəl/',pos:'n.'},
   {en:'ladder',zh:'梯子',def:'A frame, usually portable, of wood, metal, or rope, used for ascent and descent, consisting of two side pieces to which are fastened rungs (cross strips or rounds acting as steps).',phonetic:'/ˈladə/',pos:'n.'},
@@ -2597,7 +2611,7 @@ const DICTIONARY = [
   {en:'laptop',zh:'笔记本电脑',def:'A laptop computer.',phonetic:'/ˈlæp.tɒp/',pos:'n.'},
   {en:'law',zh:'法律',def:'The body of binding rules and regulations, customs and standards established in a community by its legislative and judicial authorities.',phonetic:'/lɔː/',pos:'n.'},
   {en:'lawyer',zh:'律师',def:'A professional person qualified (as by a law degree or bar exam) and authorized to practice law, i.e. represent parties in lawsuits or trials and give legal advice.',phonetic:'/ˈlɔɪ.ə(ɹ)/',pos:'n.'},
-  {en:'lecture',zh:'n./v. 讲座',def:'A spoken lesson or exposition, usually delivered to a group.',phonetic:'/ˈlɛk.t͡ʃə/',pos:'n.'},
+  {en:'lecture',zh:'讲座',def:'A spoken lesson or exposition, usually delivered to a group.',phonetic:'/ˈlɛk.t͡ʃə/',pos:'n.'},
   {en:'lecturer',zh:'讲师',def:'A person who gives lectures, especially as a profession.',phonetic:'/ˈlɛktʃəɹə/',pos:'n.'},
   {en:'legal',zh:'法律的',def:'The legal department of a company.',phonetic:'/ˈliː.ɡəl/',pos:'adj.'},
   {en:'legend',zh:'传说',def:'An unrealistic story depicting past events.',phonetic:'/ˈlɛdʒ.ənd/',pos:'n.'},
@@ -2608,12 +2622,12 @@ const DICTIONARY = [
   {en:'librarian',zh:'图书管理员',def:'The keeper, manager of a library.',phonetic:'/laɪˈbɹɛɹ.i.ən/',pos:'n.'},
   {en:'lightning',zh:'闪电',def:'A flash of light produced by short-duration, high-voltage discharge of electricity within a cloud, between clouds, or between a cloud and the earth.',phonetic:'/ˈlaɪt.nɪŋ/',pos:'n.'},
   {en:'lime',zh:'酸橙',def:'Any inorganic material containing calcium, usually calcium oxide (quicklime) or calcium hydroxide (slaked lime).',phonetic:'/laɪm/',pos:'n.'},
-  {en:'link',zh:'n./v. 链接',def:'Some text or a graphic in an electronic document that can be activated to display another document or trigger an action.',phonetic:'/lɪŋk/',pos:'n.'},
+  {en:'link',zh:'链接',def:'Some text or a graphic in an electronic document that can be activated to display another document or trigger an action.',phonetic:'/lɪŋk/',pos:'n.'},
   {en:'lips',zh:'嘴唇',def:'Either of the two fleshy protrusions around the opening of the mouth.',phonetic:'/lɪps/',pos:'n.'},
   {en:'literacy',zh:'读写能力',def:'The ability to read and write.',phonetic:'/ˈlɪt.ɹə.si/',pos:'n.'},
   {en:'lively',zh:'活泼的',def:'Term of address.',phonetic:'/ˈlaɪvli/',pos:'adj.'},
   {en:'living',zh:'客厅',def:'To be alive; to have life.',phonetic:'/ˈlɪvɪŋ/',pos:'n.'},
-  {en:'load',zh:'n./v. 负荷',def:'A burden; a weight to be carried.',phonetic:'/ləʊd/',pos:'n.'},
+  {en:'load',zh:'负荷',def:'A burden; a weight to be carried.',phonetic:'/ləʊd/',pos:'n.'},
   {en:'loan',zh:'贷款',def:'An act or instance of lending, an act or instance of granting something for temporary use.',phonetic:'/ləʊn/',pos:'n.'},
   {en:'locate',zh:'定位',def:'To place; to set in a particular spot or position.',phonetic:'/ləʊˈkeɪt/',pos:'v.'},
   {en:'loss',zh:'损失',def:'The result of no longer possessing an object, a function, or a characteristic due to external causes or misplacement.',phonetic:'/lɑs/',pos:'n.'},
@@ -2624,7 +2638,7 @@ const DICTIONARY = [
   {en:'mall',zh:'商场',def:'A pedestrianised street, especially a shopping precinct.',phonetic:'/mɔːl/',pos:'n.'},
   {en:'manager',zh:'经理',def:'A person whose job is to manage something, such as a business, a restaurant, or a sports team.',phonetic:'/ˈmæn.ɪ.dʒə/',pos:'n.'},
   {en:'manufacture',zh:'制造',def:'The action or process of making goods systematically or on a large scale.',phonetic:'/ˌmænjʊˈfæktʃə/',pos:'v.'},
-  {en:'marine',zh:'adj./n. 海洋的',def:'A soldier, normally a member of a marine corps, trained to serve on board or from a ship',phonetic:'/məˈɹiːn/',pos:'n.'},
+  {en:'marine',zh:'海洋的',def:'A soldier, normally a member of a marine corps, trained to serve on board or from a ship',phonetic:'/məˈɹiːn/',pos:'n.'},
   {en:'marker',zh:'记号笔',def:'An object used to mark a location.',phonetic:'',pos:'n.'},
   {en:'marry',zh:'结婚',def:'To enter into the conjugal or connubial state; to take a husband or a wife.',phonetic:'/ˈmæɹɪ/',pos:'v.'},
   {en:'marshmallow',zh:'棉花糖',def:'A species of mallow, Althaea officinalis, that grows in marshy terrain.',phonetic:'/mɑːʃˈmæləʊ/',pos:'n.'},
@@ -2643,10 +2657,10 @@ const DICTIONARY = [
   {en:'mermaid',zh:'美人鱼',def:'A mythological creature with a woman\'s head and upper body, and a tail of a fish.',phonetic:'/ˈməː.meɪd/',pos:'n.'},
   {en:'meter',zh:'米',def:'(always meter) A device that measures things.',phonetic:'/ˈmiːtə/',pos:'n.'},
   {en:'midterm',zh:'期中考试',def:'A midterm school exam (i.e., halfway through the term).',phonetic:'/ˈmɪdˌtəɹm/',pos:'n.'},
-  {en:'military',zh:'adj./n. 军事的',def:'Armed forces.',phonetic:'/ˈmɪl.ɪ.tɹi/',pos:'n.'},
+  {en:'military',zh:'军事的',def:'Armed forces.',phonetic:'/ˈmɪl.ɪ.tɹi/',pos:'n.'},
   {en:'minister',zh:'部长',def:'A person who is trained to preach, to perform religious ceremonies, and to afford pastoral care at a Protestant church.',phonetic:'/ˈmɪnɪstə/',pos:'n.'},
-  {en:'minor',zh:'adj./n. 次要的；辅修',def:'A person who is below the age of majority, consent, criminal responsibility or other adult responsibilities and accountabilities.',phonetic:'/ˈmaɪnɚ/',pos:'n.'},
-  {en:'minus',zh:'prep./adj. 减',def:'The minus sign (−).',phonetic:'/ˈmaɪnəs/',pos:'n.'},
+  {en:'minor',zh:'次要的；辅修',def:'A person who is below the age of majority, consent, criminal responsibility or other adult responsibilities and accountabilities.',phonetic:'/ˈmaɪnɚ/',pos:'n.'},
+  {en:'minus',zh:'减',def:'The minus sign (−).',phonetic:'/ˈmaɪnəs/',pos:'n.'},
   {en:'miserable',zh:'痛苦的',def:'A miserable person; a wretch.',phonetic:'/ˈmɪz(ə)ɹəbəl/',pos:'adj.'},
   {en:'misery',zh:'痛苦',def:'Great unhappiness; extreme pain of body or mind; wretchedness; distress; woe.',phonetic:'/ˈmɪz(ə)ɹɪ/',pos:'n.'},
   {en:'monument',zh:'纪念碑',def:'A structure built for commemorative or symbolic reasons, or as a memorial; a commemoration.',phonetic:'/ˈmɒnjʊmənt/',pos:'n.'},
@@ -2658,7 +2672,7 @@ const DICTIONARY = [
   {en:'mug',zh:'杯子',def:'A large cup for hot liquids, usually having a handle and used without a saucer.',phonetic:'/mʌɡ/',pos:'n.'},
   {en:'multiply',zh:'乘',def:'An act or instance of multiplying.',phonetic:'/ˈmʌltɪplaɪ/',pos:'v.'},
   {en:'mushroom',zh:'蘑菇',def:'Any of the fleshy fruiting bodies of fungi typically produced above ground on soil or on their food sources (such as decaying wood).',phonetic:'/ˈmʌʃˌɹuːm/',pos:'n.'},
-  {en:'musical',zh:'adj./n. 音乐的；音乐剧',def:'A stage performance, show or film that involves singing, dancing and musical numbers performed by the cast as well as acting.',phonetic:'/ˈmju.zɪ.kəl/',pos:'n.'},
+  {en:'musical',zh:'音乐的；音乐剧',def:'A stage performance, show or film that involves singing, dancing and musical numbers performed by the cast as well as acting.',phonetic:'/ˈmju.zɪ.kəl/',pos:'n.'},
   {en:'musician',zh:'音乐家',def:'A composer, conductor, or performer of music; specifically, a person who sings and/or plays a musical instrument as a hobby, an occupation, or a profession.',phonetic:'/mjuˈzɪʃən/',pos:'n.'},
   {en:'mysterious',zh:'神秘的',def:'Of unknown origin.',phonetic:'/mɪˈstɪəɹi.əs/',pos:'adj.'},
   {en:'myth',zh:'神话',def:'A traditional story which embodies a belief regarding some fact or phenomenon of experience, and in which often the forces of nature and of the soul are personified; a sacred narrative regarding a god, a hero, the origin of the world or of a people, etc.',phonetic:'/mɪθ/',pos:'n.'},
@@ -2674,7 +2688,7 @@ const DICTIONARY = [
   {en:'needle',zh:'针',def:'A fine, sharp implement usually for piercing such as sewing, or knitting, acupuncture, tattooing, body piercing, medical injections, etc.',phonetic:'/ˈniː.dl/',pos:'n.'},
   {en:'negative',zh:'消极的',def:'Refusal or withholding of assents; prohibition, veto',phonetic:'/ˈnɛ(e)ɡəˌɾɪv/',pos:'adj.'},
   {en:'nephew',zh:'侄子；外甥',def:'A son of one\'s sibling, brother-in-law, or sister-in-law; either a son of one\'s brother (fraternal nephew) or a son of one\'s sister (sororal nephew).',phonetic:'/ˈnɛf.ju/',pos:'n.'},
-  {en:'net',zh:'网',def:'',phonetic:'',pos:'n.'},
+  {en:'net',zh:'网',def:'An open-meshed fabric twisted or woven together, used for catching or holding things.',phonetic:'/net/',pos:'n.'},
   {en:'network',zh:'网络',def:'A fabric or structure of fibrous elements attached to each other at regular intervals.',phonetic:'/nɛtwɜːk/',pos:'n.'},
   {en:'newborn',zh:'新生的',def:'A recently born baby.',phonetic:'',pos:'adj.'},
   {en:'newlywed',zh:'新婚夫妇',def:'A recently married person',phonetic:'',pos:'n.'},
@@ -2690,11 +2704,11 @@ const DICTIONARY = [
   {en:'off',zh:'离开',def:'(usually in phrases such as \'from the off\', \'at the off\', etc.) Beginning; starting point.',phonetic:'/ɔːf/',pos:'adv.'},
   {en:'offense',zh:'冒犯',def:'The act of offending:',phonetic:'/əˈfɛns/',pos:'n.'},
   {en:'officer',zh:'军官；官员',def:'One who has a position of authority in a hierarchical organization, especially in military, police or government organizations.',phonetic:'/ˈɑfɪsɚ/',pos:'n.'},
-  {en:'official',zh:'adj./n. 官方的',def:'An office holder invested with powers and authorities.',phonetic:'/əˈfɪʃəl/',pos:'n.'},
+  {en:'official',zh:'官方的',def:'An office holder invested with powers and authorities.',phonetic:'/əˈfɪʃəl/',pos:'n.'},
   {en:'often',zh:'经常',def:'Frequent.',phonetic:'/ˈɑf(t)ən/',pos:'adv.'},
   {en:'oil',zh:'油',def:'Liquid fat.',phonetic:'/ɔɪl/',pos:'n.'},
   {en:'omelet',zh:'煎蛋卷',def:'A dish made with beaten eggs cooked in a frying pan without stirring, flipped over to cook on both sides, and sometimes filled or topped with cheese, chives or other foodstuffs.',phonetic:'',pos:'n.'},
-  {en:'online',zh:'adj./adv. 在线',def:'To bring (a system, etc.) online; to promote to an active or running state.',phonetic:'/ɒnˈlaɪn/',pos:'v.'},
+  {en:'online',zh:'在线',def:'To bring (a system, etc.) online; to promote to an active or running state.',phonetic:'/ɒnˈlaɪn/',pos:'v.'},
   {en:'opera',zh:'歌剧',def:'A theatrical work, combining drama, music, song and sometimes dance.',phonetic:'/ˈɒp.əɹ.ə/',pos:'n.'},
   {en:'operation',zh:'手术',def:'The method by which a device performs its function.',phonetic:'/ˌɒpəˈɹeɪʃən/',pos:'n.'},
   {en:'opportunity',zh:'机会',def:'A chance for advancement, progress or profit.',phonetic:'/ˌɒp.əˈtjuː.nɪ.tɪ/',pos:'n.'},
@@ -2734,10 +2748,10 @@ const DICTIONARY = [
   {en:'platform',zh:'平台',def:'A raised stage from which speeches are made and on which musical and other performances are made.',phonetic:'/ˈplætfɔːm/',pos:'n.'},
   {en:'player',zh:'运动员',def:'One that plays',phonetic:'/ˈpleɪə(ɹ)/',pos:'n.'},
   {en:'pleased',zh:'高兴的',def:'To make happy or satisfy; to give pleasure to.',phonetic:'/pliːzd/',pos:'adj.'},
-  {en:'plot',zh:'n./v. 情节',def:'(authorship) The course of a story, comprising a series of incidents which are gradually unfolded, sometimes by unexpected means.',phonetic:'/plɒt/',pos:'n.'},
-  {en:'plug',zh:'n./v. 插头',def:'A pronged connecting device which fits into a mating socket, especially an electrical one.',phonetic:'/plʌɡ/',pos:'n.'},
+  {en:'plot',zh:'情节',def:'(authorship) The course of a story, comprising a series of incidents which are gradually unfolded, sometimes by unexpected means.',phonetic:'/plɒt/',pos:'n.'},
+  {en:'plug',zh:'插头',def:'A pronged connecting device which fits into a mating socket, especially an electrical one.',phonetic:'/plʌɡ/',pos:'n.'},
   {en:'plumber',zh:'水管工',def:'One who works in or with lead.',phonetic:'/ˈplʌmə/',pos:'n.'},
-  {en:'plus',zh:'prep./adj. 加',def:'A positive quantity.',phonetic:'/plʌs/',pos:'n.'},
+  {en:'plus',zh:'加',def:'A positive quantity.',phonetic:'/plʌs/',pos:'n.'},
   {en:'poetry',zh:'诗歌',def:'Literature composed in verse or language exhibiting conscious attention to patterns and rhythm.',phonetic:'/ˈpəʊɪtɹi/',pos:'n.'},
   {en:'polar',zh:'极地的',def:'The line joining the points of contact of tangents drawn to meet a curve from a point called the pole of the line.',phonetic:'/ˈpəʊ̯lə(ɹ)/',pos:'adj.'},
   {en:'policy',zh:'政策',def:'A principle of behaviour, conduct etc. thought to be desirable or necessary, especially as formally expressed by a government or other authoritative body.',phonetic:'/ˈpɒləsi/',pos:'n.'},
@@ -2763,7 +2777,7 @@ const DICTIONARY = [
   {en:'producer',zh:'制片人',def:'An individual or organization that creates goods and services.',phonetic:'/pɹəˈdjuːsə/',pos:'n.'},
   {en:'production',zh:'生产',def:'The act of producing, making or creating something.',phonetic:'/pɹəˈdʌkʃən/',pos:'n.'},
   {en:'profession',zh:'职业',def:'A declaration of belief, faith or one\'s opinion, whether genuine or pretended.',phonetic:'/pɹəˈfɛʃən/',pos:'n.'},
-  {en:'professional',zh:'n./adj. 专业人士',def:'A person who belongs to a profession',phonetic:'/pɹəˈfɛʃənəl/',pos:'n.'},
+  {en:'professional',zh:'专业的；专业人士',def:'Relating to a paid occupation or skilled work.',phonetic:'/prəˈfeʃənl/',pos:'adj./n.'},
   {en:'professor',zh:'教授',def:'The most senior rank for an academic at a university or similar institution, informally also known as "full professor." Abbreviated Prof.',phonetic:'/pɹəˈfɛsə/',pos:'n.'},
   {en:'profit',zh:'利润',def:'Total income or cash flow minus expenditures. The money or other benefit a non-governmental organization or individual receives in exchange for products and services sold at an advertised price.',phonetic:'/ˈpɹɒfɪt/',pos:'n.'},
   {en:'progressive',zh:'进步的',def:'A person who actively favors or strives for progress towards improved conditions, as in society or government.',phonetic:'/pɹəˈɡɹɛsɪv/',pos:'adj.'},
@@ -2772,7 +2786,7 @@ const DICTIONARY = [
   {en:'property',zh:'财产',def:'Something that is owned.',phonetic:'/ˈpɹɒp.ət.i/',pos:'n.'},
   {en:'publication',zh:'出版',def:'The act of publishing printed or other matter.',phonetic:'/ˌpʌblɪˈkeɪʃən/',pos:'n.'},
   {en:'publicity',zh:'宣传',def:'Advertising or other activity designed to rouse public interest in something.',phonetic:'',pos:'n.'},
-  {en:'pump',zh:'n./v. 泵',def:'A device for moving or compressing a liquid or gas.',phonetic:'/pʌmp/',pos:'n.'},
+  {en:'pump',zh:'泵',def:'A device for moving or compressing a liquid or gas.',phonetic:'/pʌmp/',pos:'n.'},
   {en:'punishment',zh:'惩罚',def:'The act or process of punishing, imposing and/or applying a sanction.',phonetic:'/ˈpʌnɪʃmənt/',pos:'n.'},
   {en:'pure',zh:'纯的',def:'One who, or that which, is pure.',phonetic:'/ˈpjɔː/',pos:'adj.'},
   {en:'purse',zh:'钱包',def:'A small bag for carrying money.',phonetic:'/pɜːs/',pos:'n.'},
@@ -2796,13 +2810,13 @@ const DICTIONARY = [
   {en:'regulation',zh:'规定',def:'The act of regulating or the condition of being regulated.',phonetic:'/ˌɹɛɡjʊˈleɪʃən/',pos:'n.'},
   {en:'reindeer',zh:'驯鹿',def:'(plural: reindeer) Any Arctic and subarctic-dwelling deer of the species Rangifer tarandus, with a number of subspecies.',phonetic:'/ˈɹeɪndɪə/',pos:'n.'},
   {en:'relative',zh:'亲戚',def:'Someone in the same family; someone connected by blood, marriage, or adoption.',phonetic:'[ˈɹɛl.ə.tʰɪv]',pos:'n.'},
-  {en:'release',zh:'n./v. 释放',def:'The event of setting (someone or something) free (e.g. hostages, slaves, prisoners, caged animals, hooked or stuck mechanisms).',phonetic:'/ɹɪˈliːs/',pos:'n.'},
+  {en:'release',zh:'释放',def:'The event of setting (someone or something) free (e.g. hostages, slaves, prisoners, caged animals, hooked or stuck mechanisms).',phonetic:'/ɹɪˈliːs/',pos:'n.'},
   {en:'reliable',zh:'可靠的',def:'Something or someone reliable or dependable',phonetic:'/ɹɪˈlaɪəbəl/',pos:'adj.'},
   {en:'religion',zh:'宗教',def:'Belief in a spiritual or metaphysical reality (often including at least one deity), accompanied by practices or rituals pertaining to the belief.',phonetic:'/ɹɪˈlɪdʒən/',pos:'n.'},
-  {en:'reply',zh:'v./n. 回复',def:'A written or spoken response; part of a conversation.',phonetic:'/ɹɪˈplaɪ/',pos:'n.'},
+  {en:'reply',zh:'回复',def:'A written or spoken response; part of a conversation.',phonetic:'/ɹɪˈplaɪ/',pos:'n.'},
   {en:'republic',zh:'共和国',def:'A state where sovereignty rests with the people or their representatives, rather than with a monarch or emperor; a country with no monarchy.',phonetic:'[ɹɪˈpʌblɪk]',pos:'n.'},
   {en:'reputation',zh:'名声',def:'What somebody is known for.',phonetic:'/ˌɹɛpjʊˈteɪʃən/',pos:'n.'},
-  {en:'reserve',zh:'n./v. 保留；预定',def:'(behaviour) Restriction.',phonetic:'/ɹɪˈzɜːv/',pos:'n.'},
+  {en:'reserve',zh:'保留；预定',def:'(behaviour) Restriction.',phonetic:'/ɹɪˈzɜːv/',pos:'n.'},
   {en:'resident',zh:'居民',def:'A person, animal or plant living at a certain location or in a certain area.',phonetic:'/ˈɹɛzɪd(ə)nt/',pos:'n.'},
   {en:'resort',zh:'度假地',def:'A place where people go for recreation, especially one with facilities such as lodgings, entertainment, and a relaxing environment.',phonetic:'/ɹɨˈzɔ(ɹ)t/',pos:'n.'},
   {en:'responsibility',zh:'责任',def:'The state of being responsible, accountable, or answerable.',phonetic:'/ɹɪˌspɑnsəˈbɪlɪɾi/',pos:'n.'},
@@ -2810,17 +2824,17 @@ const DICTIONARY = [
   {en:'reveal',zh:'揭露',def:'The outer side of a window or door frame; the jamb.',phonetic:'/ɹəˈviːl/',pos:'v.'},
   {en:'revolution',zh:'革命',def:'A political upheaval in a government or nation state characterized by great change.',phonetic:'/ˌɹɛvəˈl(j)uːʃən/',pos:'n.'},
   {en:'rhythm',zh:'节奏',def:'The variation of strong and weak elements (such as duration, accent) of sounds, notably in speech or music, over time; a beat or meter.',phonetic:'/ˈɹɪ.ð(ə)m/',pos:'n.'},
-  {en:'risk',zh:'n./v. 风险',def:'A possible adverse event or outcome',phonetic:'/ɹɪsk/',pos:'n.'},
+  {en:'risk',zh:'风险',def:'A possible adverse event or outcome',phonetic:'/ɹɪsk/',pos:'n.'},
   {en:'ritual',zh:'仪式',def:'Rite; a repeated set of actions',phonetic:'/ˈɹɪ.tʃu.əl/',pos:'n.'},
-  {en:'roar',zh:'n./v. 吼叫',def:'A long, loud, deep shout, as of rage or laughter, made with the mouth wide open.',phonetic:'/ɹɔː/',pos:'n.'},
+  {en:'roar',zh:'吼叫',def:'A long, loud, deep shout, as of rage or laughter, made with the mouth wide open.',phonetic:'/ɹɔː/',pos:'n.'},
   {en:'roast',zh:'烤',def:'A cut of meat suited to roasting',phonetic:'/ɹəʊst/',pos:'v.'},
   {en:'route',zh:'路线',def:'A course or way which is traveled or passed.',phonetic:'/ɹʉːt/',pos:'n.'},
   {en:'royal',zh:'皇家的',def:'A royal person; a member of a royal family.',phonetic:'/ˈɹɔɪəl/',pos:'adj.'},
   {en:'rug',zh:'地毯',def:'A partial covering for a floor.',phonetic:'/ɹʌɡ/',pos:'n.'},
-  {en:'ruin',zh:'n./v. 废墟',def:'(sometimes in the plural) The remains of a destroyed or dilapidated construction, such as a house or castle.',phonetic:'/ˈɹuː.ɪn/',pos:'n.'},
+  {en:'ruin',zh:'废墟',def:'(sometimes in the plural) The remains of a destroyed or dilapidated construction, such as a house or castle.',phonetic:'/ˈɹuː.ɪn/',pos:'n.'},
   {en:'runner',zh:'跑步者',def:'Act or instance of running, of moving rapidly using the feet.',phonetic:'/ˈɹʌnə/',pos:'n.'},
   {en:'running',zh:'跑步',def:'To move swiftly.',phonetic:'/ˈɹʌnɪŋ/',pos:'n.'},
-  {en:'rush',zh:'v./n. 冲；匆忙',def:'Any of several stiff plants of the genus Juncus, or the family Juncaceae, having hollow or pithy stems and small flowers, and often growing in marshes or near water.',phonetic:'/ɹʌʃ/',pos:'n.'},
+  {en:'rush',zh:'冲；匆忙',def:'Any of several stiff plants of the genus Juncus, or the family Juncaceae, having hollow or pithy stems and small flowers, and often growing in marshes or near water.',phonetic:'/ɹʌʃ/',pos:'n.'},
   {en:'sailing',zh:'帆船运动',def:'To be impelled or driven forward by the action of wind upon sails, as a ship on water; to be impelled on a body of water by steam or other power.',phonetic:'/ˈseɪ.lɪŋ/',pos:'n.'},
   {en:'sailor',zh:'水手',def:'A person in the business of navigating ships or other vessels',phonetic:'/ˈseɪlə/',pos:'n.'},
   {en:'salad',zh:'沙拉',def:'A food made primarily of a mixture of raw or cold ingredients, typically vegetables, usually served with a dressing such as vinegar or mayonnaise.',phonetic:'/ˈsæləd/',pos:'n.'},
@@ -2831,20 +2845,20 @@ const DICTIONARY = [
   {en:'sausage',zh:'香肠',def:'A food made of ground meat (or meat substitute) and seasoning, packed in a section of the animal\'s intestine, or in a similarly cylindrical shaped synthetic casing; a length of this food.',phonetic:'/ˈsɑsɪd͡ʒ/',pos:'n.'},
   {en:'scarf',zh:'围巾',def:'A long, often knitted, garment worn around the neck.',phonetic:'/skɑːf/',pos:'n.'},
   {en:'scenery',zh:'风景',def:'View, natural features, landscape.',phonetic:'/ˈsiːnəɹi/',pos:'n.'},
-  {en:'schedule',zh:'n./v. 时间表',def:'A slip of paper; a short note.',phonetic:'/ˈskɛ.dʒu.əl/',pos:'n.'},
+  {en:'schedule',zh:'时间表',def:'A slip of paper; a short note.',phonetic:'/ˈskɛ.dʒu.əl/',pos:'n.'},
   {en:'scissors',zh:'剪刀',def:'One blade on a pair of scissors.',phonetic:'/ˈsɪzəz/',pos:'n.'},
   {en:'scooter',zh:'滑板车',def:'A kick scooter or push scooter; a human-powered land vehicle with a handlebar, deck and wheels that is propelled by a rider pushing off the ground.',phonetic:'/ˈskuːtə(ɹ)/',pos:'n.'},
   {en:'secretary',zh:'秘书',def:'Someone entrusted with a secret; a confidant.',phonetic:'/ˈsɛk.ɹə.tɹi/',pos:'n.'},
   {en:'seed',zh:'种子',def:'A fertilized and ripened ovule, containing an embryonic plant.',phonetic:'/siːd/',pos:'n.'},
   {en:'seek',zh:'寻找',def:'The operation of navigating through a stream.',phonetic:'/siːk/',pos:'v.'},
   {en:'selfish',zh:'自私的',def:'Holding one\'s own self-interest as the standard for decision making.',phonetic:'/ˈsɛlfɪʃ/',pos:'adj.'},
-  {en:'senior',zh:'adj./n. 年长的',def:'An old person.',phonetic:'/ˈsiːnjə(r)/',pos:'n.'},
+  {en:'senior',zh:'年长的',def:'An old person.',phonetic:'/ˈsiːnjə(r)/',pos:'n.'},
   {en:'sensible',zh:'明智的',def:'Sensation; sensibility.',phonetic:'/ˈsen.sə.bl̩/',pos:'adj.'},
   {en:'series',zh:'系列',def:'A number of things that follow on one after the other or are connected one after the other.',phonetic:'/ˈsɪə.ɹiːz/',pos:'n.'},
   {en:'severe',zh:'严重的',def:'Very bad or intense.',phonetic:'/sɪˈvɪə/',pos:'adj.'},
   {en:'shelf',zh:'架子',def:'A flat, rigid structure, fixed at right angles to a wall or forming a part of a cabinet, desk etc., and used to support, store or display objects.',phonetic:'/ʃɛlf/',pos:'n.'},
   {en:'shelter',zh:'庇护所',def:'A refuge, haven or other cover or protection from something.',phonetic:'/ˈʃɛltə/',pos:'n.'},
-  {en:'shock',zh:'n./v. 震惊',def:'A sudden, heavy impact.',phonetic:'/ʃɒk/',pos:'n.'},
+  {en:'shock',zh:'震惊',def:'A sudden, heavy impact.',phonetic:'/ʃɒk/',pos:'n.'},
   {en:'shocked',zh:'震惊的',def:'To cause to be emotionally shocked, to cause (someone) to feel surprised and upset.',phonetic:'/ʃɒkt/',pos:'adj.'},
   {en:'shocking',zh:'令人震惊的',def:'To cause to be emotionally shocked, to cause (someone) to feel surprised and upset.',phonetic:'/ˈʃɒkɪŋ/',pos:'adj.'},
   {en:'shopper',zh:'购物者',def:'A person who shops.',phonetic:'/ˈʃɔp.ə/',pos:'n.'},
@@ -2858,7 +2872,7 @@ const DICTIONARY = [
   {en:'singer',zh:'歌手',def:'A person who sings, often professionally.',phonetic:'/ˈsɪŋə/',pos:'n.'},
   {en:'singing',zh:'唱歌',def:'To produce musical or harmonious sounds with one’s voice.',phonetic:'/ˈsɪŋɪŋ/',pos:'n.'},
   {en:'sink',zh:'水槽',def:'A basin used for holding water for washing.',phonetic:'/sɪŋk/',pos:'n.'},
-  {en:'skate',zh:'v./n. 滑冰',def:'A light boot, fitted with a blade, used for ice skating.',phonetic:'/skeɪt/',pos:'n.'},
+  {en:'skate',zh:'滑冰',def:'A light boot, fitted with a blade, used for ice skating.',phonetic:'/skeɪt/',pos:'n.'},
   {en:'skateboard',zh:'滑板',def:'A narrow, wooden or plastic platform mounted on pairs of wheels, on which one stands and propels oneself by pushing along the ground with one foot.',phonetic:'',pos:'n.'},
   {en:'skull',zh:'头骨',def:'The main bones of the head considered as a unit; including the cranium, facial bones, and mandible.',phonetic:'/skʌl/',pos:'n.'},
   {en:'sled',zh:'雪橇',def:'A small, light vehicle with runners, used recreationally, mostly by children, for sliding down snow-covered hills. (A "sled" in this sense is not pulled by an animal as a "sleigh" is.)',phonetic:'/slɛd/',pos:'n.'},
@@ -2867,7 +2881,7 @@ const DICTIONARY = [
   {en:'snack',zh:'零食',def:'A light meal.',phonetic:'/snæk/',pos:'n.'},
   {en:'snake',zh:'蛇',def:'A legless reptile of the sub-order Serpentes with a long, thin body and a fork-shaped tongue.',phonetic:'/ˈsneɪk/',pos:'n.'},
   {en:'sneeze',zh:'打喷嚏',def:'An act of sneezing.',phonetic:'/sniːz/',pos:'v.'},
-  {en:'snow',zh:'n./v. 雪',def:'The frozen, crystalline state of water that falls as precipitation.',phonetic:'/snəʊ/',pos:'n.'},
+  {en:'snow',zh:'雪',def:'The frozen, crystalline state of water that falls as precipitation.',phonetic:'/snəʊ/',pos:'n.'},
   {en:'snowball',zh:'雪球',def:'A ball of snow, usually one made in the hand and thrown for amusement in a snowball fight; also a larger ball of snow made by rolling a snowball around in snow that sticks to it and increases its diameter.',phonetic:'/ˈsnoʊbɑl/',pos:'n.'},
   {en:'snowboard',zh:'滑雪板',def:'A board, somewhat like a broad ski, or a very long skateboard with no wheels, used in the sport of snowboarding.',phonetic:'/ˈsnəʊˌbɔːd/',pos:'n.'},
   {en:'snowman',zh:'雪人',def:'A humanoid figure made with large snowballs stacked on each other. Human traits like a face and arms may be fashioned with sticks (arms), a carrot (nose), and stones or coal (eyes, mouth).',phonetic:'/ˈsnəʊ.mæn/',pos:'n.'},
@@ -2877,16 +2891,16 @@ const DICTIONARY = [
   {en:'soup',zh:'汤',def:'Any of various dishes commonly made by combining liquids, such as water or stock with other ingredients, such as meat and vegetables, that contribute flavor and texture.',phonetic:'/suːp/',pos:'n.'},
   {en:'sour',zh:'酸的',def:'The sensation of a sour taste.',phonetic:'/ˈsaʊə/',pos:'adj.'},
   {en:'souvenir',zh:'纪念品',def:'An item of sentimental value, to remember an event or location.',phonetic:'/ˌsuːvəˈnɪə(ɹ)/',pos:'n.'},
-  {en:'spare',zh:'adj./v. 空闲的；抽出',def:'The act of sparing; moderation; restraint.',phonetic:'/ˈspɛə(ɹ)/',pos:'n.'},
+  {en:'spare',zh:'空闲的；抽出',def:'The act of sparing; moderation; restraint.',phonetic:'/ˈspɛə(ɹ)/',pos:'n.'},
   {en:'speaker',zh:'扬声器',def:'One who speaks.',phonetic:'/ˈspiːkə/',pos:'n.'},
-  {en:'specialist',zh:'专家',def:'Someone who is an expert in, or devoted to, some specific branch of study or research.',phonetic:'/ˈspɛʃəlɪst/',pos:'n.'},
+  {en:'specialist',zh:'专家',def:'A person who is highly skilled in a specific field or area.',phonetic:'/ˈspeʃəlɪst/',pos:'n.'},
   {en:'spicy',zh:'辛辣的',def:'Of, pertaining to, or containing spice.',phonetic:'',pos:'adj.'},
   {en:'spooky',zh:'阴森恐怖的',def:'Eerie, or suggestive of ghosts or the supernatural.',phonetic:'/spuːki/',pos:'adj.'},
   {en:'spouse',zh:'配偶',def:'A person in a marriage or marital relationship.',phonetic:'/spaʊs/',pos:'n.'},
   {en:'stadium',zh:'体育场',def:'A venue where sporting events are held.',phonetic:'/ˈsteɪ.di.əm/',pos:'n.'},
   {en:'staff',zh:'员工',def:'(plural staffs or staves) A long, straight, thick wooden rod or stick, especially one used to assist in walking.',phonetic:'/ˈstæf/',pos:'n.'},
   {en:'stair',zh:'楼梯',def:'A single step in a staircase.',phonetic:'/stɛə/',pos:'n.'},
-  {en:'standard',zh:'n./adj. 标准',def:'A principle or example or measure used for comparison.',phonetic:'/ˈstændəd/',pos:'n.'},
+  {en:'standard',zh:'标准',def:'A principle or example or measure used for comparison.',phonetic:'/ˈstændəd/',pos:'n.'},
   {en:'starve',zh:'挨饿',def:'To die; in later use especially to die slowly, waste away.',phonetic:'/stɑːv/',pos:'v.'},
   {en:'statue',zh:'雕像',def:'A three-dimensional work of art, usually representing a person or animal, usually created by sculpting, carving, molding, or casting.',phonetic:'/ˈstæt.juː/',pos:'n.'},
   {en:'steady',zh:'稳定的',def:'A rest or support, as for the hand, a tool, or a piece of work.',phonetic:'/ˈstɛdi/',pos:'adj.'},
@@ -2899,7 +2913,7 @@ const DICTIONARY = [
   {en:'stove',zh:'炉子',def:'A heater, a closed apparatus to burn fuel for the warming of a room.',phonetic:'/stəʊv/',pos:'n.'},
   {en:'stressful',zh:'有压力的',def:'Irritating; causing stress.',phonetic:'/ˈstɹɛsfəl/',pos:'adj.'},
   {en:'strict',zh:'严格的',def:'Strained; drawn close; tight.',phonetic:'/stɹɪkt/',pos:'adj.'},
-  {en:'strike',zh:'n./v. 罢工',def:'A status resulting from a batter swinging and missing a pitch, or not swinging at a pitch when the ball goes in the strike zone, or hitting a foul ball that is not caught.',phonetic:'/stɹaɪk/',pos:'n.'},
+  {en:'strike',zh:'罢工',def:'A status resulting from a batter swinging and missing a pitch, or not swinging at a pitch when the ball goes in the strike zone, or hitting a foul ball that is not caught.',phonetic:'/stɹaɪk/',pos:'n.'},
   {en:'studio',zh:'工作室',def:'An artist’s or photographer’s workshop or the room in which an artist works.',phonetic:'/ˈstjuːdiəʊ/',pos:'n.'},
   {en:'style',zh:'风格',def:'Senses relating to a thin, pointed object.',phonetic:'/staɪl/',pos:'n.'},
   {en:'submarine',zh:'潜艇',def:'A boat that can go underwater.',phonetic:'/sʌb.məˈɹiːn/',pos:'n.'},
@@ -2914,12 +2928,12 @@ const DICTIONARY = [
   {en:'surfing',zh:'冲浪',def:'To ride a wave, usually on a surfboard.',phonetic:'/ˈsɝfɪŋ/',pos:'n.'},
   {en:'surgery',zh:'外科手术',def:'A procedure involving major incisions to remove, repair, or replace a part of a body.',phonetic:'/ˈsɜːdʒəɹi/',pos:'n.'},
   {en:'suspicion',zh:'怀疑',def:'The act of suspecting something or someone, especially of something wrong.',phonetic:'/sə.ˈspɪ.ʃən/',pos:'n.'},
-  {en:'sweat',zh:'n./v. 汗水',def:'Fluid that exits the body through pores in the skin usually due to physical stress and/or high temperature for the purpose of regulating body temperature and removing certain compounds from the circulation.',phonetic:'/swɛt/',pos:'n.'},
+  {en:'sweat',zh:'汗水',def:'Fluid that exits the body through pores in the skin usually due to physical stress and/or high temperature for the purpose of regulating body temperature and removing certain compounds from the circulation.',phonetic:'/swɛt/',pos:'n.'},
   {en:'sweater',zh:'毛衣',def:'A knitted jacket or jersey, usually of thick wool, worn by athletes before or after exercise.',phonetic:'/ˈswetə/',pos:'n.'},
   {en:'sweatshirt',zh:'运动衫',def:'A loose shirt, usually made of a knit fleece, for athletic wear and now often used as casual apparel.',phonetic:'',pos:'n.'},
   {en:'swimsuit',zh:'泳衣',def:'A garment worn for swimming.',phonetic:'',pos:'n.'},
-  {en:'swing',zh:'n./v. 秋千',def:'The manner in which something is swung.',phonetic:'/ˈswɪŋ/',pos:'n.'},
-  {en:'switch',zh:'n./v. 开关',def:'A bundle of thin sticks, typically made of wood, sometimes bond in such a way that binding can be moved so that it varies the tightness of the binding.',phonetic:'/swɪtʃ/',pos:'n.'},
+  {en:'swing',zh:'秋千',def:'The manner in which something is swung.',phonetic:'/ˈswɪŋ/',pos:'n.'},
+  {en:'switch',zh:'开关',def:'A bundle of thin sticks, typically made of wood, sometimes bond in such a way that binding can be moved so that it varies the tightness of the binding.',phonetic:'/swɪtʃ/',pos:'n.'},
   {en:'symptom',zh:'症状',def:'A perceived change in some function, sensation or appearance of a person that indicates a disease or disorder, such as fever, headache or rash.',phonetic:'/ˈsɪm(p)təm/',pos:'n.'},
   {en:'tablet',zh:'药片',def:'A slab of clay used for inscription.',phonetic:'/ˈtæblət/',pos:'n.'},
   {en:'tail',zh:'尾巴',def:'The caudal appendage of an animal that is attached to its posterior and near the anus.',phonetic:'/teɪl/',pos:'n.'},
@@ -2953,7 +2967,7 @@ const DICTIONARY = [
   {en:'toothbrush',zh:'牙刷',def:'A brush, used with toothpaste, for cleaning the teeth.',phonetic:'/ˈtuːθbɹʌʃ/',pos:'n.'},
   {en:'tourism',zh:'旅游业',def:'The act of travelling or sightseeing, particularly away from one\'s home.',phonetic:'/tɔːɹɪz(ə)m/',pos:'n.'},
   {en:'tourist',zh:'游客',def:'Someone who travels for pleasure rather than for business.',phonetic:'/ˈtʊəɹɪst/',pos:'n.'},
-  {en:'trade',zh:'n./v. 贸易',def:'Buying and selling of goods and services on a market.',phonetic:'/tɹeɪd/',pos:'n.'},
+  {en:'trade',zh:'贸易',def:'Buying and selling of goods and services on a market.',phonetic:'/tɹeɪd/',pos:'n.'},
   {en:'training',zh:'训练',def:'To practice an ability.',phonetic:'/ˈtɹeɪnɪŋ/',pos:'n.'},
   {en:'transit',zh:'运输',def:'The act of passing over, across, or through something.',phonetic:'/ˈtɹæn.sɪt/',pos:'n.'},
   {en:'transportation',zh:'交通',def:'The act of transporting, or the state of being transported; conveyance, often of people, goods etc.',phonetic:'/tɹænspɔːˈteɪʃən/',pos:'n.'},
@@ -2963,20 +2977,20 @@ const DICTIONARY = [
   {en:'trial',zh:'审判',def:'An opportunity to test something out; a test.',phonetic:'/ˈtɹaɪəl/',pos:'n.'},
   {en:'tropical',zh:'热带的',def:'A tropical plant.',phonetic:'',pos:'adj.'},
   {en:'truly',zh:'真正地',def:'(manner) In accordance with the facts; truthfully, accurately.',phonetic:'/ˈtɹuːli/',pos:'adv.'},
-  {en:'tshirt',zh:'T恤衫',def:'',phonetic:'',pos:'n.'},
+  {en:'tshirt',zh:'T恤衫',def:'A short-sleeved casual top, typically made of cotton, having the shape of a T when laid flat.',phonetic:'/ˈtiːʃɜːt/',pos:'n.'},
   {en:'tuition',zh:'学费',def:'A sum of money paid for instruction (such as in a high school, boarding school, university, or college).',phonetic:'/ˈtjuːʃən/',pos:'n.'},
-  {en:'tunnel',zh:'隧道',def:'An underground or underwater passage.',phonetic:'/ˈtʌn(ə)l/',pos:'n.'},
+  {en:'tunnel',zh:'隧道',def:'An underground passage, often built through a hill or under a road.',phonetic:'/ˈtʌnl/',pos:'n.'},
   {en:'turtle',zh:'海龟',def:'Any land or marine reptile of the order Testudines, characterised by a protective shell enclosing its body. See also tortoise.',phonetic:'/ˈtɜːtəl/',pos:'n.'},
   {en:'tutor',zh:'导师',def:'One who teaches another (usually called a student, learner, or tutee) in a one-on-one or small-group interaction.',phonetic:'/ˈtjuːtə/',pos:'n.'},
   {en:'tutorial',zh:'教程',def:'A self-paced learning exercise; a lesson prepared so that a student can learn at their own speed, at their convenience.',phonetic:'/tʃʉˈtoːɹiəɫ/',pos:'n.'},
   {en:'twin',zh:'双胞胎',def:'Either of two people (or, less commonly, animals) who shared the same uterus at the same time; one who was born at the same birth as a sibling.',phonetic:'/twɪn/',pos:'n.'},
-  {en:'underwater',zh:'adj./adv. 水下',def:'Underlying water or body of water, for example in an aquifer or the deep ocean',phonetic:'',pos:'n.'},
+  {en:'underwater',zh:'水下',def:'Underlying water or body of water, for example in an aquifer or the deep ocean',phonetic:'',pos:'n.'},
   {en:'underwear',zh:'内衣',def:'Clothes worn next to the skin, underneath outer clothing.',phonetic:'/ˈʌndəwɛə/',pos:'n.'},
   {en:'unicorn',zh:'独角兽',def:'A mythical beast resembling a horse or deer with a single, straight, spiraled horn projecting from its forehead.',phonetic:'/ˈjuːnɪkɔːn/',pos:'n.'},
   {en:'union',zh:'联盟',def:'The act of uniting or joining two or more things into one.',phonetic:'/ˈjuːnjən/',pos:'n.'},
   {en:'university',zh:'大学',def:'Institution of higher education (typically accepting students from the age of about 17 or 18, depending on country, but in some exceptional cases able to take younger students) where subjects are studied and researched in depth and degrees are offered.',phonetic:'/juːnɪˈvɜːsətiː/',pos:'n.'},
   {en:'unlucky',zh:'不幸的',def:'Unfortunate, marked by misfortune.',phonetic:'/ʌnˈlʌki/',pos:'adj.'},
-  {en:'update',zh:'v./n. 更新',def:'An advisement providing more up-to-date information than currently known.',phonetic:'',pos:'n.'},
+  {en:'update',zh:'更新',def:'An advisement providing more up-to-date information than currently known.',phonetic:'',pos:'n.'},
   {en:'upstairs',zh:'在楼上',def:'An upper storey.',phonetic:'/ˈʌpˌstɛəz/',pos:'adv.'},
   {en:'user',zh:'用户',def:'One who uses or makes use of something, a consumer/client or an express or implied licensee (free user) or a trespasser.',phonetic:'/ˈjuːzə/',pos:'n.'},
   {en:'vanilla',zh:'香草',def:'Any tropical, climbing orchid of the genus Vanilla (especially Vanilla planifolia), bearing podlike fruit yielding an extract used in flavoring food or in perfumes.',phonetic:'/vəˈnɛlə/',pos:'n.'},
@@ -3001,7 +3015,7 @@ const DICTIONARY = [
   {en:'website',zh:'网站',def:'A collection of interlinked web pages on the World Wide Web that are typically accessible from the same base URL and reside on the same server.',phonetic:'/ˈwɛbˌsaɪt/',pos:'n.'},
   {en:'werewolf',zh:'狼人',def:'A person who is transformed or can transform into a wolf or a wolflike human, often said to transform during a full moon.',phonetic:'/ˈwɛːwʊlf/',pos:'n.'},
   {en:'whistle',zh:'口哨',def:'A device designed to be placed in the mouth and blown, or driven by steam or some other mechanism, to make a whistling sound.',phonetic:'/wɪsl̩/',pos:'n.'},
-  {en:'white',zh:'adj./n. 白色',def:'The color/colour of snow or milk; the colour of light containing equal amounts of all visible wavelengths.',phonetic:'/waɪt/',pos:'n.'},
+  {en:'white',zh:'白色',def:'The color/colour of snow or milk; the colour of light containing equal amounts of all visible wavelengths.',phonetic:'/waɪt/',pos:'n.'},
   {en:'whiteboard',zh:'白板',def:'A writing board finished with a hard white material, which can be written upon using special non-permanent markers and subsequently wiped clean.',phonetic:'/ˈwaɪtbɔːd/',pos:'n.'},
   {en:'widow',zh:'寡妇',def:'A woman whose spouse has died (and who has not remarried); feminine of widower.',phonetic:'/ˈwɪ.dəʊ/',pos:'n.'},
   {en:'wildlife',zh:'野生动物',def:'Animals, plants, and fungi, not normally domesticated, often to the exclusion of plants, fungi, fish, insects and other invertebrates, and microscopic plants and animals; hence:',phonetic:'/ˈwaɪldlaɪf/',pos:'n.'},
@@ -3016,31 +3030,31 @@ const DICTIONARY = [
   {en:'yard',zh:'院子',def:'A small, usually uncultivated area adjoining or (now especially) within the precincts of a house or other building.',phonetic:'/jɑːd/',pos:'n.'},
   {en:'yogurt',zh:'酸奶',def:'A milk-based product stiffened by a bacterium-aided curdling process, and sometimes mixed with fruit or other flavoring.',phonetic:'/ˈjəʉɡət/',pos:'n.'},
   {en:'zookeeper',zh:'动物园管理员',def:'A person employed at a zoo to attend to the animals.',phonetic:'',pos:'n.'},
-  {en:'access',zh:'v./n. 访问；进入',def:'A way or means of approaching or entering; an entrance; a passage.',phonetic:'/ˈæksɛs/',pos:'n.'},
-  {en:'ache',zh:'n./v. 疼痛',def:'Continued dull pain, as distinguished from sudden twinges, or spasmodic pain.',phonetic:'/eɪk/',pos:'n.'},
+  {en:'access',zh:'访问；进入',def:'A way or means of approaching or entering; an entrance; a passage.',phonetic:'/ˈæksɛs/',pos:'n.'},
+  {en:'ache',zh:'疼痛',def:'Continued dull pain, as distinguished from sudden twinges, or spasmodic pain.',phonetic:'/eɪk/',pos:'n.'},
   {en:'advertise',zh:'做广告',def:'To give (especially public) notice of (something); to announce publicly.',phonetic:'/ˈadvə(ɹ)taɪz/',pos:'v.'},
   {en:'aged',zh:'年老的',def:'To cause to grow old; to impart the characteristics of age to.',phonetic:'/eɪdʒd/',pos:'adj.'},
   {en:'alive',zh:'活着的',def:'Having life; living; not dead',phonetic:'/əˈlaɪv/',pos:'adj.'},
   {en:'anniversary',zh:'周年纪念日',def:'A day that is an exact number of years (to the day) since a given significant event occurred. Often preceded by an ordinal number indicating the number of years.',phonetic:'/ˌænɪˈvɜːs(ə)ɹi/',pos:'n.'},
   {en:'annual',zh:'每年的',def:'An annual publication; a book, periodical, journal, report, comic book, yearbook, etc., which is published serially once a year, which may or may not be in addition to regular weekly or monthly publication.',phonetic:'/ˈæn.ju.əl/',pos:'adj.'},
   {en:'appearance',zh:'外貌；出现',def:'The act of appearing or coming into sight; the act of becoming visible to the eye.',phonetic:'/əˈpɪəɹəns/',pos:'n.'},
-  {en:'average',zh:'adj./n. 平均的；平均数',def:'The arithmetic mean.',phonetic:'/ˈævəɹɪd͡ʒ/',pos:'n.'},
-  {en:'benefit',zh:'n./v. 好处；受益',def:'An advantage; help or aid from something.',phonetic:'/ˈbɛn.ɪ.fɪt/',pos:'n.'},
+  {en:'average',zh:'平均；平均的',def:'The typical or normal amount, rate, or quality.',phonetic:'/ˈævərɪdʒ/',pos:'n./adj.'},
+  {en:'benefit',zh:'好处；受益',def:'An advantage; help or aid from something.',phonetic:'/ˈbɛn.ɪ.fɪt/',pos:'n.'},
   {en:'bleed',zh:'流血',def:'An incident of bleeding, as in haemophilia.',phonetic:'/ˈbliːd/',pos:'v.'},
-  {en:'clap',zh:'v./n. 鼓掌',def:'The act of striking the palms of the hands, or any two surfaces, together.',phonetic:'/klæp/',pos:'n.'},
+  {en:'clap',zh:'鼓掌',def:'The act of striking the palms of the hands, or any two surfaces, together.',phonetic:'/klæp/',pos:'n.'},
   {en:'clearly',zh:'清楚地',def:'(manner) In a clear manner.',phonetic:'/ˈkliːɹli/',pos:'adv.'},
   {en:'comic book',zh:'漫画书',def:'A book or magazine that uses sequences of drawings to tell a story or series of stories, primarily in serialized form, usually fiction.',phonetic:'',pos:'n.'},
-  {en:'comment',zh:'n./v. 评论',def:'A spoken or written remark.',phonetic:'/ˈkɒmɛnt/',pos:'n.'},
+  {en:'comment',zh:'评论',def:'A spoken or written remark.',phonetic:'/ˈkɒmɛnt/',pos:'n.'},
   {en:'companion',zh:'同伴',def:'A friend, acquaintance, or partner; someone with whom one spends time or keeps company',phonetic:'/kəmˈpænjən/',pos:'n.'},
   {en:'condition',zh:'条件；状况',def:'A logical clause or phrase that a conditional statement uses. The phrase can either be true or false.',phonetic:'/kənˈdɪʃən/',pos:'n.'},
   {en:'context',zh:'上下文；背景',def:'The surroundings, circumstances, environment, background or settings that determine, specify, or clarify the meaning of an event or other occurrence.',phonetic:'/ˈkɒntɛkst/',pos:'n.'},
   {en:'conversation',zh:'对话',def:'Expression and exchange of individual ideas through talking with other people; also, a set instance or occasion of such talking.',phonetic:'/ˌkɒn.vəˈseɪ.ʃən/',pos:'n.'},
-  {en:'deal',zh:'n./v. 交易；处理',def:'A division, a portion, a share.',phonetic:'/diːl/',pos:'n.'},
+  {en:'deal',zh:'交易；处理',def:'A division, a portion, a share.',phonetic:'/diːl/',pos:'n.'},
   {en:'detective',zh:'侦探',def:'(law enforcement) A police officer who looks for evidence as part of solving a crime; an investigator.',phonetic:'/dɪˈtɛktɪv/',pos:'n.'},
   {en:'director',zh:'导演；主管',def:'One who directs; the person in charge of managing a department or directorate (e.g., director of engineering), project, or production (as in a show or film, e.g., film director).',phonetic:'/daɪˈɹɛktə(ɹ)/',pos:'n.'},
   {en:'duty',zh:'职责',def:'That which one is morally or legally obligated to do.',phonetic:'/ˈdjuːti/',pos:'n.'},
   {en:'elf',zh:'精灵',def:'A luminous spirit presiding over nature and fertility and dwelling in the world of Álfheim (Elfland). Compare angel, nymph, fairy.',phonetic:'/ɛlf/',pos:'n.'},
-  {en:'evil',zh:'adj./n. 邪恶的',def:'Moral badness; wickedness; malevolence; the forces or behaviors that are the opposite or enemy of good.',phonetic:'/ˈivəl/',pos:'n.'},
+  {en:'evil',zh:'邪恶的',def:'Moral badness; wickedness; malevolence; the forces or behaviors that are the opposite or enemy of good.',phonetic:'/ˈivəl/',pos:'n.'},
   {en:'father-in-law',zh:'岳父；公公',def:'One\'s spouse\'s father.',phonetic:'',pos:'n.'},
   {en:'full-time',zh:'全职的',def:'Involving a full amount of time spent on some activity, especially a job.',phonetic:'',pos:'adj.'},
   {en:'horn',zh:'角；喇叭',def:'A hard growth of keratin that protrudes from the top of the head of certain animals, usually paired.',phonetic:'/hɔːn/',pos:'n.'},
@@ -3049,7 +3063,7 @@ const DICTIONARY = [
   {en:'reporter',zh:'记者',def:'Someone or something that reports.',phonetic:'/ɹɪˈpɔːtə/',pos:'n.'},
   {en:'scary',zh:'可怕的',def:'Causing or able to cause fright.',phonetic:'/ˈskɛəɹi/',pos:'adj.'},
   {en:'silly',zh:'愚蠢的',def:'A silly person.',phonetic:'/ˈsɪli/',pos:'adj.'},
-  {en:'slice',zh:'n./v. 薄片；切片',def:'That which is thin and broad.',phonetic:'/slaɪs/',pos:'n.'},
+  {en:'slice',zh:'薄片；切片',def:'That which is thin and broad.',phonetic:'/slaɪs/',pos:'n.'},
   {en:'sorry',zh:'抱歉的',def:'The act of saying sorry; an apology.',phonetic:'/ˈsɔɹi/',pos:'adj.'},
   {en:'stamp',zh:'邮票',def:'An act of stamping the foot, paw or hoof.',phonetic:'/stæmp/',pos:'n.'},
   {en:'straw',zh:'吸管；稻草',def:'A dried stalk of a cereal plant.',phonetic:'/stɹɔː/',pos:'n.'},
@@ -3064,7 +3078,18 @@ const DICTIONARY = [
   {en:'grapefruit',zh:'葡萄柚',def:'The tree of the species Citrus paradisi, a hybrid of pomelo (Citrus maxima) and sweet orange.',phonetic:'/ˈɡɹeɪp.fɹuːt/',pos:'n.'},
   {en:'living room',zh:'客厅',def:'A room in a private house used for general social and leisure activities.',phonetic:'',pos:'n.'},
   {en:'melon',zh:'瓜；甜瓜',def:'Any of various plants of the family Cucurbitaceae grown for food, generally not including the cucumber.',phonetic:'/ˈmɛlən/',pos:'n.'},
-  {en:'milkshake',zh:'奶昔',def:'A thick beverage consisting of milk and ice cream mixed together, often with fruit, chocolate, or other flavoring.',phonetic:'[ˈmɪɫk.ʃeɪk]',pos:'n.'}
+  {en:'milkshake',zh:'奶昔',def:'A thick beverage consisting of milk and ice cream mixed together, often with fruit, chocolate, or other flavoring.',phonetic:'[ˈmɪɫk.ʃeɪk]',pos:'n.'},
+  {en:'bravery',zh:'勇敢',def:'Courageous behavior or character.',phonetic:'/ˈbreɪvəri/',pos:'n.'},
+  {en:'bury',zh:'埋葬',def:'To put a dead body into the ground.',phonetic:'/ˈberi/',pos:'v.'},
+  {en:'dig',zh:'挖（过去式 dug，过去分词 dug）',def:'To break up or remove earth or sand using a tool or hands.',phonetic:'/dɪɡ/',pos:'v.'},
+  {en:'earthquake',zh:'地震',def:'A sudden shaking of the ground, often causing destruction.',phonetic:'/ˈɜːθkweɪk/',pos:'n.'},
+  {en:'fallen',zh:'倒下的',def:'Having dropped or come down from a higher position.',phonetic:'/ˈfɔːlən/',pos:'adj.'},
+  {en:'mole',zh:'鼹鼠',def:'A small, burrowing mammal with dark velvety fur and small eyes.',phonetic:'/məʊl/',pos:'n.'},
+  {en:'psychologist',zh:'心理学家',def:'A person who studies and treats the human mind and behavior.',phonetic:'/saɪˈkɒlədʒɪst/',pos:'n.'},
+  {en:'rescue',zh:'援救',def:'To save or deliver from danger or harm; an act of saving or delivering.',phonetic:'/ˈreskjuː/',pos:'v./n.'},
+  {en:'tsunami',zh:'海啸',def:'A long high sea wave caused by an earthquake or other disturbance.',phonetic:'/suːˈnɑːmi/',pos:'n.'},
+  {en:'volunteer',zh:'志愿者；志愿做某事',def:'A person who offers to do something willingly or without pay.',phonetic:'/ˌvɒlənˈtɪə/',pos:'n./v.'},
+  {en:'zone',zh:'区域',def:'An area or stretch of land with a particular characteristic or use.',phonetic:'/zəʊn/',pos:'n.'}
 ];
 
 // ============================================================================
@@ -3113,8 +3138,8 @@ function seedTextbooks(){
     if(!exists){
       data.textbooks.push(JSON.parse(JSON.stringify(bt)));
       changed=true;
-    }else if(bt.p==='Compass Publishing'){
-      // Force-update Compass built-in entries to match current genTextbookDB
+    }else if(bt.p==='Compass Publishing'||bt.p==='Cambridge University Press'){
+      // Force-update Compass & Cambridge built-in entries to match current genTextbookDB
       const fresh=JSON.parse(JSON.stringify(bt));
       if(JSON.stringify(exists.u)!==JSON.stringify(fresh.u)){exists.u=fresh.u;changed=true;}
       if(exists.g!==fresh.g){exists.g=fresh.g;changed=true;}
@@ -3166,9 +3191,57 @@ function genTextbookDB(){
         {en:"keen on",zh:"热衷于",phonetic:"",pos:"phr."},
         {en:"lose a race",zh:"输掉比赛",phonetic:"",pos:"phr."},
         {en:"make a mistake",zh:"犯错误",phonetic:"",pos:"phr."},
-        {en:"take a risk",zh:"冒险",phonetic:"",pos:"phr."}
+        {en:"take a risk",zh:"冒险",phonetic:"",pos:"phr."},
+        // Additional Unit 1 vocabulary (23 words)
+        W("mole","鼹鼠"),W("tunnel","隧道"),W("earthquake","地震"),W("bury","埋葬"),
+        W("fallen","倒下的"),W("volunteer","志愿者；志愿做某事"),W("bravery","勇敢"),
+        W("disaster","灾难"),W("zone","区域"),W("attack","攻击"),W("tsunami","海啸"),
+        W("altogether","完全地"),W("average","平均；平均的"),W("professional","专业的；专业人士"),
+        W("specialist","专家"),W("psychologist","心理学家"),W("local","当地的；本地人"),
+        W("rescue","援救"),W("manage","管理"),W("offer","提供"),W("course","课程"),
+        W("continue","继续"),W("dig","挖（过去式 dug，过去分词 dug）"),
+        {en:"decide to do sth.",zh:"决定做某事",phonetic:"",pos:"phr."},
+        {en:"on average",zh:"平均",phonetic:"",pos:"phr."}
       ]},
-      {n:"Unit 2 — A Good Education",w:null},{n:"Unit 3 — On the Screen",w:null},
+      {n:"Unit 2 — A Good Education",w:[
+        // School subjects (15)
+        {en:"art",zh:"美术",phonetic:"/ɑːrt/",pos:"n.",def:"the expression or application of human creative skill and imagination"},
+        {en:"biology",zh:"生物",phonetic:"/baɪˈɒlədʒi/",pos:"n.",def:"the study of living organisms"},
+        {en:"chemistry",zh:"化学",phonetic:"/ˈkemɪstri/",pos:"n.",def:"the branch of science concerned with substances and their reactions"},
+        {en:"drama",zh:"戏剧",phonetic:"/ˈdrɑːmə/",pos:"n.",def:"a play for theatre, radio, or television"},
+        {en:"economics",zh:"经济学",phonetic:"/ˌiːkəˈnɒmɪks/",pos:"n.",def:"the study of production, consumption, and transfer of wealth"},
+        {en:"French",zh:"法语",phonetic:"/frentʃ/",pos:"n.",def:"the language of France"},
+        {en:"geography",zh:"地理",phonetic:"/dʒiˈɒɡrəfi/",pos:"n.",def:"the study of the physical features of the earth"},
+        {en:"German",zh:"德语",phonetic:"/ˈdʒɜːmən/",pos:"n.",def:"the language of Germany"},
+        {en:"history",zh:"历史",phonetic:"/ˈhɪstəri/",pos:"n.",def:"the study of past events"},
+        {en:"ICT",zh:"信息与通信技术",phonetic:"/ˌaɪ siː ˈtiː/",pos:"n.",def:"Information and Communications Technology"},
+        {en:"maths",zh:"数学",phonetic:"/mæθs/",pos:"n.",def:"the abstract science of number, quantity, and space"},
+        {en:"PE",zh:"体育",phonetic:"/ˌpiː ˈiː/",pos:"n.",def:"physical education; instruction in physical exercise and games"},
+        {en:"physics",zh:"物理",phonetic:"/ˈfɪzɪks/",pos:"n.",def:"the branch of science concerned with matter, energy, and their interactions"},
+        {en:"science",zh:"科学",phonetic:"/ˈsaɪəns/",pos:"n.",def:"the systematic study of the structure and behaviour of the natural world"},
+        {en:"Spanish",zh:"西班牙语",phonetic:"/ˈspænɪʃ/",pos:"n.",def:"the language of Spain"},
+        // Reflexive pronouns (8)
+        {en:"myself",zh:"我自己",phonetic:"/maɪˈself/",pos:"pron.",def:"used by a speaker to refer to himself or herself"},
+        {en:"yourself",zh:"你自己",phonetic:"/jɔːˈself/",pos:"pron.",def:"used to refer to the person being addressed"},
+        {en:"himself",zh:"他自己",phonetic:"/hɪmˈself/",pos:"pron.",def:"used to refer to a male person previously mentioned"},
+        {en:"herself",zh:"她自己",phonetic:"/hɜːˈself/",pos:"pron.",def:"used to refer to a female person previously mentioned"},
+        {en:"itself",zh:"它自己",phonetic:"/ɪtˈself/",pos:"pron.",def:"used to refer to a thing or animal previously mentioned"},
+        {en:"ourselves",zh:"我们自己",phonetic:"/aʊəˈselvz/",pos:"pron.",def:"used to refer to the speaker together with others"},
+        {en:"yourselves",zh:"你们自己",phonetic:"/jɔːˈselvz/",pos:"pron.",def:"used to refer to the people being addressed"},
+        {en:"themselves",zh:"他们/她们/它们自己",phonetic:"/ðəmˈselvz/",pos:"pron.",def:"used to refer to people or things previously mentioned"},
+        // Verbs with -ing and to / verb patterns (11)
+        {en:"try",zh:"尝试；试图",phonetic:"/traɪ/",pos:"v.",def:"make an attempt or effort to do something"},
+        {en:"remember",zh:"记住；记得",phonetic:"/rɪˈmembə/",pos:"v.",def:"have in or be able to bring to mind an awareness of"},
+        {en:"stop",zh:"停止",phonetic:"/stɒp/",pos:"v.",def:"cease to happen or continue"},
+        {en:"regret",zh:"后悔；遗憾",phonetic:"/rɪˈɡret/",pos:"v.",def:"feel sad or disappointed over something that has happened"},
+        {en:"go on",zh:"继续",phonetic:"/ɡəʊ ɒn/",pos:"phr.",def:"continue doing something"},
+        {en:"mean",zh:"意思是；意味着",phonetic:"/miːn/",pos:"v.",def:"intend to convey or refer to"},
+        {en:"need",zh:"需要",phonetic:"/niːd/",pos:"v.",def:"require something because it is essential"},
+        {en:"want",zh:"想要",phonetic:"/wɒnt/",pos:"v.",def:"have a desire to possess or do something"},
+        {en:"forget",zh:"忘记",phonetic:"/fəˈɡet/",pos:"v.",def:"fail to remember"},
+        {en:"learn",zh:"学习",phonetic:"/lɜːn/",pos:"v.",def:"gain knowledge or skill in something through study or experience"},
+        {en:"would like",zh:"想要",phonetic:"/wʊd laɪk/",pos:"phr.",def:"want or wish for something; a polite form of 'want'"},
+      ]},{n:"Unit 3 — On the Screen",w:null},
       {n:"Unit 4 — Online Life",w:null},{n:"Unit 5 — Music to My Ears",w:null},
       {n:"Unit 6 — No Planet B",w:null},{n:"Unit 7 — The Future is Now",w:null},
       {n:"Unit 8 — Science and Us",w:null},{n:"Unit 9 — Working Week",w:null},
@@ -6381,16 +6454,6 @@ async function saveWord(){
   closeAddWord();renderBank();toast('已添加: '+en);
 }
 
-async function addSampleWords(){
-  const existing=getWordBank();
-  const existingEns=new Set(existing.map(w=>w.en.toLowerCase()));
-  let added=0;
-  for(const d of DICTIONARY){
-    if(!existingEns.has(d.en.toLowerCase())){await saveWordToBank(d);added++;}
-  }
-  renderBank();toast(`已导入 ${added} 个示例词汇`);
-}
-
 // ============================================================================
 // OCR / UPLOAD
 // ============================================================================
@@ -6399,9 +6462,16 @@ function toggleTOCMode(){
   tocMode=!tocMode;
   const toggle=document.getElementById('tocModeToggle');
   toggle.classList.toggle('active',tocMode);
-  toggle.textContent=(tocMode?'✅ ':'')+'<svg class="icon"><use href="#icon-bank"/></svg> TOC模式（教材目录页识别）';
+  toggle.textContent=(tocMode?'✅ ':'')+'📋 TOC模式';
   const label=document.getElementById('uploadLabel');
   if(label)label.textContent=tocMode?'点击上传目录页图片 (TOC模式)':'点击上传 或 拖拽图片到此处';
+}
+let autoCorrect=false;
+function toggleAutoCorrect(){
+  autoCorrect=!autoCorrect;
+  const toggle=document.getElementById('autoCorrectToggle');
+  toggle.classList.toggle('active',autoCorrect);
+  toggle.textContent=(autoCorrect?'🔮 ':'')+'词典辅助匹配';
 }
 const uploadZone=document.getElementById('uploadZone');
 if(uploadZone){
@@ -6441,6 +6511,8 @@ async function handleFileInput(file){
   const isTOC=tocMode;
   status.innerHTML='<div class="spinner"></div><p>正在预处理图片'+(isTOC?' (TOC模式)':'')+'...</p>';
   results.innerHTML='';
+  window._ocrSuggestions={};
+  window._ocrSaveWords=null;
   try{
     // Load image, preprocess on canvas
     const imgBlobUrl=URL.createObjectURL(file);
@@ -6476,32 +6548,33 @@ async function handleFileInput(file){
 
     if(uniqueWords.length===0){status.innerHTML='<p style="color:var(--red)">未识别到英文单词，请确认图片清晰包含英文文本</p>';return;}
 
-    // Match against DICTIONARY + user's textbook vocab banks — with fuzzy correction
-    const found=[],notFound=[],fuzzyFixed=[];
+    // Match against DICTIONARY + user's textbook vocab banks — EXACT MATCH ONLY, never auto-replace
+    const found=[],notFound=[],suggestionMap={};
     uniqueWords.forEach(w=>{
-      // Apply known OCR fixes
-      const fixed=_OCR_FIXES[w]||w;
-      if(fixed!==w) w=fixed;
-      // Exact match
+      // Exact match only — never apply OCR fixes or fuzzy auto-correction
       let d=_dictMap[w];
       if(d) { found.push({en:d.en,zh:d.zh||'',def:d.def||'',phonetic:d.phonetic||'',pos:d.pos||''}); return; }
-      // Fuzzy match (edit distance ≤ 2)
-      const fuzzy=_fuzzyDictMatch(w);
-      if(fuzzy.match){
-        found.push({en:fuzzy.match.en,zh:fuzzy.match.zh||'',def:fuzzy.match.def||'',phonetic:fuzzy.match.phonetic||'',pos:fuzzy.match.pos||''});
-        if(fuzzy.distance>0) fuzzyFixed.push({from:w, to:fuzzy.match.en});
-      } else {
-        notFound.push(w);
+      // Not in dictionary: preserve original OCR word
+      notFound.push(w);
+      // If autoCorrect is on, compute suggestions for UI display
+      if(autoCorrect){
+        const sugs=_findSuggestions(w,2);
+        if(sugs.length>0) suggestionMap[w.toLowerCase()]=sugs;
       }
     });
 
     const matchedWithDef=found.filter(w=>w.def);
     let statusMsg=`<p style="color:var(--green);font-weight:bold;"><svg class="icon"><use href="#icon-success"/></svg> 识别到 ${uniqueWords.length} 个单词，其中 ${found.length} 个已匹配词典 (${matchedWithDef.length}个含英文释义)</p>
-      <p style="font-size:.75em;color:var(--muted);">${isTOC?'TOC模式 · 自适应预处理 · ':''}模糊匹配已启用 · 含教材词汇库</p>`;
-    if(fuzzyFixed.length>0){
-      statusMsg+=`<p style="font-size:.75em;color:var(--accent);"><svg class="icon"><use href="#icon-settings"/></svg> 自动修正 ${fuzzyFixed.length} 个形近词: ${fuzzyFixed.map(f=>f.from+'→'+f.to).join(', ')}</p>`;
+      <p style="font-size:.75em;color:var(--muted);">${isTOC?'TOC模式 · 自适应预处理 · ':''}精确匹配 · 词典仅作参考${autoCorrect?' (辅助匹配已开启)':''}</p>`;
+    if(autoCorrect&&Object.keys(suggestionMap).length>0){
+      statusMsg+=`<p style="font-size:.75em;color:var(--accent);"><svg class="icon"><use href="#icon-settings"/></svg> 💡 为 ${Object.keys(suggestionMap).length} 个未匹配词找到词典候选 (点击小标签可用)</p>`;
+    }
+    if(notFound.length>0){
+      statusMsg+=`<p style="font-size:.75em;color:var(--blue);"><svg class="icon"><use href="#icon-search"/></svg> 🌐 正在从在线词典自动查询 ${notFound.length} 个未匹配词...</p>`;
     }
     status.innerHTML=statusMsg;
+    // Store suggestions for rendering
+    window._ocrSuggestions=suggestionMap;
 
     let html='';
 
@@ -6542,8 +6615,19 @@ async function handleFileInput(file){
           </div>
           <div class="word-list">${notFound.map(w=>{
             const safeId=w.replace(/[^a-z]/g,'_');
+            const sugs=autoCorrect?(suggestionMap[w.toLowerCase()]||[]):[];
+            let sugTags='';
+            if(sugs.length>0){
+              sugTags='<div style="display:flex;gap:3px;flex-wrap:wrap;margin-top:2px;">'+sugs.map((s,si)=>{
+                const sdef=(s.entry.def||'').replace(/'/g,"\\'").replace(/"/g,'&quot;');
+                const szh=(s.entry.zh||'').replace(/'/g,"\\'");
+                const sph=(s.entry.phonetic||'').replace(/'/g,"\\'");
+                const spos=(s.entry.pos||'').replace(/'/g,"\\'");
+                return'<span class="suggestion-chip" title="'+s.entry.en+': '+szh+' ('+(s.distance===1?'一字之差':'相似')+')" onclick="applySuggestion(\''+safeId+'\',\''+szh+'\',\''+sdef+'\',\''+sph+'\',\''+spos+'\')">'+s.entry.en+'</span>';
+              }).join('')+'</div>';
+            }
             return`<div class="word-row">
-            <span class="en">${w}</span>
+            <div><span class="en">${w}</span>${sugTags}</div>
             <input id="zh_${safeId}" placeholder="中文(可选)" style="width:80px;padding:4px 8px;border:1px solid #d8d0d8;border-radius:4px;">
             <input id="def_${safeId}" placeholder="⚠️英文释义(必填)" style="width:160px;padding:4px 8px;border:1px solid var(--red);border-radius:4px;font-size:.8em;">
             <input id="ph_${safeId}" placeholder="音标" style="width:80px;padding:4px 8px;border:1px solid #d8d0d8;border-radius:4px;font-size:.8em;">
@@ -6558,11 +6642,167 @@ async function handleFileInput(file){
     // Show raw OCR text for debugging
     html+=`<details class="raw-ocr-text"><summary><svg class="icon"><use href="#icon-search"/></svg> 查看原始识别文本 (调试用)</summary><pre style="white-space:pre-wrap;font-size:.75em;">${text}</pre></details>`;
 
+    // OCR save to textbook section
+    const allOCRWords=[...found,...notFound.map(w=>({en:w,zh:'',def:'',phonetic:'',pos:''}))];
+    if(allOCRWords.length>0){
+      html+=`<div class="card" style="margin-top:16px;"><h2>💾 保存OCR结果到教材单元</h2>
+        <p style="font-size:.85em;color:var(--muted);margin-bottom:8px;">将识别到的 ${allOCRWords.length} 个词汇保存到指定教材单元，同时自动加入词库以便复习。</p>
+        <div style="position:relative;margin-bottom:8px;">
+          <input type="text" id="ocrTbSearch" placeholder="🔍 搜索教材名称..." autocomplete="off"
+            style="width:100%;padding:10px 14px;border:2px solid #d8d0d8;border-radius:8px;font-size:.95em;font-family:inherit;"
+            oninput="onOCRTextbookSearch(this.value)" onfocus="onOCRTextbookSearch(this.value)">
+          <div id="ocrTbSearchResults" style="display:none;position:absolute;top:100%;left:0;right:0;z-index:50;background:#fff;border:2px solid var(--accent);border-top:none;border-radius:0 0 8px 8px;max-height:200px;overflow-y:auto;box-shadow:0 4px 16px rgba(0,0,0,.12);"></div>
+        </div>
+        <select id="ocrUnitSelect" style="width:100%;padding:10px 14px;border:2px solid #d8d0d8;border-radius:8px;font-size:.95em;font-family:inherit;margin-bottom:8px;display:none;">
+          <option value="">选择单元</option>
+        </select>
+        <button class="btn btn-primary btn-sm" id="btnOCRSave" onclick="saveOCRToTextbookUnit()" disabled>📥 保存到教材单元</button>
+      </div>`;
+      // Store OCR words for save handler
+      window._ocrSaveWords=allOCRWords;
+    }
+
     results.innerHTML=html;
+    // Auto-fill not-found words from online dictionary API
+    if(notFound.length>0){
+      const prefix=isTOC?'toc_':'';
+      autoFillNotFoundWords(notFound, prefix);
+    }
     // Store for TOC batch import
     window._tocFound=found;
     window._tocNotFound=notFound;
   }catch(e){status.innerHTML=`<p style="color:var(--red)">识别失败: ${e.message}</p>`;}
+}
+
+// -- Online dictionary API lookup for not-found words ---------------------------
+async function _fetchDictAPI(word){
+  try{
+    const resp=await fetch('https://api.dictionaryapi.dev/api/v2/entries/en/'+encodeURIComponent(word));
+    if(!resp.ok) return null;
+    const data=await resp.json();
+    if(!Array.isArray(data)||!data.length) return null;
+    // Pick the first entry with the most complete data
+    const entry=data[0];
+    const phonetic=entry.phonetic||(entry.phonetics&&entry.phonetics[0]?entry.phonetics[0].text||'':'');
+    let pos='', def='';
+    if(entry.meanings&&entry.meanings.length){
+      pos=entry.meanings[0].partOfSpeech||'';
+      if(entry.meanings[0].definitions&&entry.meanings[0].definitions.length){
+        def=entry.meanings[0].definitions[0].definition||'';
+      }
+    }
+    return {phonetic, pos, def};
+  }catch(e){return null;}
+}
+async function _fetchTranslation(word){
+  try{
+    const resp=await fetch('https://api.mymemory.translated.net/get?q='+encodeURIComponent(word)+'&langpair=en|zh-CN');
+    if(!resp.ok) return '';
+    const data=await resp.json();
+    return (data.responseData&&data.responseData.translatedText)||'';
+  }catch(e){return '';}
+}
+async function _autoFillOneWord(en, prefix){
+  const safeId=en.replace(/[^a-z]/g,'_');
+  const zhEl=document.getElementById(prefix+'zh_'+safeId);
+  const defEl=document.getElementById(prefix+'def_'+safeId);
+  const phEl=document.getElementById(prefix+'ph_'+safeId);
+  const posEl=document.getElementById(prefix+'pos_'+safeId);
+  // Show fetching indicator
+  if(defEl&&!defEl.value) defEl.placeholder='⏳ 联网查询中...';
+  try{
+    const [dictResult, zhResult]=await Promise.all([_fetchDictAPI(en),_fetchTranslation(en)]);
+    if(dictResult){
+      if(phEl&&!phEl.value) phEl.value=dictResult.phonetic||'';
+      if(posEl&&!posEl.value) posEl.value=dictResult.pos||'';
+      if(defEl&&!defEl.value) defEl.value=dictResult.def||'';
+    }
+    if(zhResult&&zhEl&&!zhEl.value) zhEl.value=zhResult;
+    if(defEl&&!defEl.value) defEl.placeholder='⚠️ 英文释义(必填)';
+  }catch(e){
+    if(defEl) defEl.placeholder='⚠️ 英文释义(必填)';
+  }
+}
+async function autoFillNotFoundWords(notFoundWords, prefix){
+  prefix=prefix||'';
+  // Fetch sequentially with small delay to respect API rate limits
+  for(let i=0;i<notFoundWords.length;i++){
+    await _autoFillOneWord(notFoundWords[i], prefix);
+    if(i<notFoundWords.length-1) await new Promise(r=>setTimeout(r,200));
+  }
+}
+
+function applySuggestion(safeId,zh,def,phonetic,pos){
+  const zhEl=document.getElementById('zh_'+safeId);
+  const defEl=document.getElementById('def_'+safeId);
+  const phEl=document.getElementById('ph_'+safeId);
+  const posEl=document.getElementById('pos_'+safeId);
+  if(zhEl)zhEl.value=zh;
+  if(defEl)defEl.value=def;
+  if(phEl)phEl.value=phonetic;
+  if(posEl)posEl.value=pos;
+}
+function applyTOCSuggestion(safeEn,zh,def,phonetic,pos){
+  const zhEl=document.getElementById('toc_zh_'+safeEn);
+  const defEl=document.getElementById('toc_def_'+safeEn);
+  const phEl=document.getElementById('toc_ph_'+safeEn);
+  const posEl=document.getElementById('toc_pos_'+safeEn);
+  if(zhEl)zhEl.value=zh;
+  if(defEl)defEl.value=def;
+  if(phEl)phEl.value=phonetic;
+  if(posEl)posEl.value=pos;
+}
+// -- OCR save to textbook unit -----------------------------------------------
+let _ocrSelectedTbIdx=null;
+let _ocrSelectedUnitIdx=null;
+function onOCRTextbookSearch(query){
+  const data=getTextbooksData();
+  const db=getTextbookDB();
+  if(!data||!data.textbooks||data.textbooks.length===0){if(db&&db.length){saveTextbooksData({textbooks:JSON.parse(JSON.stringify(db))});}else{return;}}
+  const tbs=data.textbooks;
+  const resultsDiv=document.getElementById('ocrTbSearchResults');
+  if(!query||!query.trim()){resultsDiv.style.display='none';return;}
+  const q=query.toLowerCase().trim();
+  const results=tbs.filter(tb=>(tb.a||[]).some(a=>a.toLowerCase().includes(q))||tb.n.toLowerCase().includes(q)||(tb.p||'').toLowerCase().includes(q));
+  if(results.length===0){resultsDiv.innerHTML='<div style="padding:12px;color:var(--muted);text-align:center;">未找到匹配的教材</div>';resultsDiv.style.display='block';return;}
+  resultsDiv.innerHTML=results.map((tb,i)=>{
+    const realIdx=tbs.findIndex(t=>t.n===tb.n);
+    return'<div style="padding:10px 14px;cursor:pointer;border-bottom:1px solid #f0ebe0;font-weight:700;font-size:.9em;" onmousedown="selectOCRTextbook('+realIdx+')">'+tb.n+'<span style="font-weight:normal;font-size:.8em;color:var(--muted);"> · '+(Array.isArray(tb.u)?tb.u.length:0)+'个单元</span></div>';
+  }).join('');
+  resultsDiv.style.display='block';
+}
+function selectOCRTextbook(idx){
+  const data=getTextbooksData();
+  const tb=data.textbooks[idx];
+  _ocrSelectedTbIdx=idx;
+  _ocrSelectedUnitIdx=null;
+  document.getElementById('ocrTbSearch').value=tb.n;
+  document.getElementById('ocrTbSearchResults').style.display='none';
+  const unitSel=document.getElementById('ocrUnitSelect');
+  unitSel.style.display='block';
+  unitSel.innerHTML='<option value="">选择单元</option>'+((Array.isArray(tb.u)?tb.u:[]).map((u,i)=>'<option value="'+i+'">'+u.n+'</option>').join(''));
+  unitSel.onchange=function(){
+    _ocrSelectedUnitIdx=this.value!==''?parseInt(this.value):null;
+    document.getElementById('btnOCRSave').disabled=(_ocrSelectedUnitIdx===null);
+  };
+  document.getElementById('btnOCRSave').disabled=true;
+}
+async function saveOCRToTextbookUnit(){
+  if(_ocrSelectedTbIdx===null||_ocrSelectedUnitIdx===null||!window._ocrSaveWords) return;
+  const words=window._ocrSaveWords;
+  const data=getTextbooksData();
+  const unit=data.textbooks[_ocrSelectedTbIdx].u[_ocrSelectedUnitIdx];
+  unit.w=words.map(w=>({en:w.en,zh:w.zh||'',phonetic:w.phonetic||'',pos:w.pos||'',def:w.def||''}));
+  saveTextbooksData(data);
+  // Also add each word to word bank
+  for(const w of words){
+    if(!w.en) continue;
+    await saveWordToBank({en:w.en,zh:w.zh||'(待补充)',def:w.def||'',phonetic:w.phonetic||'',pos:w.pos||''});
+  }
+  toast('已保存 '+words.length+' 词到「'+(unit.n||'所选单元')+'」并加入词库');
+  renderBank();
+  // Update textbook section heading
+  updateTextbookHeading();
 }
 
 async function importOne(en,zh,def,phonetic,pos){
@@ -6634,9 +6874,20 @@ function preprocessTOCImage(imgEl){
 function _renderWordRow(w, i, isNotFound){
   if(isNotFound){
     const safeEn=w.replace(/[^a-z]/g,'_');
+    const sugs=autoCorrect&&window._ocrSuggestions?(window._ocrSuggestions[w.toLowerCase()]||[]):[];
+    let sugTags='';
+    if(sugs.length>0){
+      sugTags='<div style="display:flex;gap:2px;flex-wrap:wrap;margin-top:2px;">'+sugs.map(s=>{
+        const szh=(s.entry.zh||'').replace(/'/g,"\\'");
+        const sdef=(s.entry.def||'').replace(/'/g,"\\'").replace(/"/g,'&quot;');
+        const sph=(s.entry.phonetic||'').replace(/'/g,"\\'");
+        const spos=(s.entry.pos||'').replace(/'/g,"\\'");
+        return'<span class="suggestion-chip" title="'+s.entry.en+': '+szh+'" onclick="applyTOCSuggestion(\''+safeEn+'\',\''+szh+'\',\''+sdef+'\',\''+sph+'\',\''+spos+'\')">'+s.entry.en+'</span>';
+      }).join('')+'</div>';
+    }
     return`<tr class="toc-unmatched">
       <td>${i+1}</td>
-      <td><strong>${w}</strong></td>
+      <td><strong>${w}</strong>${sugTags}</td>
       <td><input class="toc-edit-input" id="toc_zh_${safeEn}" placeholder="中文" style="width:80px;"></td>
       <td><input class="toc-edit-input" id="toc_ph_${safeEn}" placeholder="音标" style="width:100px;"></td>
       <td><input class="toc-edit-input" id="toc_pos_${safeEn}" placeholder="词性" style="width:60px;"></td>
@@ -6768,30 +7019,20 @@ function _lev(a,b){
   return m[b.length][a.length];
 }
 
-// Fuzzy match a word against DICTIONARY (edit distance ≤ 2)
-function _fuzzyDictMatch(w){
+// Find fuzzy suggestions from dictionary (for UI display only, never auto-replaces)
+function _findSuggestions(w, maxDistance){
+  maxDistance=maxDistance||2;
   const lw=w.toLowerCase();
-  // Exact match
-  if(_dictMap[lw]) return {match:_dictMap[lw], distance:0, corrected:lw};
-  // Fuzzy search: only check entries with similar length and first char
-  let best=null, bestDist=99;
+  const results=[];
   for(const [key,d] of _dictEntries){
-    if(Math.abs(key.length-lw.length)>2) continue;
+    if(Math.abs(key.length-lw.length)>maxDistance) continue;
     if(key[0]!==lw[0]) continue;
     const dist=_lev(lw,key);
-    if(dist<bestDist){bestDist=dist;best=d;}
-    if(dist===0) break;
+    if(dist>0&&dist<=maxDistance) results.push({entry:d, distance:dist});
   }
-  if(bestDist<=2&&best) return {match:best, distance:bestDist, corrected:best.en.toLowerCase()};
-  return {match:null, distance:99, corrected:lw};
+  results.sort((a,b)=>a.distance-b.distance);
+  return results.slice(0,5);
 }
-
-// Common OCR error patterns for auto-correction
-const _OCR_FIXES={
-  'oclock':"o'clock",'ted':'ten','vear':'wear','sed':'bed','iazy':'lazy',
-  'reeze':'freeze','lood':'flood','iow':'low','tshirt':'T-shirt','fatherof':'father of',
-  'comer':'corner','pround':'pound','ofif':'off',
-};
 
 // Validate if a string looks like a plausible English word (not OCR garbage)
 function _isPlausibleWord(w){
@@ -7000,6 +7241,11 @@ function clearTextbookSelection(){
   document.getElementById('textbookPreview').innerHTML='';
   document.getElementById('btnImportUnit').disabled=true;
   document.getElementById('fetchStatus').innerHTML='';
+}
+function updateTextbookHeading(){
+  const h2=document.getElementById('textbookSectionHeading');
+  const data=getTextbooksData();
+  if(h2&&data&&data.textbooks) h2.innerHTML=h2.innerHTML.replace(/\{\{textbookCount\}\}/g, data.textbooks.length);
 }
 // Close search dropdown when clicking outside
 document.addEventListener('click',function(e){
@@ -7737,8 +7983,6 @@ document.getElementById('addEn').addEventListener('blur',function(){
   }
 });
 
-// Auto-add DICTIONARY as sample words if empty on first load
-if(getWordBank().length===0){addSampleWords();}
 renderBank();
 renderReview();
 renderProfile();

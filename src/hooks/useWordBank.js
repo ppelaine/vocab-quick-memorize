@@ -65,28 +65,6 @@ export default function useWordBank() {
     reload()
   }, [reload])
 
-  const importSamples = useCallback(() => {
-    const d = loadData()
-    const existing = new Set((d.words || []).map(w => w.en.toLowerCase()))
-    const newWords = DICTIONARY
-      .filter(entry => !existing.has(entry.en.toLowerCase()))
-      .map(entry => ({
-        en: entry.en,
-        zh: entry.zh,
-        def: entry.def || '',
-        phonetic: entry.phonetic || '',
-        pos: entry.pos || '',
-        stage: 0,
-        lastReview: null,
-        nextReview: null,
-        errorCount: 0,
-        totalAttempts: 0,
-        addedAt: Date.now(),
-      }))
-    saveData({ ...d, words: [...(d.words || []), ...newWords] })
-    reload()
-  }, [reload])
-
   const recordAnswer = useCallback((en, correct) => {
     updateProgress(en, correct)
     reload()
@@ -102,7 +80,6 @@ export default function useWordBank() {
     addWord,
     deleteWord,
     clearAll,
-    importSamples,
     recordAnswer,
     reload,
     getWordStatus,

@@ -84,10 +84,37 @@ export default function UploadView() {
     const pos = typeof w === 'string' ? '' : (w.pos || '')
     const safeEn = en.replace(/[^a-z]/g, '_')
 
+    const wordSugs = isNotFound && ocr.suggestions ? (ocr.suggestions[en.toLowerCase()] || []) : []
+
     return (
       <tr key={safeEn + i} className={isNotFound ? 'bg-[#fff5f5]' : 'bg-white'}>
         <td className="py-2 px-2 text-sm text-[#9a948c]">{i + 1}</td>
-        <td className="py-2 px-2 font-extrabold text-[#2d2a28] text-sm">{en}</td>
+        <td className="py-2 px-2">
+          <span className="font-extrabold text-[#2d2a28] text-sm">{en}</span>
+          {wordSugs.length > 0 && (
+            <div className="flex gap-1 flex-wrap mt-1">
+              {wordSugs.map((s, si) => (
+                <span
+                  key={si}
+                  className="inline-block px-1.5 py-0.5 rounded text-[10px] bg-[#f0e8ff] text-[#8b6fc0] cursor-pointer hover:bg-[#e0d0ff] border border-[#d0c0f0]"
+                  title={`${s.entry.en}: ${s.entry.zh || ''} (${s.distance === 1 ? '一字之差' : '相似'})`}
+                  onClick={() => {
+                    const zhEl = document.getElementById('ocr_zh_' + safeEn)
+                    const phEl = document.getElementById('ocr_ph_' + safeEn)
+                    const posEl = document.getElementById('ocr_pos_' + safeEn)
+                    const defEl = document.getElementById('ocr_def_' + safeEn)
+                    if (zhEl) zhEl.value = s.entry.zh || ''
+                    if (phEl) phEl.value = s.entry.phonetic || ''
+                    if (posEl) posEl.value = s.entry.pos || ''
+                    if (defEl) defEl.value = s.entry.def || ''
+                  }}
+                >
+                  {s.entry.en}
+                </span>
+              ))}
+            </div>
+          )}
+        </td>
         <td className="py-2 px-1">
           <input id={'ocr_zh_' + safeEn} defaultValue={zh} placeholder="中文" className="w-[72px] h-8 px-2 rounded-lg border border-[#e0d8c0] text-xs focus:outline-none focus:border-[#ff7b5c]" />
         </td>
@@ -150,19 +177,31 @@ export default function UploadView() {
             <h2 className="text-xl font-extrabold flex items-center gap-2">
               📷 拍照/上传单词表
             </h2>
-            <button
-              className={`px-3 py-1.5 rounded-xl text-xs font-bold border-2 transition-all duration-200 ${
-                ocr.tocMode
-                  ? 'bg-[#58b368] text-white border-[#58b368]'
-                  : 'bg-transparent text-[#9a948c] border-[#e0d8c0]'
-              }`}
-              onClick={() => ocr.setTocMode(!ocr.tocMode)}
-            >
-              {ocr.tocMode ? '✅ ' : ''}📋 TOC模式（教材目录页识别）
-            </button>
+            <div className="flex gap-2">
+              <button
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold border-2 transition-all duration-200 ${
+                  ocr.autoCorrect
+                    ? 'bg-[#8b6fc0] text-white border-[#8b6fc0]'
+                    : 'bg-transparent text-[#9a948c] border-[#e0d8c0]'
+                }`}
+                onClick={() => ocr.setAutoCorrect(!ocr.autoCorrect)}
+              >
+                {ocr.autoCorrect ? '🔮 ' : ''}词典辅助匹配
+              </button>
+              <button
+                className={`px-3 py-1.5 rounded-xl text-xs font-bold border-2 transition-all duration-200 ${
+                  ocr.tocMode
+                    ? 'bg-[#58b368] text-white border-[#58b368]'
+                    : 'bg-transparent text-[#9a948c] border-[#e0d8c0]'
+                }`}
+                onClick={() => ocr.setTocMode(!ocr.tocMode)}
+              >
+                {ocr.tocMode ? '✅ ' : ''}📋 TOC模式
+              </button>
+            </div>
           </div>
           <p className="text-sm text-[#9a948c] mb-3">
-            拍摄课本词汇表、试卷单词等。AI自动识别英文单词并匹配词典释义（含音标+词性+英文释义）。
+            拍摄课本词汇表、试卷单词等。AI自动识别英文单词，开启「词典辅助匹配」可获取释义建议。
           </p>
           <div
             className={`border-[3px] border-dashed rounded-2xl p-14 text-center cursor-pointer bg-white/40 transition-all duration-300
@@ -216,9 +255,9 @@ export default function UploadView() {
           <CardContent>
             <h2 className="text-lg font-extrabold mb-2">📋 识别结果 — 请核对后导入</h2>
             <p className="text-sm text-[#58b368] font-bold mb-1">{ocr.statusMsg}</p>
-            {ocr.fuzzyFixed.length > 0 && (
+            {ocr.autoCorrect && Object.keys(ocr.suggestions).length > 0 && (
               <p className="text-xs text-[#8b6fc0] mb-2">
-                🔧 自动修正 {ocr.fuzzyFixed.length} 个形近词: {ocr.fuzzyFixed.map(f => f.from + '→' + f.to).join(', ')}
+                💡 为 {Object.keys(ocr.suggestions).length} 个未匹配词找到词典候选 (点击小标签可用)
               </p>
             )}
 
@@ -276,7 +315,14 @@ export default function UploadView() {
         </Card>
       )}
 
-      <TextbookSection />
+      <TextbookSection
+        ocrWords={
+          ocr.status === 'done' && (ocr.found.length > 0 || ocr.notFound.length > 0)
+            ? [...ocr.found, ...ocr.notFound.map(w => ({ en: w, zh: '', def: '', phonetic: '', pos: '' }))]
+            : null
+        }
+        onSaved={(count) => toast(`已保存 ${count} 个词汇到教材单元`)}
+      />
     </div>
   )
 }

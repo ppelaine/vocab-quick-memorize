@@ -4,12 +4,12 @@ import ToastContainer from './components/ToastContainer'
 import { AppProvider, useApp } from './context/AppContext'
 import WordBankView from './components/WordBank/WordBankView'
 import GameView from './components/Game/GameView'
-import UploadView from './components/Upload/UploadView'
+import BankView from './components/WordBank/BankView'
 import ProfileView from './components/Profile/ProfileView'
 
 const TABS = [
-  { id: 'bank', label: '词库', icon: '📋' },
-  { id: 'upload', label: '上传', icon: '📷' },
+  { id: 'review', label: '复习', icon: '📊' },
+  { id: 'bank', label: '词库', icon: '📚' },
   { id: 'game', label: '游戏', icon: '🎮' },
   { id: 'profile', label: '我的', icon: '👤' },
 ]
@@ -36,9 +36,9 @@ function AppContent() {
       </Header>
 
       <main className="flex-1 max-w-[900px] mx-auto w-full px-4 sm:px-5 py-5 sm:py-6">
-        {activeTab === 'bank' && <WordBankView />}
+        {activeTab === 'review' && <WordBankView />}
 
-        {activeTab === 'upload' && <UploadView />}
+        {activeTab === 'bank' && <BankView />}
 
         {activeTab === 'game' && <GameView />}
 

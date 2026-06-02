@@ -22,8 +22,3 @@ export const USERS_KEY = 'vocab_champion_users'
 export const DATA_PREFIX = 'vocab_champion_data_'
 export const TEXTBOOK_PREFIX = 'vocab_champion_textbooks_'
 
-// Common OCR error fixes
-export const OCR_FIXES = {
-  '0': 'o', '1': 'l', '5': 's', '8': 'b', '@': 'a',
-  'I': 'l', '|': 'l',
-}

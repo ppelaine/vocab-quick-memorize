@@ -7,7 +7,7 @@ const AppContext = createContext(null)
 export function AppProvider({ children }) {
   migrateToMultiUser()
   const user = useUser()
-  const [activeTab, setActiveTab] = useState('bank')
+  const [activeTab, setActiveTab] = useState('review')
   const [refreshKey, setRefreshKey] = useState(0)
   const [toasts, setToasts] = useState([])
 
