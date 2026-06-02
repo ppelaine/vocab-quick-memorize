@@ -887,21 +887,25 @@ body.has-bottom-nav{padding-bottom:78px;}
 </div>
 
 
+<div id="diag" style="position:fixed;top:0;left:0;right:0;z-index:99999;background:#111;color:#0f0;font:10px monospace;padding:4px 8px;max-height:40vh;overflow-y:auto;"></div>
 <script>
-document.title='[LOAD]'+document.title;
+function diag(msg){var d=document.getElementById('diag');d.textContent+=msg+'\\n';d.scrollTop=d.scrollHeight;}
+diag('1. Start');
+document.title='[LOAD]';
 fetch('app.js').then(function(r){
+  diag('2. Fetch OK status='+r.status+' size='+r.headers.get('content-length'));
   if(!r.ok)throw new Error('HTTP'+r.status);
   return r.text();
 }).then(function(js){
-  document.title='[EXEC]'+document.title;
+  diag('3. Got JS: '+js.length+' chars');
+  document.title='[EXEC]';
   (0,eval)(js);
-  document.title='[OK]'+document.title;
-  setTimeout(function(){
-    document.title='[ST:'+typeof switchTab+','+typeof DICTIONARY+']'+document.title;
-    try{switchTab('game');document.title='[SW]'+document.title;}catch(e){document.title='[EXC]'+document.title;}
-  },100);
+  diag('4. Eval done. switchTab='+typeof switchTab+' DICT='+typeof DICTIONARY);
+  document.title='[OK]';
+  try{switchTab('game');diag('5. switchTab OK!');document.title='[SW]';}catch(e){diag('5. switchTab ERR: '+e.message);}
 }).catch(function(e){
-  document.title='[F:'+(e.message||'?').slice(0,20)+']'+document.title;
+  diag('ERR: '+e.message);
+  document.title='[F]';
 });
 </script>
 </body>
