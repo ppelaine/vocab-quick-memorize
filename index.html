@@ -505,7 +505,6 @@ body.has-bottom-nav{padding-bottom:78px;}
 
 </style>
 
-<script src="app.js?v=2"></script>
 </head>
 <body>
 
@@ -891,29 +890,410 @@ body.has-bottom-nav{padding-bottom:78px;}
 <div id="diag" style="position:fixed;top:0;left:0;right:0;z-index:99999;background:#111;color:#0f0;font:10px monospace;padding:4px 8px;max-height:40vh;overflow-y:auto;"></div>
 <script>
 function diag(msg){var d=document.getElementById("diag");d.textContent+=msg+"\n";d.scrollTop=d.scrollHeight;}
-		diag("1. Static script tag in <head>, waiting for app.js...");
-			diag("1b. Will check __APPJS_STARTED__ and __APPJS_GOT_SWITCHTAB__ markers");
+		diag("1. Dynamic loading (onload+markers)...");
 		document.title="[LOAD]";
-		setTimeout(function(){
-		  diag("2. __APPJS_STARTED__="+window.__APPJS_STARTED__);
-		  diag("3. __APPJS_GOT_SWITCHTAB__="+window.__APPJS_GOT_SWITCHTAB__);
-		  diag("4. typeof switchTab="+typeof switchTab+" typeof DICTIONARY="+typeof DICTIONARY);
-		  if(window._errors && window._errors.length>0){
-		    diag("5. JS errors: "+JSON.stringify(window._errors));
-		  }
+		var s=document.createElement("script");
+		s.src="app.js?v=3";
+		s.onload=function(){
+		  diag("2. onload fired");
+		  diag("3. __APPJS_STARTED__="+window.__APPJS_STARTED__);
+		  diag("4. __APPJS_GOT_SWITCHTAB__="+window.__APPJS_GOT_SWITCHTAB__);
+		  diag("5. typeof switchTab="+typeof switchTab);
 		  if(typeof switchTab==="function"){
 		    document.title="[OK]";
-		    try{switchTab("game");diag("6. switchTab OK");document.title="[SW]";}catch(e){diag("6. switchTab ERR: "+e.message);}
+		    try{switchTab("game");diag("6. switchTab OK");document.title="[SW]";}catch(e){diag("6. ERR: "+e.message);}
 		  }else{
 		    document.title="[NOFN]";
 		    diag("6. FUNCTIONS NOT GLOBAL");
-		    diag("7. document.scripts count="+document.scripts.length);
-		    for(var i=0;i<document.scripts.length;i++){
-		      var s=document.scripts[i];
-		      if(s.src) diag("8. script["+i+"] src="+s.src.substring(0,80));
-		    }
 		  }
-		},1000);
+		};
+		s.onerror=function(e){
+		  diag("2. onerror fired");
+		  document.title="[F]";
+		};
+		document.head.appendChild(s);
+		diag("1b. Appended, waiting...");
 </script>
+</head>
+<body>
+
+
+<svg style="display:none" aria-hidden="true">
+  <defs>
+    <!-- Bottom nav icons -->
+    <symbol id="icon-review" viewBox="0 0 24 24">
+      <path d="M2 12a10 10 0 0118-6M22 12a10 10 0 01-18 6"/>
+      <polyline points="8 6 2 12 8 6"/>
+      <polyline points="16 18 22 12 16 18"/>
+    </symbol>
+    <symbol id="icon-bank" viewBox="0 0 24 24">
+      <path d="M4 19.5A2.5 2.5 0 016.5 17H20"/>
+      <path d="M6.5 2H20v20H6.5A2.5 2.5 0 014 19.5v-15A2.5 2.5 0 016.5 2z"/>
+      <line x1="8" y1="7" x2="16" y2="7"/>
+      <line x1="8" y1="10" x2="14" y2="10"/>
+    </symbol>
+    <symbol id="icon-game" viewBox="0 0 24 24">
+      <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
+    </symbol>
+    <symbol id="icon-profile" viewBox="0 0 24 24">
+      <circle cx="12" cy="8" r="4"/>
+      <path d="M4 21c0-4.4 3.6-8 8-8s8 3.6 8 8"/>
+    </symbol>
+
+    <!-- Action icons -->
+    <symbol id="icon-add" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="8" x2="12" y2="16"/>
+      <line x1="8" y1="12" x2="16" y2="12"/>
+    </symbol>
+    <symbol id="icon-camera" viewBox="0 0 24 24">
+      <path d="M23 19a2 2 0 01-2 2H3a2 2 0 01-2-2V8a2 2 0 012-2h4l2-3h6l2 3h4a2 2 0 012 2z"/>
+      <circle cx="12" cy="13" r="4"/>
+    </symbol>
+    <symbol id="icon-search" viewBox="0 0 24 24">
+      <circle cx="11" cy="11" r="8"/>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"/>
+    </symbol>
+    <symbol id="icon-settings" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="3"/>
+      <path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/>
+    </symbol>
+    <symbol id="icon-dark-mode" viewBox="0 0 24 24">
+      <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+    </symbol>
+    <symbol id="icon-switch" viewBox="0 0 24 24">
+      <polyline points="16 3 21 3 21 8"/>
+      <line x1="4" y1="11" x2="21" y2="11"/>
+      <polyline points="8 21 3 21 3 16"/>
+      <line x1="20" y1="13" x2="3" y2="13"/>
+    </symbol>
+
+    <!-- Game icons — Think-style bold geometric -->
+    <symbol id="icon-read" viewBox="0 0 24 24">
+      <!-- Open book: bold covers, dynamic spread pages -->
+      <path d="M4 4h5.5a3 3 0 012.5 1.3 3 3 0 012.5-1.3H20a1 1 0 011 1v13a1 1 0 01-1 1h-5.5a2.5 2.5 0 00-2.5 2 2.5 2.5 0 00-2.5-2H4a1 1 0 01-1-1V5a1 1 0 011-1z" fill="currentColor" opacity=".12"/>
+      <path d="M4 4h5.5a3 3 0 012.5 1.3v16.7a2.5 2.5 0 00-2.5-2H4a1 1 0 01-1-1V5a1 1 0 011-1z" fill="none"/>
+      <path d="M20 4h-5.5a3 3 0 00-2.5 1.3v16.7a2.5 2.5 0 012.5-2H20a1 1 0 001-1V5a1 1 0 00-1-1z" fill="none"/>
+      <line x1="8" y1="9" x2="16" y2="9" stroke-width="2.5"/>
+      <line x1="8" y1="12" x2="14" y2="12" stroke-width="2.5"/>
+    </symbol>
+    <symbol id="icon-meaning" viewBox="0 0 24 24">
+      <!-- Bold eye with insight spark -->
+      <ellipse cx="12" cy="12" rx="9" ry="7" fill="currentColor" opacity=".12"/>
+      <ellipse cx="12" cy="12" rx="9" ry="7" fill="none" stroke-width="2.5"/>
+      <circle cx="12" cy="12" r="3.5" fill="currentColor" opacity=".25"/>
+      <circle cx="12" cy="12" r="3.5" fill="none" stroke-width="2.5"/>
+      <!-- Sparkle -->
+      <path d="M17 5l1.5 3 3 1.5-3 1.5-1.5 3-1.5-3-3-1.5 3-1.5z" fill="currentColor" opacity=".6"/>
+    </symbol>
+    <symbol id="icon-spell" viewBox="0 0 24 24">
+      <!-- Bold pencil with motion -->
+      <rect x="4" y="17" width="16" height="2" rx="1" fill="currentColor" opacity=".15"/>
+      <path d="M16 2l5 5-3 3-5-5z" fill="currentColor" opacity=".2"/>
+      <path d="M16 2l5 5-12 12-5-1-1-5z" fill="none" stroke-width="2.5"/>
+      <line x1="12" y1="11" x2="17" y2="6" stroke-width="2"/>
+    </symbol>
+
+    <!-- Status icons -->
+    <symbol id="icon-success" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10" fill="currentColor" opacity=".15"/>
+      <polyline points="8 12 11 15 16 9"/>
+    </symbol>
+    <symbol id="icon-error" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10" fill="currentColor" opacity=".15"/>
+      <line x1="15" y1="9" x2="9" y2="15"/>
+      <line x1="9" y1="9" x2="15" y2="15"/>
+    </symbol>
+    <symbol id="icon-warning" viewBox="0 0 24 24">
+      <path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" fill="currentColor" opacity=".15"/>
+      <line x1="12" y1="9" x2="12" y2="13"/>
+      <line x1="12" y1="17" x2="12.01" y2="17"/>
+    </symbol>
+
+    <!-- Misc icons -->
+    <symbol id="icon-upload" viewBox="0 0 24 24">
+      <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/>
+      <polyline points="17 8 12 3 7 8"/>
+      <line x1="12" y1="3" x2="12" y2="15"/>
+    </symbol>
+    <symbol id="icon-calendar" viewBox="0 0 24 24">
+      <rect x="3" y="4" width="18" height="18" rx="2" ry="2"/>
+      <line x1="16" y1="2" x2="16" y2="6"/>
+      <line x1="8" y1="2" x2="8" y2="6"/>
+      <line x1="3" y1="10" x2="21" y2="10"/>
+    </symbol>
+    <symbol id="icon-empty" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="8" x2="12" y2="12"/>
+      <line x1="12" y1="16" x2="12.01" y2="16"/>
+    </symbol>
+    <symbol id="icon-confetti" viewBox="0 0 24 24">
+      <circle cx="12" cy="12" r="10"/>
+      <path d="M12 6v6l4 2"/>
+    </symbol>
+  </defs>
+</svg>
+
+<div class="header">
+  <div>
+    <h1><svg class="icon" style="font-size:1.1em;"><use href="#icon-bank"/></svg> 单词快快记</h1>
+    <div class="sub">基于艾宾浩斯遗忘曲线 · 拍照上传/教材搜索 · 游戏模式</div>
+  </div>
+  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap;">
+    <div class="user-area">
+      <svg class="icon" style="font-size:1.1em;"><use href="#icon-profile"/></svg> <span id="currentUserName" style="font-weight:bold;">默认用户</span>
+      <button class="btn-user-switch" onclick="showUserModal()">切换</button>
+    </div>
+    <span id="headerReviewBadge" style="background:rgba(255,255,255,.25);padding:4px 12px;border-radius:14px;font-size:.82em;font-weight:700;display:none;cursor:pointer;" onclick="switchTab('review');" title="点击查看待复习单词"></span>
+  </div>
+</div>
+
+<div class="main">
+  <!-- REVIEW VIEW -->
+  <div class="view active" id="view-review">
+    <div class="stats-row" id="reviewStatsRow"></div>
+    <div class="card">
+      <h2><svg class="icon"><use href="#icon-review"/></svg> 我的单词本</h2>
+      <div class="word-list" id="wordList"></div>
+      <div class="empty" id="emptyBank">
+        <span class="icon"><svg><use href="#icon-empty"/></svg></span>
+        <p>词库还是空的！</p>
+        <p style="font-size:.85em;">去「词库」添加单词，或玩一局「游戏」</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- WORD BANK VIEW -->
+  <div class="view" id="view-bank">
+    <div style="margin-bottom:12px;">
+      <button class="btn btn-accent" onclick="showAddWord()"><svg class="icon"><use href="#icon-add"/></svg> 手动添加单词</button>
+    </div>
+    <div class="card">
+      <h2>📷 拍照/上传单词表</h2>
+      <p style="color:var(--muted);margin-bottom:8px;">拍摄课本词汇表、试卷单词等。AI识别英文单词并精确匹配词典释义。开启「词典辅助匹配」可为未匹配词提供候选建议。</p>
+      <div style="margin-bottom:12px;display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+        <span class="toc-mode-toggle" id="autoCorrectToggle" onclick="toggleAutoCorrect()">
+          词典辅助匹配
+        </span>
+        <span class="toc-mode-toggle" id="tocModeToggle" onclick="toggleTOCMode()">
+          📋 TOC模式
+        </span>
+      </div>
+      <div class="upload-zone" id="uploadZone">
+        <span class="icon-upload">📤</span>
+        <p style="font-weight:bold;font-size:1.05em;" id="uploadLabel">点击上传 或 拖拽图片到此处</p>
+        <span class="upload-hint">📸 支持 JPG / PNG，建议清晰拍摄</span>
+        <input type="file" id="fileInput" accept="image/*" onchange="handleFile(this)">
+      </div>
+      <div id="ocrStatus" style="text-align:center;margin-top:16px;"></div>
+      <div id="ocrResults" style="margin-top:16px;"></div>
+    </div>
+
+    <!-- Textbook Import -->
+    <div class="card" style="margin-top:16px;">
+      <h2 id="textbookSectionHeading"><svg class="icon"><use href="#icon-bank"/></svg> 教材词汇库 <span style="font-size:.7em;color:var(--muted);font-weight:normal;">({{textbookCount}}套教材)</span></h2>
+      <p style="color:var(--muted);margin-bottom:12px;">
+        搜索教材名称 → 选择单元 → 一键导入。支持模糊搜索（如搜"人教""Think""外研"）。
+      </p>
+      <div style="position:relative;">
+        <input type="text" id="textbookSearch" placeholder="搜索教材名称（如：人教版、Think、新概念…）" autocomplete="off"
+          style="width:100%;padding:10px 14px;border:2px solid #d8d0d8;border-radius:8px;font-size:.95em;font-family:inherit;"
+          oninput="onTextbookSearch(this.value)" onfocus="onTextbookSearch(this.value)">
+        <div id="textbookSearchResults" style="display:none;position:absolute;top:100%;left:0;right:0;z-index:50;background:#fff;border:2px solid var(--accent);border-top:none;border-radius:0 0 8px 8px;max-height:260px;overflow-y:auto;box-shadow:0 4px 16px rgba(0,0,0,.12);"></div>
+      </div>
+      <div id="selectedTextbookInfo" style="display:none;margin-top:10px;padding:8px 14px;background:#edf7f2;border-radius:8px;font-size:.9em;">
+        <strong id="selTbName"></strong>
+        <span style="color:var(--muted);"> · <span id="selTbMeta"></span></span>
+        <button class="btn btn-sm btn-outline" style="margin-left:8px;" onclick="clearTextbookSelection()"><svg class="icon"><use href="#icon-error"/></svg> 重选</button>
+      </div>
+      <div id="unitSelectArea" style="display:none;margin-top:10px;">
+        <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
+          <select class="textbook-select" id="unitSelect" onchange="onUnitChange()">
+            <option value="">选择单元</option>
+          </select>
+          <button class="btn btn-primary btn-sm" id="btnImportUnit" onclick="importTextbookUnit()" disabled><svg class="icon"><use href="#icon-upload"/></svg> 导入词库</button>
+          <button class="btn btn-accent btn-sm" id="btnFetchUnit" onclick="fetchUnitVocabOnline()" disabled style="display:none;"><svg class="icon"><use href="#icon-search"/></svg> 在线检索</button>
+        </div>
+      </div>
+      <div id="textbookPreview" class="textbook-preview"></div>
+      <div id="fetchStatus" style="margin-top:8px;"></div>
+    </div>
+  </div>
+
+  <!-- GAME VIEW -->
+  <div class="view" id="view-game">
+    <div id="gameSetup">
+      <div class="card">
+        <h2><svg class="icon"><use href="#icon-game"/></svg> 选择游戏模式</h2>
+        <p style="color:var(--muted);margin-bottom:4px;">每局20题 · 基于艾宾浩斯曲线出题 · 错词自动收录</p>
+        <div style="margin:12px 0;display:flex;gap:6px;flex-wrap:wrap;justify-content:center;align-items:center;">
+          <span style="font-size:.85em;color:var(--muted);">词汇范围：</span>
+          <button class="btn btn-sm btn-outline scope-btn active" data-scope="all" onclick="setScope('all')">全部</button>
+          <button class="btn btn-sm btn-outline scope-btn" data-scope="today" onclick="setScope('today')">今天</button>
+          <button class="btn btn-sm btn-outline scope-btn" data-scope="3days" onclick="setScope('3days')">3天内</button>
+          <button class="btn btn-sm btn-outline scope-btn" data-scope="7days" onclick="setScope('7days')">7天内</button>
+          <button class="btn btn-sm btn-outline scope-btn" data-scope="30days" onclick="setScope('30days')">30天内</button>
+        </div>
+        <div class="game-setup">
+          <div class="game-option game-opt-read" onclick="startGame(1)">
+            <span class="game-icon">📖</span>
+            <span class="game-label">识单词</span>
+            <span class="game-desc">看英文，选中文翻译</span>
+          </div>
+          <div class="game-option game-opt-meaning" onclick="startGame(2)">
+            <span class="game-icon">💡</span>
+            <span class="game-label">义单词</span>
+            <span class="game-desc">看释义，选出对应单词</span>
+          </div>
+          <div class="game-option game-opt-spell" onclick="startGame(3)">
+            <span class="game-icon">✏️</span>
+            <span class="game-label">拼单词</span>
+            <span class="game-desc">补全缺失的字母</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div id="gamePlay" style="display:none;"></div>
+    <div id="gameResult" style="display:none;"></div>
+    </div>
+  
+  <!-- PROFILE VIEW -->
+  <div class="view" id="view-profile">
+    <div class="card" style="text-align:center;">
+      <div class="profile-avatar" id="profileAvatar" onclick="toggleAvatarPicker()" title="点击更换头像">
+        <span id="avatarContent"><svg class="icon" style="font-size:1.2em;"><use href="#icon-profile"/></svg></span>
+        <span class="avatar-hint">换头像</span>
+      </div>
+      <div id="avatarPicker" style="display:none;">
+        <div class="avatar-picker">
+          <button onclick="pickAvatar('🐶')">🐶</button>
+          <button onclick="pickAvatar('🐱')">🐱</button>
+          <button onclick="pickAvatar('🐰')">🐰</button>
+          <button onclick="pickAvatar('🐻')">🐻</button>
+          <button onclick="pickAvatar('🐼')">🐼</button>
+          <button onclick="pickAvatar('🐨')">🐨</button>
+          <button onclick="pickAvatar('🦊')">🦊</button>
+          <button onclick="pickAvatar('🐯')">🐯</button>
+          <button onclick="pickAvatar('🐸')">🐸</button>
+          <button onclick="pickAvatar('🐵')">🐵</button>
+        </div>
+        <div class="avatar-upload-btn" onclick="document.getElementById('avatarFileInput').click()"><svg class="icon"><use href="#icon-camera"/></svg> 上传图片</div>
+        <input type="file" id="avatarFileInput" accept="image/*" onchange="handleAvatarUpload(this)" style="display:none;">
+      </div>
+      <h2 id="profileUserName">默认用户</h2>
+      <p style="color:var(--muted);font-size:.9em;" id="profileStreakLabel"></p>
+      <button class="btn btn-primary btn-sm" onclick="showUserModal()" style="margin-top:8px;"><svg class="icon"><use href="#icon-switch"/></svg> 切换账号</button>
+    </div>
+    <div class="card">
+      <h2><svg class="icon"><use href="#icon-calendar"/></svg> 打卡日历 <span style="font-size:.75em;font-weight:600;color:var(--muted);" id="streakLabel"></span></h2>
+      <div id="checkinCalendar" style="text-align:center;min-height:60px;padding:8px;">加载中...</div>
+    </div>
+    <div class="card">
+      <h2><svg class="icon"><use href="#icon-settings"/></svg> 设置</h2>
+      <div style="display:flex;align-items:center;justify-content:space-between;padding:8px 0;">
+        <span><svg class="icon"><use href="#icon-dark-mode"/></svg> 深色模式</span>
+        <button class="btn btn-sm btn-outline" id="darkModeToggle" onclick="toggleDarkMode()">自动</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- BOTTOM NAV -->
+<nav class="bottom-nav" id="bottomNav">
+  <button class="tab-btn active" data-tab="review">
+    <span class="nav-icon"><svg class="icon"><use href="#icon-review"/></svg></span>复习
+  </button>
+  <button class="tab-btn" data-tab="bank">
+    <span class="nav-icon"><svg class="icon"><use href="#icon-bank"/></svg></span>词库
+  </button>
+  <button class="tab-btn" data-tab="game">
+    <span class="nav-icon"><svg class="icon"><use href="#icon-game"/></svg></span>游戏
+  </button>
+  <button class="tab-btn" data-tab="profile">
+    <span class="nav-icon"><svg class="icon"><use href="#icon-profile"/></svg></span>我的
+  </button>
+</nav>
+
+<!-- Textbook Management Modal -->
+    <div class="modal-overlay" id="textbookModal" style="display:none;">
+      <div class="modal" style="max-width:640px;">
+        <h3><svg class="icon"><use href="#icon-settings"/></svg> 教材词汇管理</h3>
+        <p style="font-size:.8em;color:var(--muted);margin-bottom:12px;">
+          <svg class="icon" style="color:var(--accent);"><use href="#icon-warning"/></svg> 可添加自己的教材，或为已有教材补充单元词汇。所有数据保存在当前用户下，不会丢失。
+        </p>
+        <!-- Add custom textbook -->
+        <div style="margin-bottom:12px;padding-bottom:12px;border-bottom:1px solid #e8e0e8;">
+          <label style="font-weight:bold;font-size:.85em;">添加自定义教材</label>
+          <div style="display:flex;gap:6px;margin-top:4px;">
+            <input type="text" id="newTextbookName" placeholder="教材全称" style="flex:1;">
+            <input type="text" id="newTextbookGrade" placeholder="年级/级别" style="width:100px;">
+            <button class="btn btn-primary btn-sm" onclick="addCustomTextbook()">+ 添加</button>
+          </div>
+        </div>
+        <!-- Existing textbooks: add unit / paste words -->
+        <label style="font-weight:bold;font-size:.85em;">已有教材 — 补充单元词汇</label>
+        <div style="display:flex;gap:6px;margin:6px 0;">
+          <select class="textbook-select" id="manageTbSelect" onchange="onManageTbChange()" style="flex:1;">
+            <option value="">选择教材</option>
+          </select>
+        </div>
+        <div id="manageUnitSection" style="display:none;">
+          <div style="display:flex;gap:6px;margin-top:6px;">
+            <input type="text" id="newUnitName" placeholder="单元名称，如：Unit 5 — School Life" style="flex:1;">
+            <button class="btn btn-primary btn-sm" onclick="addUnitToTextbook()">+ 添加单元</button>
+          </div>
+          <div style="margin-top:8px;">
+            <textarea id="pasteWordList" placeholder="粘贴词汇列表，每行一个：&#10;confident 自信的&#10;athlete 运动员&#10;make a mistake 犯错误&#10;&#10;留空中文可自动从内置词典匹配" style="width:100%;height:100px;padding:8px;border:2px solid #d8d0d8;border-radius:8px;font-family:inherit;font-size:.85em;margin:4px 0;resize:vertical;"></textarea>
+            <div style="display:flex;gap:6px;">
+              <select class="textbook-select" id="pasteTargetUnit" style="flex:1;"></select>
+              <button class="btn btn-accent btn-sm" onclick="pasteWordsToUnit()"><svg class="icon"><use href="#icon-bank"/></svg> 粘贴导入</button>
+            </div>
+          </div>
+          <div id="manageUnitList" style="margin-top:8px;max-height:160px;overflow-y:auto;"></div>
+        </div>
+        <div style="margin-top:12px;font-size:.8em;color:var(--muted);">
+          <svg class="icon"><use href="#icon-warning"/></svg> 提示：删除教材请在下方列表中点击删除按钮。
+        </div>
+        <div id="textbookDeleteList" style="max-height:180px;overflow-y:auto;margin-top:8px;"></div>
+        <div class="btn-row">
+          <button class="btn btn-outline btn-sm" onclick="closeTextbookModal()">关闭</button>
+        </div>
+      </div>
+    </div>
+<!-- User modal -->
+<div class="modal-overlay" id="userModal" style="display:none;">
+  <div class="modal">
+    <h3><svg class="icon"><use href="#icon-profile"/></svg> 用户管理</h3>
+    <div id="userList" style="max-height:220px;overflow-y:auto;margin:12px 0;"></div>
+    <div style="display:flex;gap:8px;margin-top:8px;">
+      <input type="text" id="newUserName" placeholder="输入用户名" style="flex:1;">
+      <button class="btn btn-primary btn-sm" onclick="doAddUser()">添加用户</button>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-outline btn-sm" onclick="closeUserModal()">关闭</button>
+    </div>
+  </div>
+</div>
+
+<!-- Add word modal -->
+<div class="modal-overlay" id="addWordModal" style="display:none;">
+  <div class="modal">
+    <h3>添加单词</h3>
+    <input type="text" id="addEn" placeholder="英文单词 *" autocomplete="off">
+    <div class="field-row">
+      <input type="text" id="addPhonetic" placeholder="音标 (如 /ˈæpl/)" style="flex:1;">
+      <input type="text" id="addPos" placeholder="词性 (如 n.)" style="flex:0.6;">
+    </div>
+    <div class="hint">音标和词性可从词典自动填充，也可手动输入</div>
+    <input type="text" id="addZh" placeholder="中文翻译 *">
+    <input type="text" id="addDef" placeholder="英文释义（可选，用于游戏2）">
+    <div class="btn-row">
+      <button class="btn btn-outline btn-sm" onclick="closeAddWord()">取消</button>
+      <button class="btn btn-primary btn-sm" onclick="saveWord()">保存</button>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
