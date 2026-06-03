@@ -889,30 +889,34 @@ body.has-bottom-nav{padding-bottom:78px;}
 
 <div id="diag" style="position:fixed;top:0;left:0;right:0;z-index:99999;background:#111;color:#0f0;font:10px monospace;padding:4px 8px;max-height:40vh;overflow-y:auto;"></div>
 <script>
-function diag(msg){var d=document.getElementById("diag");d.textContent+=msg+"\n";d.scrollTop=d.scrollHeight;}
-		diag("1. Dynamic loading (onload+markers)...");
+function diag(msg){var d=document.getElementById("diag");d.textContent+=msg+String.fromCharCode(10);d.scrollTop=d.scrollHeight;}
+		diag("1. fetch+textContent approach...");
 		document.title="[LOAD]";
-		var s=document.createElement("script");
-		s.src="app.js?v=3";
-		s.onload=function(){
-		  diag("2. onload fired");
-		  diag("3. __APPJS_STARTED__="+window.__APPJS_STARTED__);
-		  diag("4. __APPJS_GOT_SWITCHTAB__="+window.__APPJS_GOT_SWITCHTAB__);
-		  diag("5. typeof switchTab="+typeof switchTab);
+		fetch("app.js?v=5").then(function(r){
+		  diag("2. fetch OK status="+r.status);
+		  if(!r.ok) throw new Error("HTTP "+r.status);
+		  return r.text();
+		}).then(function(js){
+		  diag("3. Got JS: "+js.length+" chars");
+		  document.title="[EXEC]";
+		  var s=document.createElement("script");
+		  s.textContent=js;
+		  document.head.appendChild(s);
+		  diag("4. After append: __APPJS_STARTED__="+window.__APPJS_STARTED__);
+		  diag("5. __APPJS_GOT_SWITCHTAB__="+window.__APPJS_GOT_SWITCHTAB__);
+		  diag("6. typeof switchTab="+typeof switchTab);
 		  if(typeof switchTab==="function"){
 		    document.title="[OK]";
-		    try{switchTab("game");diag("6. switchTab OK");document.title="[SW]";}catch(e){diag("6. ERR: "+e.message);}
+		    try{switchTab("game");diag("7. switchTab OK");document.title="[SW]";}catch(e){diag("7. ERR: "+e.message);}
 		  }else{
 		    document.title="[NOFN]";
-		    diag("6. FUNCTIONS NOT GLOBAL");
+		    diag("7. FUNCTIONS NOT GLOBAL");
+		    diag("8. DICT via try: "+(function(){try{return DICTIONARY?DICTIONARY.length:"UNDEF";}catch(e){return "ERR:"+e.message;}})());
 		  }
-		};
-		s.onerror=function(e){
-		  diag("2. onerror fired");
+		}).catch(function(e){
+		  diag("ERR: "+e.message);
 		  document.title="[F]";
-		};
-		document.head.appendChild(s);
-		diag("1b. Appended, waiting...");
+		});
 </script>
 </head>
 <body>
