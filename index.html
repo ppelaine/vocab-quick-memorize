@@ -891,23 +891,19 @@ body.has-bottom-nav{padding-bottom:78px;}
 <script>
 function diag(msg){var d=document.getElementById("diag");d.textContent+=msg+String.fromCharCode(10);d.scrollTop=d.scrollHeight;}
 		diag("1. Testing small script first...");
-		// Step 1: Test if dynamic textContent works at all
 		var t1=document.createElement("script");
 		t1.textContent="window.__SMALL_TEST__=123;";
 		document.head.appendChild(t1);
 		diag("2. Small test: __SMALL_TEST__="+window.__SMALL_TEST__);
-		
-		// Step 2: Test if Blob URL works for a small script
+
 		var blob=new Blob(["window.__BLOB_TEST__=456;"],{type:"application/javascript"});
 		var url=URL.createObjectURL(blob);
 		var t2=document.createElement("script");
 		t2.src=url;
 		t2.onload=function(){
 		  diag("3. Blob small test onload: __BLOB_TEST__="+window.__BLOB_TEST__);
-		  // Step 3: Now fetch real app.js and check first error position
 		  fetch("app.js?v=7").then(function(r){return r.text();}).then(function(js){
 		    diag("4. app.js size="+js.length);
-		    // Try executing and catch specific error
 		    try{
 		      var s3=document.createElement("script");
 		      s3.textContent=js;
@@ -924,10 +920,8 @@ function diag(msg){var d=document.getElementById("diag");d.textContent+=msg+Stri
 		    }catch(e){
 		      diag("5. textContent ERROR: "+e.message);
 		      diag("6. line="+e.line+" col="+e.col);
-		      // Try to find the problematic area
 		      if(e.line){
-		        var lines=js.split("
-");
+		        var lines=js.split(String.fromCharCode(10));
 		        var start=Math.max(0,e.line-3);
 		        var end=Math.min(lines.length,e.line+2);
 		        for(var i=start;i<end;i++){
