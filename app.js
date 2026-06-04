@@ -1,24 +1,3 @@
-// Critical: set title to confirm script execution
-window.__APPJS_STARTED__=true;
-document.title='[OK] '+document.title;
-// Global error capture
-window._errors=[];
-window.onerror=function(msg,src,line,col,err){
-  window._errors.push({msg:msg,line:line,col:col,time:new Date().toISOString()});
-  document.title='[ERR:'+line+'] '+document.title.replace(/^\[.*?\]\s*/,'');
-  return false;
-};
-// Inject debug bar (only if body ready)
-if(document.body){
-  var _dbg=document.createElement('div');
-  _dbg.id='js-debug';
-  _dbg.style.cssText='position:fixed;bottom:0;left:0;right:0;max-height:120px;overflow-y:auto;background:#111;color:#0f0;font:11px monospace;z-index:9999;padding:4px 8px;opacity:.9;';
-  document.body.appendChild(_dbg);
-  setTimeout(function(){
-    if(window._errors.length===0)_dbg.innerHTML='JS OK — '+new Date().toLocaleTimeString();
-  },500);
-}
-
 // ============================================================================
 // DICTIONARY — ~550 common English words with IPA phonetics + part of speech
 var _tesseractLoadPromise=null;
@@ -5305,7 +5284,6 @@ function toast(msg,type='success'){
   document.body.appendChild(t);setTimeout(()=>t.remove(),2500);
 }
 
-window.__APPJS_GOT_SWITCHTAB__=true;
 function switchTab(tab){
   const tabOrder=['review','bank','game','profile'];
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.toggle('active',b.dataset.tab===tab));
@@ -7141,7 +7119,6 @@ renderProfile();
 updateAvatarDisplay();
 }catch(e){console.error('Init error:',e);}
 // Register service worker for PWA offline support
-// SW temporarily disabled for debugging
-// if('serviceWorker' in navigator){
-//   navigator.serviceWorker.register('sw.js').catch(function(){});
-// }
+if('serviceWorker' in navigator){
+  navigator.serviceWorker.register('sw.js').catch(function(){});
+}
