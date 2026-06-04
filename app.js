@@ -5495,7 +5495,7 @@ function updateUserDisplay(){
     if(avatar.startsWith('data:')){
       avatarEl.innerHTML='<img src="'+avatar+'" style="width:20px;height:20px;border-radius:50%;object-fit:cover;vertical-align:middle;">';
     }else{
-      avatarEl.textContent=avatar;
+      avatarEl.innerHTML=avatar;
     }
   }
 }
